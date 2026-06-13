@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Rajdhani } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
@@ -56,6 +57,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ja" className={`${geist.variable} ${rajdhani.variable}`} suppressHydrationWarning>
       <body className="bg-[#0a0a12] text-[#e8e8f0] antialiased" suppressHydrationWarning>
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-5DMLXX97W1" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">{`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-5DMLXX97W1');
+        `}</Script>
         {children}
       </body>
     </html>
