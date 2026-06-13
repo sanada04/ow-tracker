@@ -58,6 +58,13 @@ export const en = {
   hero_table: {
     headers: ["Hero", "Time", "Games", "Winrate", "KDA", "Elim/10m", "Deaths/10m"],
   },
+  search_results: {
+    title: 'Results for "{query}"',
+    count: "{count} players found",
+    no_results: 'No players found for "{query}".',
+    no_query: "Enter a name to search.",
+    private: "Private",
+  },
 };
 
 export type Dictionary = typeof en;

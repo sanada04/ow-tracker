@@ -92,8 +92,8 @@ export default function SearchBar({
     setOpen(false);
     if (trimmed.includes("#")) {
       navigate(formatPlayerId(trimmed));
-    } else if (suggestions.length > 0) {
-      navigate(suggestions[0].player_id);
+    } else {
+      router.push(`/${lang}/search?q=${encodeURIComponent(trimmed)}`);
     }
   }
 

@@ -60,4 +60,11 @@ export const ja: Dictionary = {
   hero_table: {
     headers: ["ヒーロー", "プレイ時間", "ゲーム", "勝率", "KDA", "エリミ/10m", "デス/10m"],
   },
+  search_results: {
+    title: "「{query}」の検索結果",
+    count: "{count}件のプレイヤーが見つかりました",
+    no_results: "「{query}」に一致するプレイヤーが見つかりませんでした。",
+    no_query: "名前を入力して検索してください。",
+    private: "非公開",
+  },
 };
