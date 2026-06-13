@@ -19,7 +19,7 @@ export const ja: Dictionary = {
     ],
   },
   search: {
-    placeholder: "名前 または BattleTag (例: Kabaji / daNpa#11803)",
+    placeholder: "名前 または BattleTag (例: Name / Name#12345)",
     button: "検索",
     no_results: "プレイヤーが見つかりません。BattleTag（例: Name#12345）で試してください。",
     not_public: "非公開",
