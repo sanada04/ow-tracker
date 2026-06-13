@@ -1,26 +1,193 @@
 @import "tailwindcss";
 
+/* ── OW Design Tokens ─────────────────────────────────────────────────── */
+@theme {
+  --color-ow-orange: #f4a029;
+  --color-ow-orange-light: #ffbe55;
+  --color-ow-blue: #1abfe5;
+  --color-ow-bg: #0a0a12;
+  --color-ow-card: #131320;
+  --color-ow-surface: #1a1a2a;
+  --font-heading: var(--font-rajdhani), system-ui, sans-serif;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-geist: system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist);
+  background-color: #0a0a12;
+  color: #e8e8f0;
+}
+
+/* ── Keyframe Animations ──────────────────────────────────────────────── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px rgba(244, 160, 41, 0.3); }
+  50%       { box-shadow: 0 0 20px rgba(244, 160, 41, 0.6); }
+}
+
+@keyframes bar-fill {
+  from { width: 0; }
+  to   { width: var(--bar-target); }
+}
+
+@keyframes scan {
+  from { background-position: 0 0; }
+  to   { background-position: 0 100%; }
+}
+
+/* ── Animation Utilities ─────────────────────────────────────────────── */
+.animate-fade-up      { animation: fade-up 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-in      { animation: fade-in 0.35s ease both; }
+.animate-slide-left   { animation: slide-in-left 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-scale-in     { animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-glow-pulse   { animation: glow-pulse 2.5s ease-in-out infinite; }
+.animate-pulse        { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Stagger delays for lists */
+.stagger-1  { animation-delay: 0.05s; }
+.stagger-2  { animation-delay: 0.10s; }
+.stagger-3  { animation-delay: 0.15s; }
+.stagger-4  { animation-delay: 0.20s; }
+.stagger-5  { animation-delay: 0.25s; }
+.stagger-6  { animation-delay: 0.30s; }
+.stagger-7  { animation-delay: 0.35s; }
+.stagger-8  { animation-delay: 0.40s; }
+.stagger-9  { animation-delay: 0.45s; }
+.stagger-10 { animation-delay: 0.50s; }
+
+/* ── OW Card Shape ───────────────────────────────────────────────────── */
+/* Angular top-right cut — Overwatch UI signature look */
+.ow-card {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  background: #131320;
+  border-left: 2px solid rgba(244, 160, 41, 0.35);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.ow-card:hover {
+  background: #1a1a2a;
+  box-shadow: 0 0 0 1px rgba(244, 160, 41, 0.12), 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Smaller variant */
+.ow-card-sm {
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  background: #131320;
+  border-left: 2px solid rgba(244, 160, 41, 0.25);
+}
+
+/* ── OW Section Title ────────────────────────────────────────────────── */
+.ow-section-title {
+  font-family: "Rajdhani", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f4a029;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.ow-section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(244, 160, 41, 0.5) 0%, transparent 80%);
+}
+
+/* ── OW Stat Value ───────────────────────────────────────────────────── */
+.ow-stat-value {
+  font-family: "Rajdhani", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* ── Hex pattern background ──────────────────────────────────────────── */
+.ow-hex-bg {
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(26, 191, 229, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(244, 160, 41, 0.04) 0%, transparent 40%);
+}
+
+/* ── Scanline overlay ────────────────────────────────────────────────── */
+.ow-scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.08) 3px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Orange glow text ────────────────────────────────────────────────── */
+.text-glow-orange {
+  text-shadow: 0 0 14px rgba(244, 160, 41, 0.7);
+}
+.text-glow-blue {
+  text-shadow: 0 0 14px rgba(26, 191, 229, 0.7);
+}
+.text-glow-green {
+  text-shadow: 0 0 14px rgba(74, 222, 128, 0.6);
+}
+.text-glow-red {
+  text-shadow: 0 0 14px rgba(248, 113, 113, 0.6);
+}
+
+/* ── Winrate bar animation ───────────────────────────────────────────── */
+.winrate-bar {
+  animation: bar-fill 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation-delay: 0.3s;
 }
