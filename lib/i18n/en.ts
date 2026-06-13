@@ -17,7 +17,7 @@ export const en = {
     ],
   },
   search: {
-    placeholder: "Name or BattleTag (e.g. Kabaji / daNpa#11803)",
+    placeholder: "Name or BattleTag (e.g. Name / Name#12345)",
     button: "Search",
     no_results: "Player not found. Try a full BattleTag (e.g. Name#12345).",
     not_public: "Private",

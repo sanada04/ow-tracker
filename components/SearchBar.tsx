@@ -8,7 +8,7 @@ import type { SearchResult } from "@/types/overwatch";
 
 export default function SearchBar({
   defaultValue = "",
-  placeholder = "名前 または BattleTag (例: Kabaji / daNpa#11803)",
+  placeholder = "名前 または BattleTag（例: Name / Name#12345）",
   buttonText = "検索",
   noResultsText = "プレイヤーが見つかりません。BattleTag（例: Name#12345）で試してください。",
   notPublicText = "非公開",
