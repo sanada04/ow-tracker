@@ -1,4 +1,6 @@
+import Link from "next/link";
 import SearchBar from "@/components/SearchBar";
+import SearchHistory from "@/components/SearchHistory";
 import { getDictionary } from "@/lib/i18n";
 import type { Metadata } from "next";
 
@@ -115,8 +117,43 @@ export default async function HomePage({ params }: Props) {
           </div>
         </div>
 
+        {/* Search history + favorites */}
+        <SearchHistory lang={lang} labels={dict.home_extra} />
+
+        {/* Quick nav cards */}
+        <div className="w-full max-w-2xl grid grid-cols-2 gap-3 mt-6 animate-fade-up" style={{ animationDelay: "200ms" }}>
+          <Link
+            href={`/${lang}/heroes`}
+            className="ow-card-sm p-4 flex items-center gap-3 hover:border-[#f4a029]/40 transition-colors group"
+          >
+            <span className="text-[#f4a029] text-2xl leading-none">◆</span>
+            <div>
+              <p className="text-white text-xs font-semibold"
+                style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}>
+                {dict.header.nav_heroes}
+              </p>
+              <p className="text-zinc-600 text-[11px] leading-tight">{dict.heroes_page.subtitle}</p>
+            </div>
+            <span className="ml-auto text-zinc-700 group-hover:text-[#f4a029] transition-colors text-sm">→</span>
+          </Link>
+          <Link
+            href={`/${lang}/compare`}
+            className="ow-card-sm p-4 flex items-center gap-3 hover:border-[#f4a029]/40 transition-colors group"
+          >
+            <span className="text-[#f4a029] text-2xl leading-none">⇌</span>
+            <div>
+              <p className="text-white text-xs font-semibold"
+                style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}>
+                {dict.header.nav_compare}
+              </p>
+              <p className="text-zinc-600 text-[11px] leading-tight">{dict.compare.title}</p>
+            </div>
+            <span className="ml-auto text-zinc-700 group-hover:text-[#f4a029] transition-colors text-sm">→</span>
+          </Link>
+        </div>
+
         {/* Feature hints */}
-        <div className="mt-16 grid grid-cols-3 gap-4 max-w-xl w-full animate-fade-up" style={{ animationDelay: "240ms" }}>
+        <div className="mt-10 grid grid-cols-3 gap-4 max-w-xl w-full animate-fade-up" style={{ animationDelay: "280ms" }}>
           {t.features.map(({ icon, label, desc }) => (
             <div key={label} className="ow-card-sm p-4 text-center">
               <div className="text-[#f4a029] text-xl mb-1.5">{icon}</div>

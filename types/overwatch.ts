@@ -76,3 +76,70 @@ export interface SearchResult {
   title: string | null;
   is_public: boolean;
 }
+
+// ── Hero types ──────────────────────────────────────────────────────────
+export interface HeroListItem {
+  key: string;
+  name: string;
+  portrait: string;
+  role: "tank" | "damage" | "support";
+  subrole: string | null;
+  gamemodes: string[];
+}
+
+export interface HeroAbility {
+  name: string;
+  description: string;
+  icon: string;
+  video: {
+    thumbnail: string;
+    link: { mp4: string; webm: string };
+  } | null;
+}
+
+export interface HeroPerk {
+  name: string;
+  description: string;
+  icon: string;
+}
+
+export interface HeroBackground {
+  url: string;
+  sizes: string[];
+}
+
+export interface HeroHitpoints {
+  health: number;
+  armor: number;
+  shields: number;
+  total: number;
+}
+
+export interface HeroStoryChapter {
+  title: string;
+  content: string;
+  picture: string | null;
+}
+
+export interface HeroStory {
+  summary: string;
+  media: { type: string; link: string } | null;
+  chapters: HeroStoryChapter[];
+}
+
+export interface HeroDetail {
+  name: string;
+  description: string | null;
+  portrait: string;
+  role: "tank" | "damage" | "support";
+  subrole: string | null;
+  location: string | null;
+  birthday: string | null;
+  age: number | null;
+  hitpoints: HeroHitpoints | null;
+  abilities: HeroAbility[];
+  backgrounds: HeroBackground[];
+  perks: { minor: HeroPerk[]; major: HeroPerk[] } | null;
+  story: HeroStory | null;
+  stadium_powers: HeroPerk[] | null;
+}

@@ -1,11 +1,15 @@
 import Image from "next/image";
 import { getPlayerSummary, getPlayerStats, formatBattleTag } from "@/lib/api";
 import { getDictionary } from "@/lib/i18n";
-import RankBadge from "@/components/RankBadge";
 import StatsGrid from "@/components/StatsGrid";
 import HeroTable from "@/components/HeroTable";
+import HeroChart from "@/components/HeroChart";
 import AnimatedSection from "@/components/AnimatedSection";
 import GamemodeTabs from "@/components/GamemodeTabs";
+import FavoriteButton from "@/components/FavoriteButton";
+import ShareButtons from "@/components/ShareButtons";
+import PlatformRankTabs from "@/components/PlatformRankTabs";
+import PlayerHistoryRecorder from "@/components/PlayerHistoryRecorder";
 
 interface Props {
   params: Promise<{ lang: string; playerId: string }>;
@@ -96,12 +100,15 @@ export default async function PlayerPage({ params, searchParams }: Props) {
   }
 
   const stats = await getPlayerStats(playerId, validGamemode).catch(() => null);
-  const pcRank = summary.competitive?.pc;
-  const consoleRank = summary.competitive?.console;
+  const pcRank = summary.competitive?.pc ?? null;
+  const consoleRank = summary.competitive?.console ?? null;
   const battleTag = formatBattleTag(playerId);
 
   return (
     <div className="min-h-screen bg-[#0a0a12] text-white">
+      {/* Record this player in localStorage history */}
+      <PlayerHistoryRecorder playerId={playerId} username={summary.username} avatar={summary.avatar} />
+
       {/* Player hero banner */}
       <div className="relative h-48 sm:h-56 overflow-hidden">
         {summary.namecard ? (
@@ -140,7 +147,7 @@ export default async function PlayerPage({ params, searchParams }: Props) {
             )}
           </div>
 
-          {/* Name + tag + title */}
+          {/* Name + tag + title + actions */}
           <div className="flex-1 pt-1">
             <h1 className="text-3xl sm:text-4xl font-bold text-white leading-none"
               style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.03em" }}>
@@ -153,15 +160,25 @@ export default async function PlayerPage({ params, searchParams }: Props) {
                 {t.private_label}
               </span>
             )}
+            {/* Action buttons */}
+            <div className="flex flex-wrap items-center gap-2 mt-4">
+              <FavoriteButton
+                playerId={playerId}
+                username={summary.username}
+                avatar={summary.avatar}
+                labels={dict.share}
+              />
+              <ShareButtons username={summary.username} labels={dict.share} />
+            </div>
           </div>
 
-          {/* Ranks */}
-          {(pcRank || consoleRank) && (
-            <div className="flex flex-col gap-4 shrink-0">
-              {pcRank && <RankBadge ranks={pcRank} platform="PC" roleLabels={t.roles} />}
-              {consoleRank && <RankBadge ranks={consoleRank} platform="Console" roleLabels={t.roles} />}
-            </div>
-          )}
+          {/* Platform rank tabs */}
+          <PlatformRankTabs
+            pcRank={pcRank}
+            consoleRank={consoleRank}
+            roleLabels={t.roles}
+            labels={dict.platform}
+          />
         </div>
       </div>
 
@@ -212,7 +229,13 @@ export default async function PlayerPage({ params, searchParams }: Props) {
                   </span>
                 </p>
                 <div className="ow-card p-4">
-                  <HeroTable heroes={stats.heroes} headers={dict.hero_table.headers} />
+                  <HeroChart
+                    heroes={stats.heroes}
+                    labels={dict.hero_chart}
+                    tableNode={
+                      <HeroTable heroes={stats.heroes} headers={dict.hero_table.headers} />
+                    }
+                  />
                 </div>
               </AnimatedSection>
             )}

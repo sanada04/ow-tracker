@@ -20,6 +20,27 @@ export default function SiteHeader({
         >
           <span className="text-[#fff]">OW</span> TRACKER
         </Link>
+        {/* Nav links */}
+        <nav className="hidden sm:flex items-center gap-1">
+          <Link
+            href={`/${lang}/heroes`}
+            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
+          >
+            {dict?.header.nav_heroes}
+          </Link>
+          <Link
+            href={`/${lang}/compare`}
+            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
+          >
+            {dict?.header.nav_compare}
+          </Link>
+          <Link
+            href={`/${lang}/contact`}
+            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
+          >
+            {dict?.contact.nav}
+          </Link>
+        </nav>
         <div className="flex-1 flex justify-end">
           <HeaderSearch dict={dict} lang={lang} />
         </div>
