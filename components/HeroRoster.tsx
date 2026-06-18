@@ -3,28 +3,10 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { HERO_PORTRAITS, getHeroDisplayName } from "@/lib/heroes";
-
-// HeroRoster receives lang so cards can link to /[lang]/heroes/[heroId]
+import { getHeroDisplayName } from "@/lib/heroes";
+import type { HeroListItem } from "@/types/overwatch";
 
 type Role = "tank" | "damage" | "support";
-
-const HERO_ROLES: Record<string, Role> = {
-  dva: "tank", doomfist: "tank", hazard: "tank", juniper: "tank",
-  "junker-queen": "tank", mauga: "tank", orisa: "tank", ramattra: "tank",
-  reinhardt: "tank", roadhog: "tank", sigma: "tank", winston: "tank",
-  "wrecking-ball": "tank", zarya: "tank",
-  ashe: "damage", bastion: "damage", cassidy: "damage", domina: "damage",
-  echo: "damage", freja: "damage", genji: "damage", hanzo: "damage",
-  junkrat: "damage", mei: "damage", pharah: "damage", reaper: "damage",
-  sierra: "damage", sojourn: "damage", "soldier-76": "damage", sombra: "damage",
-  symmetra: "damage", torbjorn: "damage", tracer: "damage", venture: "damage",
-  widowmaker: "damage", anran: "damage", emre: "damage",
-  ana: "support", baptiste: "support", brigitte: "support", illari: "support",
-  "jetpack-cat": "support", juno: "support", kiriko: "support",
-  lifeweaver: "support", lucio: "support", mercy: "support", mizuki: "support",
-  moira: "support", vendetta: "support", wuyang: "support", zenyatta: "support",
-};
 
 const ROLE_COLORS: Record<Role, string> = {
   tank: "text-blue-400 border-blue-500/30 bg-blue-900/10",
@@ -40,19 +22,31 @@ interface Labels {
   role_support: string;
 }
 
-export default function HeroRoster({ labels, lang }: { labels: Labels; lang: string }) {
+export default function HeroRoster({
+  labels,
+  lang,
+  heroes,
+}: {
+  labels: Labels;
+  lang: string;
+  heroes: HeroListItem[];
+}) {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<Role | "all">("all");
   const [imgErrors, setImgErrors] = useState<Set<string>>(new Set());
 
-  const allHeroes = useMemo(() => {
-    return Object.keys(HERO_PORTRAITS).map((key) => ({
-      key,
-      name: getHeroDisplayName(key),
-      role: HERO_ROLES[key] ?? "damage",
-      portrait: HERO_PORTRAITS[key],
-    })).sort((a, b) => a.name.localeCompare(b.name));
-  }, []);
+  const allHeroes = useMemo(
+    () =>
+      heroes
+        .map((h) => ({
+          key: h.key,
+          name: h.name || getHeroDisplayName(h.key),
+          role: h.role,
+          portrait: h.portrait,
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    [heroes]
+  );
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -123,16 +117,20 @@ export default function HeroRoster({ labels, lang }: { labels: Labels; lang: str
                     onError={() => setImgErrors((prev) => new Set([...prev, hero.key]))}
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-3xl font-bold text-zinc-700"
-                    style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                  <div
+                    className="w-full h-full flex items-center justify-center text-3xl font-bold text-zinc-700"
+                    style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                  >
                     {hero.name[0]}
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#131320] via-transparent to-transparent" />
               </div>
               <div className="px-3 py-2.5">
-                <p className="text-white text-sm font-semibold truncate"
-                  style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                <p
+                  className="text-white text-sm font-semibold truncate"
+                  style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                >
                   {hero.name}
                 </p>
                 <span className={`inline-block mt-1 text-[9px] uppercase tracking-wider px-1.5 py-0.5 border ${roleColor}`}>

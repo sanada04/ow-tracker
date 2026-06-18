@@ -24,6 +24,10 @@ export function formatTimePlayed(seconds: number): string {
   return `${minutes}m`;
 }
 
+function localeParam(lang: string): string {
+  return lang === "ja" ? "?locale=ja-jp" : "";
+}
+
 async function fetchApi<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
     cache: "no-store",
@@ -55,10 +59,10 @@ export async function searchPlayers(name: string): Promise<SearchResult[]> {
   return data.results ?? [];
 }
 
-export async function getHeroes(): Promise<HeroListItem[]> {
-  return fetchApi<HeroListItem[]>("/heroes");
+export async function getHeroes(lang = "en"): Promise<HeroListItem[]> {
+  return fetchApi<HeroListItem[]>(`/heroes${localeParam(lang)}`);
 }
 
-export async function getHeroDetail(heroKey: string): Promise<HeroDetail> {
-  return fetchApi<HeroDetail>(`/heroes/${encodeURIComponent(heroKey)}`);
+export async function getHeroDetail(heroKey: string, lang = "en"): Promise<HeroDetail> {
+  return fetchApi<HeroDetail>(`/heroes/${encodeURIComponent(heroKey)}${localeParam(lang)}`);
 }

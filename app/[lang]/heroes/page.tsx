@@ -1,4 +1,5 @@
 import { getDictionary } from "@/lib/i18n";
+import { getHeroes } from "@/lib/api";
 import HeroRoster from "@/components/HeroRoster";
 import type { Metadata } from "next";
 
@@ -22,6 +23,8 @@ export default async function HeroesPage({ params }: Props) {
   const dict = getDictionary(lang);
   const t = dict.heroes_page;
 
+  const heroes = await getHeroes(lang).catch(() => []);
+
   return (
     <div className="min-h-screen bg-[#0a0a12] text-white">
       <main className="max-w-5xl mx-auto px-6 py-12 space-y-8">
@@ -30,7 +33,7 @@ export default async function HeroesPage({ params }: Props) {
           <p className="text-zinc-500 text-sm">{t.subtitle}</p>
         </div>
         <div className="animate-fade-up" style={{ animationDelay: "60ms" }}>
-          <HeroRoster labels={t} lang={lang} />
+          <HeroRoster labels={t} lang={lang} heroes={heroes} />
         </div>
       </main>
     </div>
