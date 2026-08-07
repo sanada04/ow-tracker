@@ -146,6 +146,9 @@ export const ja: Dictionary = {
     console: "コンソール",
     both: "両方",
   },
+  privacy: {
+    nav: "プライバシーポリシー",
+  },
   contact: {
     nav: "お問い合わせ",
     title: "お問い合わせ",

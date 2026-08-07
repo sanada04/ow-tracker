@@ -144,6 +144,9 @@ export const en = {
     console: "Console",
     both: "Both",
   },
+  privacy: {
+    nav: "Privacy Policy",
+  },
   contact: {
     nav: "Contact",
     title: "Contact",
