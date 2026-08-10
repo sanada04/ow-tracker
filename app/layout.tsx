@@ -32,13 +32,13 @@ export const metadata: Metadata = {
     title: "OW Tracker — Overwatch 2 戦績確認",
     description:
       "Overwatch 2 プレイヤーの戦績・ランク・ヒーロースタッツを確認。BattleTagで検索するだけ。",
-    images: [{ url: "/opengraph-image.png", width: 1200, height: 630, alt: "OW Tracker" }],
+    images: [{ url: "/opengraph-image.jpg", width: 1200, height: 630, alt: "OW Tracker" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "OW Tracker — Overwatch 2 戦績確認",
     description: "Overwatch 2 プレイヤーのランク・スタッツ・ヒーロー統計をBattleTagで即座に確認。",
-    images: ["/opengraph-image.png"],
+    images: ["/opengraph-image.jpg"],
   },
   robots: {
     index: true,
