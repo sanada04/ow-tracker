@@ -77,6 +77,15 @@ export interface SearchResult {
   is_public: boolean;
 }
 
+// ── Map types ───────────────────────────────────────────────────────────
+export interface MapSummary {
+  key: string;
+  name: string;
+  screenshot: string;
+  gamemodes: string[];
+  country_code: string | null;
+}
+
 // ── Hero types ──────────────────────────────────────────────────────────
 export interface HeroListItem {
   key: string;

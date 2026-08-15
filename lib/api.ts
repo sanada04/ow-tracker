@@ -1,4 +1,4 @@
-import type { PlayerSummary, PlayerStatsSummary, SearchResult, HeroListItem, HeroDetail } from "@/types/overwatch";
+import type { PlayerSummary, PlayerStatsSummary, SearchResult, HeroListItem, HeroDetail, MapSummary } from "@/types/overwatch";
 
 const BASE_URL = "https://overfast-api.tekrop.fr";
 
@@ -65,4 +65,8 @@ export async function getHeroes(lang = "en"): Promise<HeroListItem[]> {
 
 export async function getHeroDetail(heroKey: string, lang = "en"): Promise<HeroDetail> {
   return fetchApi<HeroDetail>(`/heroes/${encodeURIComponent(heroKey)}${localeParam(lang)}`);
+}
+
+export async function getMaps(lang = "en"): Promise<MapSummary[]> {
+  return fetchApi<MapSummary[]>(`/maps${localeParam(lang)}`);
 }

@@ -41,6 +41,18 @@ export default function SiteHeader({
             {dict?.tier_list.nav}
           </Link>
           <Link
+            href={`/${lang}/meta`}
+            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
+          >
+            {dict?.meta_page.nav}
+          </Link>
+          <Link
+            href={`/${lang}/maps`}
+            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
+          >
+            {dict?.maps_page.nav}
+          </Link>
+          <Link
             href={`/${lang}/contact`}
             className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
           >
