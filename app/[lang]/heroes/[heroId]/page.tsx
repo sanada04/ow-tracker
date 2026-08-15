@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getHeroDetail } from "@/lib/api";
+import { getHeroDetail, getHeroes } from "@/lib/api";
 import { getDictionary } from "@/lib/i18n";
 import AbilityShowcase from "@/components/AbilityShowcase";
 import HeroHpDisplay from "@/components/HeroHpDisplay";
+import { getHeroDisplayName, HERO_PORTRAITS } from "@/lib/heroes";
 import type { Metadata } from "next";
 import type { HeroPerk, HeroStoryChapter } from "@/types/overwatch";
 
@@ -112,6 +113,9 @@ export default async function HeroDetailPage({ params }: Props) {
   } catch {
     notFound();
   }
+
+  const allHeroes = await getHeroes(lang).catch(() => []);
+  const sameRoleHeroes = allHeroes.filter((h) => h.key !== heroId && h.role === hero.role).slice(0, 6);
 
   const bgUrl = hero.backgrounds.find(b => b.sizes.includes("lg"))?.url
     ?? hero.backgrounds.at(-1)?.url
@@ -307,6 +311,36 @@ export default async function HeroDetailPage({ params }: Props) {
             )}
           </div>
         )}
+
+        {/* ── Related: counters + VS links ── */}
+        <div>
+          <SectionLabel>Counters &amp; Matchups</SectionLabel>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href={`/${lang}/counters/${heroId}`}
+              className="px-3 py-1.5 text-sm border border-zinc-700/50 text-zinc-400 hover:border-[#f4a029]/50 hover:text-[#f4a029] rounded transition-colors"
+            >
+              {hero.name} Counters
+            </Link>
+            {sameRoleHeroes.map((other) => (
+              <Link
+                key={other.key}
+                href={`/${lang}/heroes/${heroId}/vs/${other.key}`}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-sm border border-zinc-800/60 text-zinc-500 hover:border-zinc-600 hover:text-zinc-300 rounded transition-colors"
+              >
+                <Image
+                  src={HERO_PORTRAITS[other.key] ?? other.portrait}
+                  alt={other.name}
+                  width={20}
+                  height={20}
+                  className="rounded shrink-0"
+                  unoptimized
+                />
+                vs {getHeroDisplayName(other.key)}
+              </Link>
+            ))}
+          </div>
+        </div>
 
       </div>
     </div>

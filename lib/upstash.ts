@@ -44,3 +44,34 @@ export async function getAllTierVotes(
     heroKeys.map((key, i) => [key, parseVotes(results[i] as Record<string, unknown> | null)])
   );
 }
+
+// ── Counter votes ────────────────────────────────────────────────────────────
+
+export type CounterVotes = Record<string, number>;
+
+function parseCounterVotes(raw: Record<string, unknown> | null): CounterVotes {
+  if (!raw) return {};
+  return Object.fromEntries(
+    Object.entries(raw).map(([k, v]) => [k, Math.max(0, Number(v) || 0)])
+  );
+}
+
+export async function getHeroCounterVotes(heroKey: string): Promise<CounterVotes> {
+  if (!process.env.UPSTASH_REDIS_REST_URL) return {};
+  const data = await redis.hgetall(`ow:counter:${heroKey}`);
+  return parseCounterVotes(data as Record<string, unknown> | null);
+}
+
+export async function castCounterVote(heroKey: string, counterHeroKey: string): Promise<void> {
+  await redis.hincrby(`ow:counter:${heroKey}`, counterHeroKey, 1);
+}
+
+export async function removeCounterVote(heroKey: string, counterHeroKey: string): Promise<void> {
+  const current = await redis.hget(`ow:counter:${heroKey}`, counterHeroKey);
+  const val = Math.max(0, Number(current) - 1);
+  if (val === 0) {
+    await redis.hdel(`ow:counter:${heroKey}`, counterHeroKey);
+  } else {
+    await redis.hset(`ow:counter:${heroKey}`, { [counterHeroKey]: val });
+  }
+}

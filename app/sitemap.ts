@@ -2,7 +2,18 @@ import type { MetadataRoute } from "next";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://owtracker.org";
 
-const staticRoutes = ["", "/heroes", "/compare", "/tier-list", "/meta", "/maps", "/contact", "/privacy"];
+const staticRoutes = [
+  "",
+  "/heroes",
+  "/compare",
+  "/tier-list",
+  "/meta",
+  "/maps",
+  "/counters",
+  "/stats/rank-distribution",
+  "/contact",
+  "/privacy",
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
@@ -11,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const priority =
       route === "" ? 1
       : route === "/heroes" ? 0.9
-      : route === "/tier-list" || route === "/meta" || route === "/maps" ? 0.8
+      : route === "/tier-list" || route === "/meta" || route === "/maps" || route === "/counters" || route === "/stats/rank-distribution" ? 0.8
       : 0.7;
     entries.push({
       url: `${siteUrl}/ja${route}`,

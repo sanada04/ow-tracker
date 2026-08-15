@@ -53,6 +53,18 @@ export default function SiteHeader({
             {dict?.maps_page.nav}
           </Link>
           <Link
+            href={`/${lang}/counters`}
+            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
+          >
+            {dict?.counters_page.nav}
+          </Link>
+          <Link
+            href={`/${lang}/stats/rank-distribution`}
+            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
+          >
+            {dict?.rank_page.nav}
+          </Link>
+          <Link
             href={`/${lang}/contact`}
             className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
           >
