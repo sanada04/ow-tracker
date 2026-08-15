@@ -73,20 +73,18 @@ export default function HeroRoster({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={labels.search_placeholder}
-          className="flex-1 h-10 px-4 bg-[#131320] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm"
-          style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}
+          className="flex-1 h-10 px-4 bg-[#111119] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm rounded"
         />
         <div className="flex gap-1">
           {tabs.map((t) => (
             <button
               key={t.value}
               onClick={() => setRole(t.value)}
-              className={`px-3 py-2 text-[11px] uppercase tracking-widest font-medium transition-colors border ${
+              className={`px-3 py-2 text-[11px] uppercase tracking-widest font-medium transition-colors border rounded ${
                 role === t.value
                   ? "border-[#f4a029]/60 text-[#f4a029] bg-[#f4a029]/10"
                   : "border-zinc-700/40 text-zinc-500 hover:text-zinc-300"
               }`}
-              style={{ clipPath: "polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%)" }}
             >
               {t.label}
             </button>

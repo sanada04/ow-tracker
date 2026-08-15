@@ -4,8 +4,7 @@ export default function PlayerLoading() {
       <div className="h-48 sm:h-56 bg-[#131320]" />
       <div className="max-w-5xl mx-auto px-6 -mt-20 pb-6">
         <div className="flex flex-col sm:flex-row items-start gap-6">
-          <div className="w-24 h-24 shrink-0 bg-zinc-800"
-            style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }} />
+          <div className="w-24 h-24 shrink-0 bg-zinc-800 rounded" />
           <div className="flex-1 pt-2 space-y-2">
             <div className="h-8 w-48 bg-zinc-800 rounded" />
             <div className="h-4 w-32 bg-zinc-800/60 rounded" />

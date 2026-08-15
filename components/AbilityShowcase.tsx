@@ -29,8 +29,7 @@ export default function AbilityShowcase({ abilities }: { abilities: HeroAbility[
     <div className="select-none">
 
       {/* ── Video area ── */}
-      <div className="relative bg-black overflow-hidden"
-        style={{ clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)" }}>
+      <div className="relative bg-black overflow-hidden rounded">
 
         {/* Video / fallback */}
         <div
@@ -106,14 +105,13 @@ export default function AbilityShowcase({ abilities }: { abilities: HeroAbility[
             >
               {/* Icon frame */}
               <div
-                className="relative w-14 h-14 transition-all duration-200"
+                className="relative w-14 h-14 rounded transition-all duration-200"
                 style={{
-                  clipPath: "polygon(12% 0%, 88% 0%, 100% 12%, 100% 88%, 88% 100%, 12% 100%, 0% 88%, 0% 12%)",
                   background: active
-                    ? "linear-gradient(135deg, rgba(244,160,41,0.25), rgba(244,160,41,0.08))"
+                    ? "rgba(244,160,41,0.12)"
                     : "rgba(13,13,26,0.9)",
                   boxShadow: active
-                    ? "0 0 0 1.5px #f4a029, 0 0 16px rgba(244,160,41,0.4)"
+                    ? "0 0 0 1.5px #f4a029"
                     : "0 0 0 1px rgba(255,255,255,0.07)",
                 }}
               >

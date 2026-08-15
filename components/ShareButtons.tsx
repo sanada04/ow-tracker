@@ -27,18 +27,16 @@ export default function ShareButtons({
 
   const baseClass =
     "flex items-center gap-1.5 px-3 py-1.5 border text-xs uppercase tracking-widest font-medium transition-colors";
-  const clipStyle = { clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" };
 
   return (
     <div className="flex items-center gap-2">
       <button
         onClick={handleCopy}
-        className={`${baseClass} ${
+        className={`${baseClass} rounded ${
           copied
             ? "border-green-600/60 text-green-400 bg-green-900/20"
             : "border-zinc-700/60 text-zinc-500 hover:border-zinc-500 hover:text-zinc-300"
         }`}
-        style={clipStyle}
       >
         <span className="text-sm leading-none">{copied ? "✓" : "⎘"}</span>
         <span>{copied ? labels.copied : labels.copy_url}</span>
@@ -48,8 +46,7 @@ export default function ShareButtons({
         href={tweetHref}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${baseClass} border-zinc-700/60 text-zinc-500 hover:border-zinc-500 hover:text-zinc-300`}
-        style={clipStyle}
+        className={`${baseClass} border-zinc-700/60 text-zinc-500 hover:border-zinc-500 hover:text-zinc-300 rounded`}
       >
         <span className="font-bold leading-none text-sm">𝕏</span>
         <span>{labels.tweet}</span>

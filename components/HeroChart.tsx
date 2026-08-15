@@ -136,12 +136,11 @@ export default function HeroChart({
           <button
             key={m}
             onClick={() => setMode(m)}
-            className={`px-3 py-1 text-[11px] uppercase tracking-widest font-medium transition-colors border ${
+            className={`px-3 py-1 text-[11px] uppercase tracking-widest font-medium transition-colors border rounded ${
               mode === m
                 ? "border-[#f4a029]/60 text-[#f4a029] bg-[#f4a029]/10"
                 : "border-zinc-700/40 text-zinc-500 hover:text-zinc-300"
             }`}
-            style={{ clipPath: "polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%)" }}
           >
             {m === "table" ? labels.switch_table : labels.switch_chart}
           </button>

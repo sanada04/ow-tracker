@@ -132,11 +132,9 @@ export default async function PlayerPage({ params, searchParams }: Props) {
           <div className="shrink-0 relative">
             {summary.avatar ? (
               <Image src={summary.avatar} alt={summary.username} width={96} height={96}
-                className="rounded border-2 border-[#f4a029]" unoptimized priority
-                style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }} />
+                className="rounded border border-zinc-700" unoptimized priority />
             ) : (
-              <div className="w-24 h-24 border-2 border-[#f4a029] bg-[#131320] flex items-center justify-center text-3xl font-bold text-[#f4a029]"
-                style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}>
+              <div className="w-24 h-24 border border-zinc-700 bg-[#111119] rounded flex items-center justify-center text-3xl font-bold text-zinc-300">
                 {summary.username[0].toUpperCase()}
               </div>
             )}

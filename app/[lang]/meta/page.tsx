@@ -170,12 +170,8 @@ export default async function MetaPage({ params }: Props) {
 
             {/* ── Tier Overview ── */}
             <section>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="h-[1px] w-6 bg-[#f4a029]/60" />
-                <span className="text-[11px] uppercase tracking-[0.25em] text-[#f4a029]/80 font-medium">
-                  {t.by_tier}
-                </span>
-                <div className="h-[1px] flex-1 bg-zinc-800/60" />
+              <div className="mb-5 pb-2 border-b border-zinc-800">
+                <span className="text-xs uppercase tracking-widest text-zinc-500">{t.by_tier}</span>
               </div>
 
               <div className="space-y-2">
@@ -221,12 +217,8 @@ export default async function MetaPage({ params }: Props) {
 
             {/* ── Top by Role ── */}
             <section>
-              <div className="flex items-center gap-4 mb-6">
-                <div className="h-[1px] w-6 bg-[#f4a029]/60" />
-                <span className="text-[11px] uppercase tracking-[0.25em] text-[#f4a029]/80 font-medium">
-                  {t.role_top}
-                </span>
-                <div className="h-[1px] flex-1 bg-zinc-800/60" />
+              <div className="mb-5 pb-2 border-b border-zinc-800">
+                <span className="text-xs uppercase tracking-widest text-zinc-500">{t.role_top}</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -236,10 +228,6 @@ export default async function MetaPage({ params }: Props) {
                     <div
                       key={role}
                       className={`p-4 border rounded ${rc.border} ${rc.bg}`}
-                      style={{
-                        clipPath:
-                          "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)",
-                      }}
                     >
                       <p
                         className="text-[10px] uppercase tracking-[0.2em] font-medium mb-3"
@@ -295,12 +283,8 @@ export default async function MetaPage({ params }: Props) {
             {/* Unranked */}
             {grouped.unranked.length > 0 && (
               <section>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="h-[1px] w-6 bg-zinc-700/40" />
-                  <span className="text-[11px] uppercase tracking-[0.25em] text-zinc-700 font-medium">
-                    {t.unranked}
-                  </span>
-                  <div className="h-[1px] flex-1 bg-zinc-800/40" />
+                <div className="mb-4 pb-2 border-b border-zinc-800/50">
+                  <span className="text-xs uppercase tracking-widest text-zinc-700">{t.unranked}</span>
                 </div>
                 <div className="flex flex-wrap gap-1 p-3 border border-zinc-800/30 rounded">
                   {grouped.unranked.map((h) => (

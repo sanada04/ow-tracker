@@ -95,11 +95,9 @@ function PlayerCard({ data, label, lang }: { data: PlayerData | null; label: str
       <div className="p-4 flex flex-col items-center text-center gap-2 -mt-6 relative">
         {summary.avatar ? (
           <Image src={summary.avatar} alt={summary.username} width={64} height={64}
-            className="rounded border-2 border-[#f4a029]" unoptimized
-            style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }} />
+            className="rounded border border-zinc-700" unoptimized />
         ) : (
-          <div className="w-16 h-16 border-2 border-[#f4a029] bg-[#0a0a12] flex items-center justify-center text-2xl font-bold text-[#f4a029]"
-            style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }}>
+          <div className="w-16 h-16 border border-zinc-700 bg-[#111119] rounded flex items-center justify-center text-2xl font-bold text-zinc-300">
             {summary.username[0]?.toUpperCase()}
           </div>
         )}

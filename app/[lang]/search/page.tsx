@@ -81,11 +81,8 @@ export default async function SearchResultsPage({ params, searchParams }: Props)
               <li key={result.player_id}>
                 <Link
                   href={`/${lang}/players/${encodeURIComponent(result.player_id.replace(/%7C/gi, "|"))}`}
-                  className="flex items-center gap-4 px-5 py-4 bg-[#131320] border border-zinc-800/60 hover:border-[#f4a029]/40 hover:bg-[#1a1a2a] transition-colors animate-fade-up"
-                  style={{
-                    clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)",
-                    animationDelay: `${i * 40}ms`,
-                  }}
+                  className="flex items-center gap-4 px-5 py-4 bg-[#111119] border border-zinc-800/60 hover:border-[#f4a029]/40 hover:bg-[#18181f] transition-colors animate-fade-up rounded"
+                  style={{ animationDelay: `${i * 40}ms` }}
                 >
                   {result.avatar ? (
                     <Image

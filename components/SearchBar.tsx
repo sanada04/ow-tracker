@@ -116,8 +116,7 @@ export default function SearchBar({
             placeholder={placeholder}
             autoComplete="off"
             suppressHydrationWarning
-            className={`w-full ${compact ? "h-10" : "h-12"} px-4 bg-[#131320] border border-zinc-700/60 border-r-0 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm`}
-            style={{ clipPath: compact ? "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" : "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)" }}
+            className={`w-full ${compact ? "h-10" : "h-12"} px-4 bg-[#111119] border border-zinc-700/60 border-r-0 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm rounded-l`}
           />
           {loading && (
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
@@ -131,11 +130,8 @@ export default function SearchBar({
           type="submit"
           disabled={!value.trim() || loading}
           suppressHydrationWarning
-          className={`${compact ? "h-10 px-4" : "h-12 px-6"} bg-[#f4a029] hover:bg-[#ffbe55] disabled:opacity-40 disabled:cursor-not-allowed text-black font-bold text-sm uppercase tracking-widest transition-colors shrink-0`}
-          style={{
-            clipPath: compact ? "polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px))" : "polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
-            fontFamily: '"Rajdhani", system-ui, sans-serif',
-          }}
+          className={`${compact ? "h-10 px-4" : "h-12 px-6"} bg-[#f4a029] hover:bg-[#ffbe55] disabled:opacity-40 disabled:cursor-not-allowed text-black font-bold text-sm uppercase tracking-widest transition-colors shrink-0 rounded-r`}
+          style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
         >
           {buttonText}
         </button>

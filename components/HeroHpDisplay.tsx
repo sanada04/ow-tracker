@@ -78,8 +78,7 @@ export default function HeroHpDisplay({ health, armor, shields, total, labels }:
           return (
             <div
               key={label}
-              className="flex-1 min-w-24 border border-zinc-800/60 bg-[#0d0d1a] px-4 py-3"
-              style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}
+              className="flex-1 min-w-24 border border-zinc-800/60 bg-[#0d0d1a] px-4 py-3 rounded"
             >
               <div className="flex items-baseline justify-between mb-2">
                 <span className="text-[10px] uppercase tracking-widest text-zinc-500">{label}</span>
@@ -87,7 +86,7 @@ export default function HeroHpDisplay({ health, armor, shields, total, labels }:
               </div>
               <p
                 className="text-2xl font-bold leading-none mb-3"
-                style={{ color, fontFamily: '"Rajdhani", system-ui, sans-serif', textShadow: `0 0 12px ${glow}` }}
+                style={{ color, fontFamily: '"Rajdhani", system-ui, sans-serif' }}
               >
                 {val}
               </p>
@@ -104,13 +103,12 @@ export default function HeroHpDisplay({ health, armor, shields, total, labels }:
 
         {/* Total */}
         <div
-          className="shrink-0 border border-[#f4a029]/20 bg-[#f4a029]/5 px-5 py-3 flex flex-col justify-between"
-          style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}
+          className="shrink-0 border border-[#f4a029]/20 bg-[#f4a029]/5 px-5 py-3 flex flex-col justify-between rounded"
         >
           <span className="text-[10px] uppercase tracking-widest text-[#f4a029]/50">{labels.total}</span>
           <p
             className="text-4xl font-bold leading-none text-[#f4a029] mt-2"
-            style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', textShadow: "0 0 16px rgba(244,160,41,0.5)" }}
+            style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
           >
             {total}
           </p>

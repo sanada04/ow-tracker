@@ -45,8 +45,7 @@ export default function CompareForm({
           value={a}
           onChange={(e) => setA(e.target.value)}
           placeholder={labels.enter_tag}
-          className="h-10 px-4 bg-[#131320] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm"
-          style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}
+          className="h-10 px-4 bg-[#111119] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm rounded"
         />
       </div>
       <div className="hidden sm:flex items-end pb-2">
@@ -59,18 +58,14 @@ export default function CompareForm({
           value={b}
           onChange={(e) => setB(e.target.value)}
           placeholder={labels.enter_tag}
-          className="h-10 px-4 bg-[#131320] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm"
-          style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}
+          className="h-10 px-4 bg-[#111119] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm rounded"
         />
       </div>
       <button
         type="submit"
         disabled={!a.trim() || !b.trim()}
-        className="h-10 px-6 bg-[#f4a029] hover:bg-[#ffbe55] disabled:opacity-40 disabled:cursor-not-allowed text-black font-bold text-sm uppercase tracking-widest transition-colors shrink-0"
-        style={{
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
-          fontFamily: '"Rajdhani", system-ui, sans-serif',
-        }}
+        className="h-10 px-6 bg-[#f4a029] hover:bg-[#ffbe55] disabled:opacity-40 disabled:cursor-not-allowed text-black font-bold text-sm uppercase tracking-widest transition-colors shrink-0 rounded"
+        style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
       >
         {labels.compare_btn}
       </button>

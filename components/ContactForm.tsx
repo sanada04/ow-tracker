@@ -94,8 +94,7 @@ export default function ContactForm({ t }: Props) {
           type="text"
           required
           placeholder={t.form.placeholder_name}
-          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[#f4a029]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors"
-          style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }}
+          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[#f4a029]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors rounded"
         />
       </div>
 
@@ -109,8 +108,7 @@ export default function ContactForm({ t }: Props) {
           name="senderEmail"
           type="email"
           placeholder={t.form.placeholder_email}
-          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[#f4a029]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors"
-          style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }}
+          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[#f4a029]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors rounded"
         />
       </div>
 
@@ -126,14 +124,13 @@ export default function ContactForm({ t }: Props) {
           required
           placeholder={t.form.placeholder_message}
           rows={5}
-          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[#f4a029]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors resize-y min-h-[120px]"
-          style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }}
+          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[#f4a029]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors resize-y min-h-[120px] rounded"
         />
       </div>
 
       {/* Error */}
       {state.status === "error" && (
-        <p className="text-sm text-red-400 bg-red-900/10 border border-red-500/30 px-4 py-3">
+        <p className="text-sm text-red-400 bg-red-900/10 border border-red-500/30 px-4 py-3 rounded">
           {state.message}
         </p>
       )}
@@ -142,8 +139,7 @@ export default function ContactForm({ t }: Props) {
       <button
         type="submit"
         disabled={pending}
-        className="w-full py-3 bg-[#f4a029]/10 border border-[#f4a029]/40 text-[#f4a029] text-[11px] uppercase tracking-widest font-semibold hover:bg-[#f4a029]/20 hover:border-[#f4a029]/70 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-        style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}
+        className="w-full py-3 bg-[#f4a029]/10 border border-[#f4a029]/40 text-[#f4a029] text-[11px] uppercase tracking-widest font-semibold hover:bg-[#f4a029]/20 hover:border-[#f4a029]/70 disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded"
       >
         {pending ? t.form.sending : `${t.form.submit} →`}
       </button>

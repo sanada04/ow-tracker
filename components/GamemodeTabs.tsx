@@ -31,16 +31,12 @@ export default function GamemodeTabs({
             key={value}
             href={href}
             prefetch
-            className={`px-5 py-2 text-sm font-bold uppercase tracking-widest transition-colors shrink-0 ${
+            className={`px-5 py-2 text-sm font-bold uppercase tracking-widest transition-colors shrink-0 rounded ${
               isActive
                 ? "bg-[#f4a029] text-black"
                 : "border border-zinc-700/60 text-zinc-400 hover:text-white hover:border-[#f4a029]/50"
             }`}
-            style={{
-              clipPath:
-                "polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%)",
-              fontFamily: '"Rajdhani", system-ui, sans-serif',
-            }}
+            style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
           >
             {label}
           </Link>

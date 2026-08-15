@@ -109,10 +109,7 @@ function HeroCard({
 
       {/* Tier picker popover */}
       {open && (
-        <div
-          className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 flex gap-1 p-1.5 rounded border border-zinc-700/60 bg-[#0d0d1a] shadow-xl"
-          style={{ clipPath: "polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 0 100%)" }}
-        >
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 flex gap-1 p-1.5 rounded border border-zinc-700/60 bg-[#0d0d1a] shadow-xl">
           {TIERS.map((t) => (
             <button
               key={t}

@@ -30,8 +30,7 @@ export default function HeaderSearch({
     return (
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 h-10 px-3 border border-zinc-700/60 bg-[#131320] hover:border-[#f4a029]/60 transition-colors text-zinc-400 hover:text-[#f4a029] shrink-0"
-        style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}
+        className="flex items-center gap-2 h-10 px-3 border border-zinc-700/60 bg-[#111119] hover:border-[#f4a029]/60 transition-colors text-zinc-400 hover:text-[#f4a029] shrink-0 rounded"
         aria-label="Search"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -44,7 +43,7 @@ export default function HeaderSearch({
         >
           {dict?.search.button ?? "検索"}
         </span>
-        <kbd className="hidden md:inline-flex items-center px-1.5 py-0.5 text-[10px] border border-zinc-700 text-zinc-600 bg-zinc-900 leading-none" style={{ clipPath: "polygon(0 0, calc(100% - 3px) 0, 100% 3px, 100% 100%, 0 100%)" }}>
+        <kbd className="hidden md:inline-flex items-center px-1.5 py-0.5 text-[10px] border border-zinc-700 text-zinc-600 bg-zinc-900 leading-none rounded-sm">
           /
         </kbd>
       </button>
@@ -66,8 +65,7 @@ export default function HeaderSearch({
       </div>
       <button
         onClick={() => setOpen(false)}
-        className="shrink-0 h-10 w-10 flex items-center justify-center border border-zinc-700/60 bg-[#131320] text-zinc-500 hover:text-white hover:border-zinc-600 transition-colors"
-        style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)" }}
+        className="shrink-0 h-10 w-10 flex items-center justify-center border border-zinc-700/60 bg-[#111119] text-zinc-500 hover:text-white hover:border-zinc-600 transition-colors rounded"
         aria-label="Close search"
       >
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">

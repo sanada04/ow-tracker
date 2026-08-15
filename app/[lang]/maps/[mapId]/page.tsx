@@ -110,11 +110,7 @@ export default async function MapDetailPage({ params }: Props) {
             {map.gamemodes.map((mode) => (
               <span
                 key={mode}
-                className="text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 border border-[#f4a029]/30 text-[#f4a029]/80"
-                style={{
-                  clipPath:
-                    "polygon(0 0, calc(100% - 5px) 0, 100% 5px, 100% 100%, 0 100%)",
-                }}
+                className="text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 border border-[#f4a029]/30 text-[#f4a029]/80 rounded"
               >
                 {getModeName(mode, gmLabels)}
               </span>
@@ -137,13 +133,7 @@ export default async function MapDetailPage({ params }: Props) {
       <div className="max-w-5xl mx-auto px-6 py-10 space-y-12">
         {/* Info strip */}
         <div className="flex flex-wrap gap-4">
-          <div
-            className="p-4 border border-zinc-800/40 bg-[#0d0d1a]"
-            style={{
-              clipPath:
-                "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)",
-            }}
-          >
+          <div className="p-4 border border-zinc-800/40 bg-[#0d0d1a] rounded">
             <p className="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
               {t.gamemode_label}
             </p>
@@ -152,13 +142,7 @@ export default async function MapDetailPage({ params }: Props) {
             </p>
           </div>
           {map.country_code && (
-            <div
-              className="p-4 border border-zinc-800/40 bg-[#0d0d1a]"
-              style={{
-                clipPath:
-                  "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%)",
-              }}
-            >
+            <div className="p-4 border border-zinc-800/40 bg-[#0d0d1a] rounded">
               <p className="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
                 {t.country_label}
               </p>
@@ -170,12 +154,8 @@ export default async function MapDetailPage({ params }: Props) {
         {/* Related maps */}
         {relatedMaps.length > 0 && (
           <div>
-            <div className="flex items-center gap-4 mb-6">
-              <div className="h-[1px] w-6 bg-[#f4a029]/60" />
-              <span className="text-[11px] uppercase tracking-[0.25em] text-[#f4a029]/80 font-medium">
-                {t.related}
-              </span>
-              <div className="h-[1px] flex-1 bg-zinc-800/60" />
+            <div className="mb-5 pb-2 border-b border-zinc-800">
+              <span className="text-xs uppercase tracking-widest text-zinc-500">{t.related}</span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {relatedMaps.slice(0, 8).map((m) => (
