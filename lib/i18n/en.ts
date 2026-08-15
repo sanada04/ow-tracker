@@ -86,7 +86,7 @@ export const en = {
     title: "Compare Players",
     player_a: "Player A",
     player_b: "Player B",
-    enter_tag: "Enter BattleTag (e.g. Name#1234)",
+    enter_tag: "e.g. Name#1234",
     compare_btn: "Compare",
     vs: "VS",
     no_data: "No data available",
@@ -143,6 +143,9 @@ export const en = {
     pc: "PC",
     console: "Console",
     both: "Both",
+  },
+  tier_list: {
+    nav: "Tier List",
   },
   privacy: {
     nav: "Privacy Policy",

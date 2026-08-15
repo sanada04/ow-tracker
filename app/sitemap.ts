@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://owtracker.org";
 
-const staticRoutes = ["", "/heroes", "/compare", "/contact", "/privacy"];
+const staticRoutes = ["", "/heroes", "/compare", "/tier-list", "/contact", "/privacy"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];

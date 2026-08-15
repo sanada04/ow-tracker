@@ -88,7 +88,7 @@ export const ja: Dictionary = {
     title: "プレイヤー比較",
     player_a: "プレイヤー A",
     player_b: "プレイヤー B",
-    enter_tag: "BattleTagを入力 (例: Name#1234)",
+    enter_tag: "例: Name#1234",
     compare_btn: "比較",
     vs: "VS",
     no_data: "データなし",
@@ -145,6 +145,9 @@ export const ja: Dictionary = {
     pc: "PC",
     console: "コンソール",
     both: "両方",
+  },
+  tier_list: {
+    nav: "Tier List",
   },
   privacy: {
     nav: "プライバシーポリシー",

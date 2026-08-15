@@ -35,6 +35,12 @@ export default function SiteHeader({
             {dict?.header.nav_compare}
           </Link>
           <Link
+            href={`/${lang}/tier-list`}
+            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
+          >
+            {dict?.tier_list.nav}
+          </Link>
+          <Link
             href={`/${lang}/contact`}
             className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
           >
