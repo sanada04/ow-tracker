@@ -1,8 +1,14 @@
 import Link from "next/link";
+import Image from "next/image";
 import SearchBar from "@/components/SearchBar";
 import SearchHistory from "@/components/SearchHistory";
 import { getDictionary } from "@/lib/i18n";
+import { getHeroes } from "@/lib/api";
+import { getAllTierVotes, getWinningTier } from "@/lib/upstash";
+import { HERO_PORTRAITS, getHeroDisplayName } from "@/lib/heroes";
 import type { Metadata } from "next";
+
+export const revalidate = 300;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://owtracker.org";
 
@@ -14,154 +20,96 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isEn ? "Overwatch 2 Stats Tracker" : "Overwatch 2 戦績トラッカー",
     description: isEn
-      ? "Track Overwatch 2 player ranks, stats, and hero statistics. Search by BattleTag to instantly view competitive ranks, winrates, KDA, and top heroes."
-      : "Overwatch 2 プレイヤーのランク・勝率・KDA・ヒーロー別スタッツをBattleTagで即座に確認。コンペティティブランクも全ロール一覧表示。",
-    alternates: {
-      canonical: `/${lang}`,
-      languages: { ja: "/ja", en: "/en", "x-default": "/ja" },
-    },
+      ? "Track Overwatch 2 player ranks, stats, and hero statistics. Search by BattleTag."
+      : "Overwatch 2 プレイヤーのランク・勝率・KDA・ヒーロー別スタッツをBattleTagで確認。",
+    alternates: { canonical: `/${lang}`, languages: { ja: "/ja", en: "/en", "x-default": "/ja" } },
     openGraph: {
-      title: isEn ? "OW Tracker — Overwatch 2 Stats Tracker" : "OW Tracker — Overwatch 2 戦績トラッカー",
+      title: isEn ? "OW Tracker — Overwatch 2 Stats" : "OW Tracker — Overwatch 2 戦績",
       description: isEn
-        ? "Track Overwatch 2 player stats, ranks, and hero statistics. Search by BattleTag."
-        : "BattleTagで検索するだけ。Overwatch 2 プレイヤーの戦績・ランク・ヒーロースタッツを確認。",
+        ? "Track Overwatch 2 player stats, ranks, and hero statistics."
+        : "BattleTagで検索するだけ。Overwatch 2 プレイヤー戦績を確認。",
       url: `/${lang}`,
     },
   };
 }
 
-const NAV_CARDS = [
-  { key: "heroes",    icon: "◆", href: (l: string) => `/${l}/heroes` },
-  { key: "tier-list", icon: "◈", href: (l: string) => `/${l}/tier-list` },
-  { key: "meta",      icon: "◉", href: (l: string) => `/${l}/meta` },
-  { key: "counters",  icon: "⚔", href: (l: string) => `/${l}/counters` },
-  { key: "maps",      icon: "◧", href: (l: string) => `/${l}/maps` },
-  { key: "compare",   icon: "⇌", href: (l: string) => `/${l}/compare` },
-];
+const TIER_COLOR: Record<string, string> = {
+  S: "#f4a029", A: "#84cc16", B: "#3b82f6", C: "#71717a", D: "#ef4444",
+};
 
 export default async function HomePage({ params }: Props) {
   const { lang } = await params;
   const dict = getDictionary(lang);
   const t = dict.home;
+  const isEn = lang === "en";
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "OW Tracker",
     url: siteUrl,
-    description: t.tagline,
     potentialAction: {
       "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${siteUrl}/${lang}/players/{search_term_string}`,
-      },
+      target: { "@type": "EntryPoint", urlTemplate: `${siteUrl}/${lang}/players/{search_term_string}` },
       "query-input": "required name=search_term_string",
     },
   };
 
-  const navLabels: Record<string, string> = {
-    heroes:    dict.header.nav_heroes,
-    "tier-list": dict.tier_list.nav,
-    meta:      dict.meta_page.nav,
-    counters:  dict.counters_page.nav,
-    maps:      dict.maps_page.nav,
-    compare:   dict.header.nav_compare,
-  };
-  const navDescs: Record<string, string> = {
-    heroes:    dict.heroes_page.subtitle,
-    "tier-list": lang === "en" ? "Community-voted hero tiers" : "コミュニティティアリスト",
-    meta:      lang === "en" ? "What's strong right now" : "現在のメタ情報",
-    counters:  lang === "en" ? "Counter picks for every hero" : "各ヒーローのカウンター",
-    maps:      lang === "en" ? "All Overwatch 2 maps" : "全マップ一覧",
-    compare:   lang === "en" ? "Compare two players" : "プレイヤー比較",
-  };
+  // Community top picks from Redis
+  const heroes = await getHeroes(lang).catch(() => []);
+  const heroKeys = heroes.map((h) => h.key);
+  const tierVotes = heroKeys.length > 0
+    ? await getAllTierVotes(heroKeys).catch(() => Object.fromEntries(heroKeys.map((k) => [k, { S: 0, A: 0, B: 0, C: 0, D: 0 }])))
+    : {};
+
+  const topHeroes = heroes
+    .map((h) => ({ hero: h, tier: getWinningTier(tierVotes[h.key] ?? { S: 0, A: 0, B: 0, C: 0, D: 0 }) }))
+    .filter((x) => x.tier !== null)
+    .sort((a, b) => {
+      const order: Record<string, number> = { S: 0, A: 1, B: 2, C: 3, D: 4 };
+      return (order[a.tier!] ?? 9) - (order[b.tier!] ?? 9);
+    })
+    .slice(0, 12);
+
+  const navLinks = [
+    { href: `/${lang}/heroes`,                 label: dict.header.nav_heroes },
+    { href: `/${lang}/tier-list`,              label: dict.tier_list.nav },
+    { href: `/${lang}/meta`,                   label: dict.meta_page.nav },
+    { href: `/${lang}/counters`,               label: dict.counters_page.nav },
+    { href: `/${lang}/maps`,                   label: dict.maps_page.nav },
+    { href: `/${lang}/stats/rank-distribution`, label: dict.rank_page.nav },
+    { href: `/${lang}/compare`,                label: dict.header.nav_compare },
+  ];
 
   return (
-    <div className="min-h-screen" style={{ background: "#080810" }}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <div className="min-h-screen" style={{ background: "#080810", color: "#e8e8f0" }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      {/* ── Hero section ─────────────────────────────────────────────── */}
-      <section
-        className="relative flex flex-col items-center justify-center overflow-hidden"
-        style={{ minHeight: "calc(100vh - 60px)", paddingTop: "120px", paddingBottom: "80px" }}
+      {/* ── Split layout ── */}
+      <div
+        className="max-w-6xl mx-auto lg:grid lg:min-h-screen"
+        style={{ gridTemplateColumns: "1fr 280px", paddingTop: "60px" }}
       >
-        {/* Background: dot grid */}
+        {/* ── Left: search panel ── */}
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(rgba(244,160,41,0.07) 1px, transparent 1px)",
-            backgroundSize: "32px 32px",
-          }}
-        />
-        {/* Radial vignette */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse 80% 70% at 50% 0%, transparent 30%, #080810 100%)",
-          }}
-        />
-        {/* Orange glow behind title */}
-        <div
-          className="absolute top-1/3 left-1/2 pointer-events-none"
-          style={{
-            width: "600px",
-            height: "300px",
-            transform: "translate(-50%, -50%)",
-            background: "radial-gradient(ellipse, rgba(244,160,41,0.06) 0%, transparent 70%)",
-          }}
-        />
-
-        <div className="relative z-10 w-full max-w-3xl mx-auto px-6 flex flex-col items-center text-center">
-          {/* Eyebrow */}
-          <div
-            className="inline-flex items-center gap-3 mb-8 animate-fade-up"
-            style={{ animationDelay: "0ms" }}
-          >
-            <span
-              className="text-[10px] uppercase tracking-[0.3em] font-bold"
-              style={{ color: "rgba(244,160,41,0.6)" }}
-            >
-              {t.subtitle}
-            </span>
-          </div>
-
-          {/* Main title */}
-          <h1
-            className="animate-fade-up mb-4"
+          className="px-8 py-14 lg:py-20 flex flex-col justify-center"
+          style={{ borderRight: "1px solid rgba(255,255,255,0.04)" }}
+        >
+          {/* Mono label */}
+          <p
+            className="mb-8 animate-fade-up"
             style={{
-              fontFamily: '"Rajdhani", system-ui, sans-serif',
-              fontWeight: 900,
-              fontSize: "clamp(4rem, 12vw, 7.5rem)",
-              letterSpacing: "0.04em",
-              lineHeight: 0.9,
-              animationDelay: "60ms",
+              fontFamily: "ui-monospace, 'Cascadia Code', monospace",
+              fontSize: "0.65rem",
+              letterSpacing: "0.3em",
+              color: "#3f3f5a",
+              animationDelay: "0ms",
             }}
           >
-            <span style={{ color: "#ffffff" }}>OW</span>
-            <span style={{ color: "#f4a029" }}> TRACKER</span>
-          </h1>
-
-          {/* Orange accent line */}
-          <div
-            className="animate-fade-up mb-8"
-            style={{ animationDelay: "100ms" }}
-          >
-            <div className="ow-divider" style={{ width: "120px", margin: "0 auto" }} />
-          </div>
-
-          <p
-            className="text-zinc-400 text-sm mb-10 max-w-md animate-fade-up"
-            style={{ letterSpacing: "0.02em", animationDelay: "120ms" }}
-          >
-            {t.tagline}
+            PLAYER LOOKUP
           </p>
 
-          {/* Search */}
-          <div className="w-full animate-fade-up" style={{ animationDelay: "160ms" }}>
+          <div className="max-w-xl w-full animate-fade-up" style={{ animationDelay: "60ms" }}>
             <SearchBar
               placeholder={dict.search.placeholder}
               buttonText={dict.search.button}
@@ -169,105 +117,240 @@ export default async function HomePage({ params }: Props) {
               notPublicText={dict.search.not_public}
               lang={lang}
             />
+
+            {/* Notice */}
             <div
-              className="mt-3 flex items-start gap-2.5 px-4 py-3 animate-fade-up"
+              className="mt-3 flex items-start gap-2.5 px-4 py-3"
               style={{
-                background: "rgba(202,138,4,0.06)",
-                border: "1px solid rgba(202,138,4,0.15)",
+                background: "rgba(202,138,4,0.05)",
+                border: "1px solid rgba(202,138,4,0.12)",
                 borderRadius: "2px",
-                animationDelay: "200ms",
               }}
             >
-              <span className="text-yellow-500 text-base leading-none mt-px shrink-0">⚠</span>
-              <p className="text-xs text-yellow-200/60 leading-relaxed">
+              <span className="shrink-0 mt-px" style={{ color: "#ca8a04", fontSize: "0.8rem" }}>⚠</span>
+              <p style={{ fontSize: "0.7rem", lineHeight: 1.6, color: "rgba(254,243,199,0.5)" }}>
                 {t.notice.pre}
-                <span className="text-yellow-300/90 font-semibold">{t.notice.highlight}</span>
+                <span style={{ color: "rgba(253,224,71,0.8)", fontWeight: 600 }}>{t.notice.highlight}</span>
                 {t.notice.post}
-                <span className="text-yellow-300/90 font-semibold">「{t.notice.path}」</span>
+                <span style={{ color: "rgba(253,224,71,0.8)", fontWeight: 600 }}>「{t.notice.path}」</span>
               </p>
             </div>
           </div>
 
-          {/* Search history */}
-          <div className="w-full mt-6 animate-fade-up" style={{ animationDelay: "240ms" }}>
+          <div className="mt-6 max-w-xl w-full animate-fade-up" style={{ animationDelay: "120ms" }}>
             <SearchHistory lang={lang} labels={dict.home_extra} />
           </div>
-        </div>
-      </section>
 
-      {/* ── Quick nav grid ──────────────────────────────────────────── */}
-      <section
-        className="relative"
-        style={{ background: "linear-gradient(to bottom, #080810, #0c0c18, #080810)" }}
-      >
-        <div className="max-w-5xl mx-auto px-6 py-20">
-          {/* Section header */}
-          <div className="flex items-center gap-4 mb-10">
-            <span className="ow-section-title">Explore</span>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-            {NAV_CARDS.map(({ key, icon, href }, i) => (
-              <Link
-                key={key}
-                href={href(lang)}
-                className="ow-card-featured group flex flex-col items-center gap-3 p-5 text-center animate-fade-up"
-                style={{ animationDelay: `${i * 60}ms` }}
-              >
-                <span
-                  className="text-2xl transition-transform duration-300 group-hover:scale-110"
-                  style={{ color: "#f4a029" }}
-                >
-                  {icon}
-                </span>
-                <div>
-                  <p
-                    className="text-white text-xs font-bold mb-1 group-hover:text-[#f4a029] transition-colors"
-                    style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.1em" }}
-                  >
-                    {navLabels[key]}
-                  </p>
-                  <p className="text-zinc-600 text-[10px] leading-tight">{navDescs[key]}</p>
-                </div>
-                <span
-                  className="text-[10px] text-zinc-700 group-hover:text-[#f4a029] transition-colors"
-                  style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
-                >
-                  →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Features / Stats strip ──────────────────────────────────── */}
-      <section style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
-        <div className="max-w-5xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.04)" }}
+          {/* Brand mark — secondary, not hero */}
+          <div
+            className="mt-16 animate-fade-up"
+            style={{ animationDelay: "200ms" }}
           >
-            {t.features.map(({ icon, label, desc }, i) => (
-              <div
-                key={label}
-                className="flex items-start gap-4 p-8 animate-fade-up"
-                style={{ background: "#080810", animationDelay: `${i * 80}ms` }}
-              >
-                <span className="text-[#f4a029] text-2xl shrink-0 mt-0.5">{icon}</span>
-                <div>
-                  <p
-                    className="text-white font-bold text-sm mb-1"
-                    style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.08em" }}
-                  >
-                    {label}
-                  </p>
-                  <p className="text-zinc-500 text-xs leading-relaxed">{desc}</p>
-                </div>
-              </div>
-            ))}
+            <p
+              style={{
+                fontFamily: '"Rajdhani", system-ui, sans-serif',
+                fontSize: "2rem",
+                fontWeight: 900,
+                letterSpacing: "0.1em",
+                lineHeight: 1,
+                color: "rgba(255,255,255,0.08)",
+              }}
+            >
+              OW<span style={{ color: "rgba(244,160,41,0.12)" }}> TRACKER</span>
+            </p>
+            <p
+              style={{
+                fontFamily: "ui-monospace, monospace",
+                fontSize: "0.6rem",
+                letterSpacing: "0.2em",
+                color: "#2a2a3a",
+                marginTop: "4px",
+              }}
+            >
+              {isEn ? "OVERWATCH 2 STATS TRACKER" : "OVERWATCH 2 戦績トラッカー"}
+            </p>
           </div>
         </div>
-      </section>
+
+        {/* ── Right: data sidebar ── */}
+        <div className="hidden lg:block px-5 py-12 space-y-10 overflow-y-auto">
+          {/* Nav list — functional, not cards */}
+          <div>
+            <p
+              className="mb-3"
+              style={{
+                fontFamily: "ui-monospace, monospace",
+                fontSize: "0.6rem",
+                letterSpacing: "0.25em",
+                color: "#2a2a3a",
+              }}
+            >
+              NAVIGATE
+            </p>
+            <ul>
+              {navLinks.map(({ href, label }) => (
+                <li key={href} className="sidebar-nav-item">
+                  <Link href={href} className="sidebar-nav-link flex items-center justify-between px-2 py-2.5">
+                    <span
+                      style={{
+                        fontFamily: '"Rajdhani", system-ui, sans-serif',
+                        fontSize: "0.78rem",
+                        fontWeight: 600,
+                        letterSpacing: "0.08em",
+                        textTransform: "uppercase" as const,
+                      }}
+                    >
+                      {label}
+                    </span>
+                    <span className="sidebar-nav-arrow" style={{ fontFamily: "ui-monospace, monospace", fontSize: "0.7rem" }}>
+                      →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Community top picks */}
+          {topHeroes.length > 0 && (
+            <div>
+              <p
+                className="mb-3"
+                style={{
+                  fontFamily: "ui-monospace, monospace",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.25em",
+                  color: "#2a2a3a",
+                }}
+              >
+                COMMUNITY TOP PICKS
+              </p>
+              <div className="grid grid-cols-4 gap-1">
+                {topHeroes.map(({ hero, tier }) => (
+                  <Link
+                    key={hero.key}
+                    href={`/${lang}/heroes/${hero.key}`}
+                    className="relative overflow-hidden group"
+                    style={{ borderRadius: "2px", aspectRatio: "1" }}
+                    title={getHeroDisplayName(hero.key)}
+                  >
+                    <Image
+                      src={HERO_PORTRAITS[hero.key] ?? hero.portrait}
+                      alt={hero.name}
+                      fill
+                      className="object-cover object-top transition-transform duration-300 group-hover:scale-110"
+                      unoptimized
+                    />
+                    <div
+                      className="absolute inset-0"
+                      style={{ background: "linear-gradient(to bottom, transparent 40%, rgba(8,8,16,0.85) 100%)" }}
+                    />
+                    {tier && (
+                      <span
+                        className="absolute bottom-1 right-1"
+                        style={{
+                          fontFamily: "ui-monospace, monospace",
+                          fontSize: "0.6rem",
+                          fontWeight: 700,
+                          color: TIER_COLOR[tier],
+                          textShadow: "0 0 6px rgba(0,0,0,0.8)",
+                        }}
+                      >
+                        {tier}
+                      </span>
+                    )}
+                  </Link>
+                ))}
+              </div>
+              <Link
+                href={`/${lang}/tier-list`}
+                className="tier-list-link"
+                style={{
+                  fontFamily: "ui-monospace, monospace",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.2em",
+                  display: "inline-block",
+                  marginTop: "10px",
+                }}
+              >
+                VOTE / FULL LIST →
+              </Link>
+            </div>
+          )}
+
+          {/* Hero count stat */}
+          {heroes.length > 0 && (
+            <div style={{ borderTop: "1px solid rgba(255,255,255,0.04)", paddingTop: "1.5rem" }}>
+              <p
+                style={{
+                  fontFamily: "ui-monospace, monospace",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.25em",
+                  color: "#2a2a3a",
+                  marginBottom: "6px",
+                }}
+              >
+                ROSTER
+              </p>
+              <p
+                style={{
+                  fontFamily: '"Rajdhani", system-ui, sans-serif',
+                  fontSize: "2.5rem",
+                  fontWeight: 900,
+                  lineHeight: 1,
+                  color: "rgba(255,255,255,0.12)",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                {heroes.length}
+              </p>
+              <p style={{ fontFamily: "ui-monospace, monospace", fontSize: "0.6rem", color: "#2a2a3a", letterSpacing: "0.2em" }}>
+                HEROES
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* ── Mobile nav (only visible < lg) ── */}
+      <div
+        className="lg:hidden px-6 py-8"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}
+      >
+        <p
+          className="mb-4"
+          style={{
+            fontFamily: "ui-monospace, monospace",
+            fontSize: "0.6rem",
+            letterSpacing: "0.25em",
+            color: "#2a2a3a",
+          }}
+        >
+          NAVIGATE
+        </p>
+        <div className="grid grid-cols-2 gap-px" style={{ background: "rgba(255,255,255,0.04)" }}>
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="mobile-nav-link flex items-center justify-between px-4 py-3"
+            >
+              <span
+                style={{
+                  fontFamily: '"Rajdhani", system-ui, sans-serif',
+                  fontSize: "0.75rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase" as const,
+                }}
+              >
+                {label}
+              </span>
+              <span style={{ fontFamily: "ui-monospace, monospace", fontSize: "0.65rem", color: "#2a2a3a" }}>→</span>
+            </Link>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
