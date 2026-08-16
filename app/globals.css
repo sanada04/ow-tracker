@@ -4,10 +4,11 @@
 @theme {
   --color-ow-orange:       #f4a029;
   --color-ow-orange-light: #ffbe55;
-  --color-ow-blue:         #1abfe5;
-  --color-ow-bg:           #080810;
-  --color-ow-card:         #0f0f1c;
-  --color-ow-surface:      #161626;
+  --color-ow-blue:         #00c4ef;
+  --color-ow-blue-dim:     rgba(0, 196, 239, 0.15);
+  --color-ow-bg:           #07070e;
+  --color-ow-card:         #0d0d1c;
+  --color-ow-surface:      #131328;
   --font-heading:          var(--font-rajdhani), system-ui, sans-serif;
 }
 
@@ -16,8 +17,8 @@
 
 body {
   font-family: var(--font-geist);
-  background-color: #080810;
-  color: #e8e8f0;
+  background-color: #07070e;
+  color: #e8e8f8;
 }
 
 /* ── Animations ───────────────────────────────────────────────────────── */
@@ -74,62 +75,61 @@ body {
 
 /* ── Cards ───────────────────────────────────────────────────────────── */
 .ow-card {
-  background: #0f0f1c;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #0d0d1c;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 3px;
   transition: background 0.2s ease, border-color 0.2s ease,
               box-shadow 0.2s ease, transform 0.2s ease;
 }
 .ow-card:hover {
-  background: #161626;
-  border-color: rgba(244, 160, 41, 0.35);
+  background: #131328;
+  border-color: rgba(0, 196, 239, 0.28);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   transform: translateY(-2px);
 }
 
 /* Small card — no lift */
 .ow-card-sm {
-  background: #0f0f1c;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #0d0d1c;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 3px;
   transition: background 0.2s ease, border-color 0.2s ease;
 }
 .ow-card-sm:hover {
-  background: #161626;
-  border-color: rgba(244, 160, 41, 0.25);
+  background: #131328;
+  border-color: rgba(0, 196, 239, 0.2);
 }
 
 /* Hero card — portrait-forward, lifts with glow */
 .ow-hero-card {
-  background: #0c0c1a;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #0b0b1a;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 3px;
   overflow: hidden;
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
   position: relative;
 }
 .ow-hero-card:hover {
-  border-color: rgba(244, 160, 41, 0.5);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(244, 160, 41, 0.15);
+  border-color: rgba(0, 196, 239, 0.4);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 196, 239, 0.1);
   transform: translateY(-4px);
 }
 
 /* Accent top-border card — for featured/highlighted content */
 .ow-card-featured {
-  background: #0f0f1c;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0d0d1c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-top: 2px solid #f4a029;
   border-radius: 3px;
   transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .ow-card-featured:hover {
-  background: #161626;
+  background: #131328;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   transform: translateY(-2px);
 }
 
 /* ── Section Title ───────────────────────────────────────────────────── */
-/* Use sparingly — not every section gets this. */
 .ow-section-title {
   font-family: "Rajdhani", system-ui, sans-serif;
   font-weight: 700;
@@ -140,13 +140,12 @@ body {
 }
 
 /* Mono label — for data panels and sidebar labels */
-/* "PLAYER LOOKUP", "TOP PICKS", "NAVIGATE" style */
 .ow-mono-label {
   font-family: ui-monospace, 'Cascadia Code', monospace;
   font-size: 0.6rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #2a2a3a;
+  color: #242438;
 }
 
 /* Data value — large mono number */
@@ -156,7 +155,7 @@ body {
   font-size: 2.5rem;
   line-height: 1;
   letter-spacing: -0.02em;
-  color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.1);
 }
 
 /* Inline label (small section divider) */
@@ -166,7 +165,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #52525b;
+  color: #42425e;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -181,7 +180,7 @@ body {
 /* ── Accent divider ──────────────────────────────────────────────────── */
 .ow-divider {
   height: 1px;
-  background: linear-gradient(to right, #f4a029, rgba(244, 160, 41, 0.15), transparent);
+  background: linear-gradient(to right, rgba(0, 196, 239, 0.4), rgba(0, 196, 239, 0.08), transparent);
   border: none;
 }
 
@@ -193,7 +192,7 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   background: #f4a029;
-  color: #080810;
+  color: #07070e;
   border: none;
   border-radius: 2px;
   padding: 0.6rem 1.4rem;
@@ -205,14 +204,14 @@ body {
 }
 .ow-btn:hover {
   background: #ffbe55;
-  box-shadow: 0 0 20px rgba(244, 160, 41, 0.35);
+  box-shadow: 0 0 20px rgba(244, 160, 41, 0.3);
   transform: translateY(-1px);
 }
 .ow-btn:active {
   transform: translateY(0);
 }
 
-/* Ghost variant */
+/* Ghost variant — blue */
 .ow-btn-ghost {
   font-family: "Rajdhani", system-ui, sans-serif;
   font-weight: 700;
@@ -220,8 +219,8 @@ body {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   background: transparent;
-  color: #f4a029;
-  border: 1px solid rgba(244, 160, 41, 0.5);
+  color: #00c4ef;
+  border: 1px solid rgba(0, 196, 239, 0.4);
   border-radius: 2px;
   padding: 0.55rem 1.4rem;
   cursor: pointer;
@@ -231,9 +230,9 @@ body {
   gap: 0.4rem;
 }
 .ow-btn-ghost:hover {
-  background: rgba(244, 160, 41, 0.08);
-  border-color: #f4a029;
-  color: #ffbe55;
+  background: rgba(0, 196, 239, 0.07);
+  border-color: #00c4ef;
+  color: #5dd8f5;
 }
 
 /* ── Stat Value ──────────────────────────────────────────────────────── */
@@ -245,7 +244,7 @@ body {
   letter-spacing: -0.02em;
 }
 
-/* ── Nav link with orange underline ──────────────────────────────────── */
+/* ── Legacy nav link (keep for compat) ───────────────────────────────── */
 .ow-nav-link {
   position: relative;
   display: inline-flex;
@@ -255,7 +254,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #71717a;
+  color: #52525b;
   transition: color 0.15s ease;
   font-family: "Rajdhani", system-ui, sans-serif;
 }
@@ -265,34 +264,26 @@ body {
   bottom: -2px;
   left: 0.75rem;
   right: 0.75rem;
-  height: 2px;
-  background: #f4a029;
+  height: 1.5px;
+  background: #00c4ef;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 1px;
 }
 .ow-nav-link:hover {
-  color: #f4a029;
+  color: #00c4ef;
 }
 .ow-nav-link:hover::after {
   transform: scaleX(1);
 }
-.ow-nav-link.active {
-  color: #f4a029;
-}
-.ow-nav-link.active::after {
-  transform: scaleX(1);
-}
 
 /* ── Background textures ─────────────────────────────────────────────── */
-/* Subtle dot-grid for hero sections */
 .ow-bg-dots {
-  background-image: radial-gradient(rgba(244, 160, 41, 0.06) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(0, 196, 239, 0.04) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
-/* Noise grain overlay */
 .ow-noise {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   background-size: 256px 256px;
@@ -303,7 +294,7 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 .sidebar-nav-link {
-  color: #52525b;
+  color: #42425e;
   transition: color 0.15s ease;
   display: flex;
   align-items: center;
@@ -312,33 +303,33 @@ body {
   text-decoration: none;
 }
 .sidebar-nav-link:hover {
-  color: #e8e8f0;
+  color: #e8e8f8;
 }
 .sidebar-nav-arrow {
-  color: #2a2a3a;
+  color: #222236;
   transition: color 0.15s ease;
 }
 .sidebar-nav-link:hover .sidebar-nav-arrow {
-  color: #f4a029;
+  color: #00c4ef;
 }
 
 .tier-list-link {
-  color: #3f3f5a;
+  color: #2a2a45;
   transition: color 0.15s ease;
   text-decoration: none;
 }
 .tier-list-link:hover {
-  color: #f4a029;
+  color: #00c4ef;
 }
 
 .mobile-nav-link {
-  background: #080810;
-  color: #52525b;
+  background: #07070e;
+  color: #42425e;
   transition: color 0.15s ease;
   text-decoration: none;
 }
 .mobile-nav-link:hover {
-  color: #e8e8f0;
+  color: #e8e8f8;
 }
 
 /* ── Winrate bar ─────────────────────────────────────────────────────── */
@@ -352,9 +343,115 @@ body {
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.03) 50%,
     rgba(255, 255, 255, 0) 100%
   );
   background-size: 200% auto;
   animation: shimmer 1.8s linear infinite;
+}
+
+/* ── Site Header ─────────────────────────────────────────────────────── */
+.ow-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: rgba(7, 7, 14, 0.96);
+  backdrop-filter: blur(16px) saturate(1.2);
+  border-bottom: 1px solid rgba(0, 196, 239, 0.07);
+}
+
+.ow-header-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.ow-logo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+}
+.ow-logo:hover {
+  opacity: 0.82;
+}
+
+.ow-logo-mark {
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid rgba(244, 160, 41, 0.65);
+  background: rgba(244, 160, 41, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: "Rajdhani", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 0.85rem;
+  color: #f4a029;
+  letter-spacing: 0.03em;
+}
+
+.ow-logo-words {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  gap: 3px;
+}
+
+.ow-logo-name {
+  font-family: "Rajdhani", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  color: #c0c0da;
+}
+
+.ow-logo-tag {
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-size: 0.42rem;
+  letter-spacing: 0.16em;
+  color: #1e1e32;
+}
+
+.ow-header-rule {
+  width: 1px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.ow-header-nav {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .ow-header-nav {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.ow-hdr-link {
+  padding: 0.3rem 0.6rem;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: #28284a;
+  text-decoration: none;
+  transition: color 0.14s ease;
+  white-space: nowrap;
+}
+
+.ow-hdr-link:hover {
+  color: #00c4ef;
 }

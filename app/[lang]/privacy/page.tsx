@@ -264,7 +264,7 @@ export default async function PrivacyPage({
       <div className="mb-10">
         <Link
           href={`/${lang}`}
-          className="text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
+          className="text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#00c4ef] transition-colors"
         >
           ← {isJa ? "ホームへ戻る" : "Back to Home"}
         </Link>

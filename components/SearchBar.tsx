@@ -113,11 +113,11 @@ export default function SearchBar({
             value={value}
             onChange={(e) => { setValue(e.target.value); setNoResults(false); }}
             onFocus={(e) => {
-              (e.target as HTMLInputElement).style.borderColor = "rgba(244,160,41,0.5)";
+              (e.target as HTMLInputElement).style.borderColor = "rgba(0,196,239,0.5)";
               if (suggestions.length > 0) setOpen(true);
             }}
             onBlur={(e) => {
-              (e.target as HTMLInputElement).style.borderColor = "rgba(244,160,41,0.2)";
+              (e.target as HTMLInputElement).style.borderColor = "rgba(0,196,239,0.18)";
             }}
             placeholder={placeholder}
             autoComplete="off"
@@ -126,7 +126,7 @@ export default function SearchBar({
             style={{
               height: compact ? "40px" : "52px",
               background: "#0c0c1a",
-              border: "1px solid rgba(244,160,41,0.2)",
+              border: "1px solid rgba(0,196,239,0.18)",
               borderRight: "none",
               borderRadius: "2px 0 0 2px",
               fontFamily: '"Rajdhani", system-ui, sans-serif',
@@ -136,7 +136,7 @@ export default function SearchBar({
           />
           {loading && (
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
-              <div className="w-4 h-4 border-2 border-[#f4a029] border-t-transparent rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-[#00c4ef] border-t-transparent rounded-full animate-spin" />
             </div>
           )}
         </div>
@@ -168,8 +168,8 @@ export default function SearchBar({
         <div
           className="absolute mt-1 w-full z-50 px-4 py-3 text-sm text-zinc-400"
           style={{
-            background: "#0c0c1a",
-            border: "1px solid rgba(244,160,41,0.15)",
+            background: "#0b0b1c",
+            border: "1px solid rgba(0,196,239,0.12)",
             borderRadius: "2px",
           }}
         >
@@ -182,8 +182,8 @@ export default function SearchBar({
         <ul
           className="absolute z-50 mt-1 w-full shadow-2xl overflow-hidden"
           style={{
-            background: "#0c0c1a",
-            border: "1px solid rgba(244,160,41,0.2)",
+            background: "#0b0b1c",
+            border: "1px solid rgba(0,196,239,0.18)",
             borderRadius: "2px",
           }}
         >
@@ -199,7 +199,7 @@ export default function SearchBar({
                   borderBottom: "1px solid rgba(255,255,255,0.04)",
                   animationDelay: `${i * 30}ms`,
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(244,160,41,0.05)")}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,196,239,0.04)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
                 {result.avatar ? (
@@ -209,7 +209,7 @@ export default function SearchBar({
                     width={32}
                     height={32}
                     className="rounded shrink-0"
-                    style={{ border: "1px solid rgba(244,160,41,0.2)" }}
+                    style={{ border: "1px solid rgba(0,196,239,0.15)" }}
                     unoptimized
                   />
                 ) : (
@@ -225,7 +225,7 @@ export default function SearchBar({
                     {result.name}
                   </p>
                   {result.title && (
-                    <p className="text-[11px] text-[#f4a029]/60 truncate">{result.title}</p>
+                    <p className="text-[11px] text-[#00c4ef]/50 truncate">{result.title}</p>
                   )}
                 </div>
                 {!result.is_public && (

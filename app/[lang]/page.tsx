@@ -82,13 +82,13 @@ export default async function HomePage({ params }: Props) {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: "#080810", color: "#e8e8f0" }}>
+    <div className="min-h-screen" style={{ background: "#07070e", color: "#e8e8f8" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* ── Split layout ── */}
       <div
         className="max-w-6xl mx-auto lg:grid lg:min-h-screen"
-        style={{ gridTemplateColumns: "1fr 280px", paddingTop: "60px" }}
+        style={{ gridTemplateColumns: "1fr 280px", paddingTop: "50px" }}
       >
         {/* ── Left: search panel ── */}
         <div

@@ -61,7 +61,7 @@ export default async function RankDistributionPage({ params }: Props) {
   const maxPct = Math.max(...RANK_DISTRIBUTION.map((r) => r.pct));
 
   return (
-    <div className="min-h-screen bg-[#080810] text-white">
+    <div className="min-h-screen bg-[#07070e] text-white">
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="mb-10">
           <h1

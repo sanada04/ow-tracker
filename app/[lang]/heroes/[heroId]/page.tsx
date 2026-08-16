@@ -94,7 +94,7 @@ function StoryChapter({ chapter, index }: { chapter: HeroStoryChapter; index: nu
         <div className="sm:w-72 shrink-0">
           <div className="relative aspect-[16/10] overflow-hidden border border-zinc-800/60 rounded">
             <Image src={chapter.picture} alt={chapter.title} fill className="object-cover" unoptimized />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#080810]/70 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#07070e]/70 to-transparent" />
           </div>
         </div>
       )}
@@ -135,7 +135,7 @@ export default async function HeroDetailPage({ params }: Props) {
   const roleLabel = dict.player.roles[hero.role as keyof typeof dict.player.roles] ?? hero.role;
 
   return (
-    <div className="min-h-screen bg-[#080810] text-white">
+    <div className="min-h-screen bg-[#07070e] text-white">
 
       {/* ── Cinematic banner ── */}
       <div className="relative h-[55vh] min-h-72 overflow-hidden">
@@ -150,14 +150,14 @@ export default async function HeroDetailPage({ params }: Props) {
             }} />
           </>
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0c0c1a] to-[#080810]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0c0c1a] to-[#07070e]" />
         )}
 
         {/* Hero name overlaid on banner */}
         <div className="absolute bottom-0 left-0 right-0 max-w-5xl mx-auto px-6 pb-8">
           <Link
             href={`/${lang}/heroes`}
-            className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors mb-6"
+            className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#00c4ef] transition-colors mb-6"
           >
             <span className="text-xs">←</span> {t.back}
           </Link>
@@ -305,7 +305,7 @@ export default async function HeroDetailPage({ params }: Props) {
             <SectionLabel>{t.story_label}</SectionLabel>
 
             {hero.story.summary && (
-              <div className="relative mb-12 pl-5 border-l border-[#f4a029]/30">
+              <div className="relative mb-12 pl-5 border-l border-[#00c4ef]/20">
                 <p className="text-zinc-300 text-sm leading-[1.9]">{hero.story.summary}</p>
               </div>
             )}
@@ -326,7 +326,7 @@ export default async function HeroDetailPage({ params }: Props) {
           <div className="flex flex-wrap gap-2">
             <Link
               href={`/${lang}/counters/${heroId}`}
-              className="px-3 py-1.5 text-sm border border-zinc-700/50 text-zinc-400 hover:border-[#f4a029]/50 hover:text-[#f4a029] rounded transition-colors"
+              className="px-3 py-1.5 text-sm border border-zinc-700/50 text-zinc-400 hover:border-[#00c4ef]/40 hover:text-[#00c4ef] rounded transition-colors"
             >
               {hero.name} Counters
             </Link>

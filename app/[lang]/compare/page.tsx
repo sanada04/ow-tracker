@@ -126,7 +126,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
   const statsB = dataB?.stats?.general ?? null;
 
   return (
-    <div className="min-h-screen bg-[#080810] text-white">
+    <div className="min-h-screen bg-[#07070e] text-white">
       <main className="max-w-4xl mx-auto px-6 py-12 space-y-8">
         {/* Title */}
         <div className="animate-fade-up">

@@ -58,7 +58,7 @@ export default async function CounterPage({ params }: Props) {
   ).slice(0, 8);
 
   return (
-    <div className="min-h-screen bg-[#080810] text-white">
+    <div className="min-h-screen bg-[#07070e] text-white">
       <main className="max-w-5xl mx-auto px-6 py-12">
         {/* Back */}
         <Link

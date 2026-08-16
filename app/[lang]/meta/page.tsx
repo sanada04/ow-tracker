@@ -133,7 +133,7 @@ export default async function MetaPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[#080810] text-white">
+    <div className="min-h-screen bg-[#07070e] text-white">
       <main className="max-w-5xl mx-auto px-6 pt-24 pb-16">
 
         {/* Header */}
@@ -146,7 +146,7 @@ export default async function MetaPage({ params }: Props) {
             </span>
             <Link
               href={`/${lang}/tier-list`}
-              className="text-[11px] text-[#f4a029]/80 hover:text-[#f4a029] transition-colors tracking-wide"
+              className="text-[11px] text-[#f4a029]/80 hover:text-[#00c4ef] transition-colors tracking-wide"
             >
               {t.vote_cta}
             </Link>
