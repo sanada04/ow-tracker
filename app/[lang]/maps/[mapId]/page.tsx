@@ -71,7 +71,7 @@ export default async function MapDetailPage({ params }: Props) {
   );
 
   return (
-    <div className="min-h-screen bg-[#0a0a12] text-white">
+    <div className="min-h-screen bg-[#080810] text-white">
       {/* Banner */}
       <div className="relative h-[50vh] min-h-64 overflow-hidden">
         <Image
@@ -133,7 +133,7 @@ export default async function MapDetailPage({ params }: Props) {
       <div className="max-w-5xl mx-auto px-6 py-10 space-y-12">
         {/* Info strip */}
         <div className="flex flex-wrap gap-4">
-          <div className="p-4 border border-zinc-800/40 bg-[#0d0d1a] rounded">
+          <div className="p-4 border border-zinc-800/40 bg-[#0a0a18] rounded">
             <p className="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
               {t.gamemode_label}
             </p>
@@ -142,7 +142,7 @@ export default async function MapDetailPage({ params }: Props) {
             </p>
           </div>
           {map.country_code && (
-            <div className="p-4 border border-zinc-800/40 bg-[#0d0d1a] rounded">
+            <div className="p-4 border border-zinc-800/40 bg-[#0a0a18] rounded">
               <p className="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
                 {t.country_label}
               </p>

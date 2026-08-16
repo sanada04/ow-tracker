@@ -45,7 +45,7 @@ export default function CompareForm({
           value={a}
           onChange={(e) => setA(e.target.value)}
           placeholder={labels.enter_tag}
-          className="h-10 px-4 bg-[#111119] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm rounded"
+          className="h-10 px-4 bg-[#0f0f1c] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm rounded"
         />
       </div>
       <div className="hidden sm:flex items-end pb-2">
@@ -58,7 +58,7 @@ export default function CompareForm({
           value={b}
           onChange={(e) => setB(e.target.value)}
           placeholder={labels.enter_tag}
-          className="h-10 px-4 bg-[#111119] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm rounded"
+          className="h-10 px-4 bg-[#0f0f1c] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm rounded"
         />
       </div>
       <button

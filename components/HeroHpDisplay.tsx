@@ -78,7 +78,7 @@ export default function HeroHpDisplay({ health, armor, shields, total, labels }:
           return (
             <div
               key={label}
-              className="flex-1 min-w-24 border border-zinc-800/60 bg-[#0d0d1a] px-4 py-3 rounded"
+              className="flex-1 min-w-24 border border-zinc-800/60 bg-[#0a0a18] px-4 py-3 rounded"
             >
               <div className="flex items-baseline justify-between mb-2">
                 <span className="text-[10px] uppercase tracking-widest text-zinc-500">{label}</span>

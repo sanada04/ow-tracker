@@ -133,7 +133,7 @@ export default async function MetaPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a12] text-white">
+    <div className="min-h-screen bg-[#080810] text-white">
       <main className="max-w-5xl mx-auto px-6 pt-24 pb-16">
 
         {/* Header */}

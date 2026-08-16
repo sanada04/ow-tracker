@@ -8,10 +8,10 @@ import type { HeroListItem } from "@/types/overwatch";
 
 type Role = "tank" | "damage" | "support";
 
-const ROLE_COLORS: Record<Role, string> = {
-  tank: "text-blue-400 border-blue-500/30 bg-blue-900/10",
-  damage: "text-red-400 border-red-500/30 bg-red-900/10",
-  support: "text-green-400 border-green-500/30 bg-green-900/10",
+const ROLE_ACCENT: Record<Role, { color: string; glow: string; label: string }> = {
+  tank:    { color: "#60a5fa", glow: "rgba(96,165,250,0.2)",   label: "text-blue-400" },
+  damage:  { color: "#f87171", glow: "rgba(248,113,113,0.2)",  label: "text-red-400" },
+  support: { color: "#4ade80", glow: "rgba(74,222,128,0.2)",   label: "text-green-400" },
 };
 
 interface Labels {
@@ -58,9 +58,9 @@ export default function HeroRoster({
   }, [allHeroes, search, role]);
 
   const tabs: { value: Role | "all"; label: string }[] = [
-    { value: "all", label: labels.role_all },
-    { value: "tank", label: labels.role_tank },
-    { value: "damage", label: labels.role_damage },
+    { value: "all",     label: labels.role_all },
+    { value: "tank",    label: labels.role_tank },
+    { value: "damage",  label: labels.role_damage },
     { value: "support", label: labels.role_support },
   ];
 
@@ -73,18 +73,21 @@ export default function HeroRoster({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={labels.search_placeholder}
-          className="flex-1 h-10 px-4 bg-[#111119] border border-zinc-700/60 text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/60 transition-colors text-sm rounded"
+          className="flex-1 h-10 px-4 bg-[#0f0f1c] border border-white/[0.08] text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/50 transition-colors text-sm rounded"
+          style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.03em" }}
         />
         <div className="flex gap-1">
           {tabs.map((t) => (
             <button
               key={t.value}
               onClick={() => setRole(t.value)}
-              className={`px-3 py-2 text-[11px] uppercase tracking-widest font-medium transition-colors border rounded ${
-                role === t.value
-                  ? "border-[#f4a029]/60 text-[#f4a029] bg-[#f4a029]/10"
-                  : "border-zinc-700/40 text-zinc-500 hover:text-zinc-300"
-              }`}
+              className="relative px-4 py-2 text-[11px] uppercase tracking-widest font-bold transition-all duration-200 rounded"
+              style={{
+                fontFamily: '"Rajdhani", system-ui, sans-serif',
+                color: role === t.value ? "#f4a029" : "#52525b",
+                background: role === t.value ? "rgba(244,160,41,0.08)" : "transparent",
+                border: `1px solid ${role === t.value ? "rgba(244,160,41,0.4)" : "rgba(255,255,255,0.07)"}`,
+              }}
             >
               {t.label}
             </button>
@@ -93,47 +96,77 @@ export default function HeroRoster({
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
         {filtered.map((hero, i) => {
           const portrait = imgErrors.has(hero.key) ? null : hero.portrait;
-          const roleColor = ROLE_COLORS[hero.role];
+          const accent = ROLE_ACCENT[hero.role as Role] ?? ROLE_ACCENT.damage;
+
           return (
             <Link
               key={hero.key}
               href={`/${lang}/heroes/${hero.key}`}
-              className="ow-card overflow-hidden group hover:border-[#f4a029]/30 transition-colors animate-fade-up"
-              style={{ animationDelay: `${Math.min(i * 30, 600)}ms` }}
+              className="ow-hero-card group animate-fade-up"
+              style={{ animationDelay: `${Math.min(i * 25, 500)}ms` }}
             >
-              <div className="relative aspect-square overflow-hidden bg-[#0d0d1a]">
+              {/* Role color bar at top */}
+              <div style={{ height: "2px", background: accent.color }} />
+
+              {/* Portrait */}
+              <div className="relative overflow-hidden" style={{ aspectRatio: "1 / 1.1" }}>
                 {portrait ? (
                   <Image
                     src={portrait}
                     alt={hero.name}
                     fill
-                    className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.08]"
                     unoptimized
                     onError={() => setImgErrors((prev) => new Set([...prev, hero.key]))}
                   />
                 ) : (
                   <div
-                    className="w-full h-full flex items-center justify-center text-3xl font-bold text-zinc-700"
+                    className="w-full h-full flex items-center justify-center text-4xl font-black text-zinc-800"
                     style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
                   >
                     {hero.name[0]}
                   </div>
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#131320] via-transparent to-transparent" />
-              </div>
-              <div className="px-3 py-2.5">
-                <p
-                  className="text-white text-sm font-semibold truncate"
-                  style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
-                >
-                  {hero.name}
-                </p>
-                <span className={`inline-block mt-1 text-[9px] uppercase tracking-wider px-1.5 py-0.5 border ${roleColor}`}>
-                  {hero.role}
-                </span>
+
+                {/* Bottom gradient overlay */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: "linear-gradient(to bottom, transparent 40%, rgba(8,8,16,0.95) 100%)",
+                  }}
+                />
+
+                {/* Hero name overlaid on portrait */}
+                <div className="absolute bottom-0 left-0 right-0 px-3 pb-3">
+                  <p
+                    className="text-white font-bold leading-tight truncate"
+                    style={{
+                      fontFamily: '"Rajdhani", system-ui, sans-serif',
+                      fontSize: "0.95rem",
+                      letterSpacing: "0.06em",
+                      textShadow: "0 1px 6px rgba(0,0,0,0.8)",
+                    }}
+                  >
+                    {hero.name}
+                  </p>
+                  <p
+                    className="text-[10px] uppercase tracking-widest font-semibold mt-0.5"
+                    style={{ color: accent.color }}
+                  >
+                    {hero.role}
+                  </p>
+                </div>
+
+                {/* Orange corner accent on hover */}
+                <div
+                  className="absolute top-0 right-0 w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  style={{
+                    background: `linear-gradient(225deg, ${accent.color} 0%, transparent 70%)`,
+                  }}
+                />
               </div>
             </Link>
           );

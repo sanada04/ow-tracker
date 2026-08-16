@@ -89,7 +89,7 @@ function PlayerCard({ data, label, lang }: { data: PlayerData | null; label: str
       {summary.namecard && (
         <div className="relative h-20 overflow-hidden">
           <Image src={summary.namecard} alt="namecard" fill className="object-cover" unoptimized />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#131320]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0c0c1a]" />
         </div>
       )}
       <div className="p-4 flex flex-col items-center text-center gap-2 -mt-6 relative">
@@ -97,7 +97,7 @@ function PlayerCard({ data, label, lang }: { data: PlayerData | null; label: str
           <Image src={summary.avatar} alt={summary.username} width={64} height={64}
             className="rounded border border-zinc-700" unoptimized />
         ) : (
-          <div className="w-16 h-16 border border-zinc-700 bg-[#111119] rounded flex items-center justify-center text-2xl font-bold text-zinc-300">
+          <div className="w-16 h-16 border border-zinc-700 bg-[#0f0f1c] rounded flex items-center justify-center text-2xl font-bold text-zinc-300">
             {summary.username[0]?.toUpperCase()}
           </div>
         )}
@@ -126,7 +126,7 @@ export default async function ComparePage({ params, searchParams }: Props) {
   const statsB = dataB?.stats?.general ?? null;
 
   return (
-    <div className="min-h-screen bg-[#0a0a12] text-white">
+    <div className="min-h-screen bg-[#080810] text-white">
       <main className="max-w-4xl mx-auto px-6 py-12 space-y-8">
         {/* Title */}
         <div className="animate-fade-up">

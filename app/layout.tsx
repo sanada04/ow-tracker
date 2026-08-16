@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Rajdhani } from "next/font/google";
 import Script from "next/script";
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja" className={`${geist.variable} ${rajdhani.variable}`} suppressHydrationWarning>
-      <body className="bg-[#0a0a12] text-[#e8e8f0] antialiased" suppressHydrationWarning>
+      <body className="bg-[#080810] text-[#e8e8f0] antialiased" suppressHydrationWarning>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9780704405934373"
@@ -78,3 +78,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+

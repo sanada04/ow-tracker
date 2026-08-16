@@ -2,29 +2,27 @@
 
 /* ── OW Design Tokens ─────────────────────────────────────────────────── */
 @theme {
-  --color-ow-orange: #f4a029;
+  --color-ow-orange:       #f4a029;
   --color-ow-orange-light: #ffbe55;
-  --color-ow-blue: #1abfe5;
-  --color-ow-bg: #0a0a12;
-  --color-ow-card: #111119;
-  --color-ow-surface: #18181f;
-  --font-heading: var(--font-rajdhani), system-ui, sans-serif;
+  --color-ow-blue:         #1abfe5;
+  --color-ow-bg:           #080810;
+  --color-ow-card:         #0f0f1c;
+  --color-ow-surface:      #161626;
+  --font-heading:          var(--font-rajdhani), system-ui, sans-serif;
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────── */
-:root {
-  --font-geist: system-ui, sans-serif;
-}
+:root { --font-geist: system-ui, sans-serif; }
 
 body {
   font-family: var(--font-geist);
-  background-color: #0a0a12;
+  background-color: #080810;
   color: #e8e8f0;
 }
 
 /* ── Animations ───────────────────────────────────────────────────────── */
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -43,7 +41,22 @@ body {
   50%       { opacity: 0.4; }
 }
 
-.animate-fade-up    { animation: fade-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to   { background-position:  200% center; }
+}
+
+@keyframes slide-in-left {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+.animate-fade-up    { animation: fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
 .animate-fade-in    { animation: fade-in 0.25s ease both; }
 .animate-pulse      { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
 
@@ -61,30 +74,158 @@ body {
 
 /* ── Cards ───────────────────────────────────────────────────────────── */
 .ow-card {
-  background: #111119;
+  background: #0f0f1c;
   border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 4px;
-  transition: background 0.15s, border-color 0.15s;
+  border-radius: 3px;
+  transition: background 0.2s ease, border-color 0.2s ease,
+              box-shadow 0.2s ease, transform 0.2s ease;
 }
 .ow-card:hover {
-  background: #18181f;
+  background: #161626;
+  border-color: rgba(244, 160, 41, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Small card — no lift */
+.ow-card-sm {
+  background: #0f0f1c;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.ow-card-sm:hover {
+  background: #161626;
   border-color: rgba(244, 160, 41, 0.25);
 }
 
-.ow-card-sm {
-  background: #111119;
+/* Hero card — portrait-forward, lifts with glow */
+.ow-hero-card {
+  background: #0c0c1a;
   border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 4px;
+  border-radius: 3px;
+  overflow: hidden;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  position: relative;
+}
+.ow-hero-card:hover {
+  border-color: rgba(244, 160, 41, 0.5);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(244, 160, 41, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Accent top-border card — for featured/highlighted content */
+.ow-card-featured {
+  background: #0f0f1c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 2px solid #f4a029;
+  border-radius: 3px;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.ow-card-featured:hover {
+  background: #161626;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
 }
 
 /* ── Section Title ───────────────────────────────────────────────────── */
 .ow-section-title {
   font-family: "Rajdhani", system-ui, sans-serif;
   font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
+  font-size: 1.5rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #ffffff;
+  position: relative;
+  padding-left: 14px;
+  display: inline-block;
+}
+.ow-section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 3px;
+  background: #f4a029;
+  border-radius: 1px;
+}
+
+/* Inline label (small section divider) */
+.ow-label {
+  font-family: "Rajdhani", system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #52525b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ow-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Accent divider ──────────────────────────────────────────────────── */
+.ow-divider {
+  height: 1px;
+  background: linear-gradient(to right, #f4a029, rgba(244, 160, 41, 0.15), transparent);
+  border: none;
+}
+
+/* ── Orange CTA button ───────────────────────────────────────────────── */
+.ow-btn {
+  font-family: "Rajdhani", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: #f4a029;
+  color: #080810;
+  border: none;
+  border-radius: 2px;
+  padding: 0.6rem 1.4rem;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.ow-btn:hover {
+  background: #ffbe55;
+  box-shadow: 0 0 20px rgba(244, 160, 41, 0.35);
+  transform: translateY(-1px);
+}
+.ow-btn:active {
+  transform: translateY(0);
+}
+
+/* Ghost variant */
+.ow-btn-ghost {
+  font-family: "Rajdhani", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: transparent;
+  color: #f4a029;
+  border: 1px solid rgba(244, 160, 41, 0.5);
+  border-radius: 2px;
+  padding: 0.55rem 1.4rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.ow-btn-ghost:hover {
+  background: rgba(244, 160, 41, 0.08);
+  border-color: #f4a029;
+  color: #ffbe55;
 }
 
 /* ── Stat Value ──────────────────────────────────────────────────────── */
@@ -96,8 +237,73 @@ body {
   letter-spacing: -0.02em;
 }
 
+/* ── Nav link with orange underline ──────────────────────────────────── */
+.ow-nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #71717a;
+  transition: color 0.15s ease;
+  font-family: "Rajdhani", system-ui, sans-serif;
+}
+.ow-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0.75rem;
+  right: 0.75rem;
+  height: 2px;
+  background: #f4a029;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 1px;
+}
+.ow-nav-link:hover {
+  color: #f4a029;
+}
+.ow-nav-link:hover::after {
+  transform: scaleX(1);
+}
+.ow-nav-link.active {
+  color: #f4a029;
+}
+.ow-nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* ── Background textures ─────────────────────────────────────────────── */
+/* Subtle dot-grid for hero sections */
+.ow-bg-dots {
+  background-image: radial-gradient(rgba(244, 160, 41, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Noise grain overlay */
+.ow-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
 /* ── Winrate bar ─────────────────────────────────────────────────────── */
 .winrate-bar {
   animation: bar-fill 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
   animation-delay: 0.2s;
+}
+
+/* ── Shimmer for loading ─────────────────────────────────────────────── */
+.ow-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% auto;
+  animation: shimmer 1.8s linear infinite;
 }

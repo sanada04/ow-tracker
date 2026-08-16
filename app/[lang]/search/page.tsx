@@ -38,7 +38,7 @@ export default async function SearchResultsPage({ params, searchParams }: Props)
   });
 
   return (
-    <div className="min-h-screen bg-[#0a0a12] text-white">
+    <div className="min-h-screen bg-[#080810] text-white">
       <main className="max-w-3xl mx-auto px-6 py-12">
         {/* Search bar */}
         <div className="mb-10">
@@ -81,7 +81,7 @@ export default async function SearchResultsPage({ params, searchParams }: Props)
               <li key={result.player_id}>
                 <Link
                   href={`/${lang}/players/${encodeURIComponent(result.player_id.replace(/%7C/gi, "|"))}`}
-                  className="flex items-center gap-4 px-5 py-4 bg-[#111119] border border-zinc-800/60 hover:border-[#f4a029]/40 hover:bg-[#18181f] transition-colors animate-fade-up rounded"
+                  className="flex items-center gap-4 px-5 py-4 bg-[#0f0f1c] border border-zinc-800/60 hover:border-[#f4a029]/40 hover:bg-[#18181f] transition-colors animate-fade-up rounded"
                   style={{ animationDelay: `${i * 40}ms` }}
                 >
                   {result.avatar ? (

@@ -29,7 +29,7 @@ export default async function ContactPage({ params }: Props) {
   const t = dict.contact;
 
   return (
-    <div className="bg-[#0a0a12] text-white min-h-screen overflow-hidden">
+    <div className="bg-[#080810] text-white min-h-screen overflow-hidden">
       {/* Background decorative elements */}
       <div className="fixed inset-0 pointer-events-none select-none" aria-hidden>
         <div

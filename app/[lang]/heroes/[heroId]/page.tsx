@@ -44,8 +44,16 @@ const ROLE_COLORS = {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-5 pb-2 border-b border-zinc-800">
-      <span className="text-[11px] uppercase tracking-widest text-zinc-500 font-medium">
+    <div className="mb-6 flex items-center gap-3">
+      <div style={{ width: "3px", minHeight: "1.1rem", background: "#f4a029", borderRadius: "1px", flexShrink: 0, alignSelf: "stretch" }} />
+      <span style={{
+        fontFamily: '"Rajdhani", system-ui, sans-serif',
+        fontSize: "0.8rem",
+        fontWeight: 700,
+        letterSpacing: "0.2em",
+        textTransform: "uppercase" as const,
+        color: "#ffffff",
+      }}>
         {children}
       </span>
     </div>
@@ -57,7 +65,7 @@ function PerkCard({ perk, highlight = false }: { perk: HeroPerk; highlight?: boo
     <div className={`flex gap-4 p-4 border rounded transition-colors ${
       highlight
         ? "border-[#f4a029]/25 bg-[#f4a029]/5"
-        : "border-zinc-800/60 bg-[#0d0d1a]"
+        : "border-zinc-800/60 bg-[#0a0a18]"
     }`}
     >
       <div className={`shrink-0 w-10 h-10 rounded-sm border overflow-hidden ${
@@ -86,7 +94,7 @@ function StoryChapter({ chapter, index }: { chapter: HeroStoryChapter; index: nu
         <div className="sm:w-72 shrink-0">
           <div className="relative aspect-[16/10] overflow-hidden border border-zinc-800/60 rounded">
             <Image src={chapter.picture} alt={chapter.title} fill className="object-cover" unoptimized />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12]/70 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#080810]/70 to-transparent" />
           </div>
         </div>
       )}
@@ -127,7 +135,7 @@ export default async function HeroDetailPage({ params }: Props) {
   const roleLabel = dict.player.roles[hero.role as keyof typeof dict.player.roles] ?? hero.role;
 
   return (
-    <div className="min-h-screen bg-[#0a0a12] text-white">
+    <div className="min-h-screen bg-[#080810] text-white">
 
       {/* ── Cinematic banner ── */}
       <div className="relative h-[55vh] min-h-72 overflow-hidden">
@@ -142,7 +150,7 @@ export default async function HeroDetailPage({ params }: Props) {
             }} />
           </>
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-b from-[#131320] to-[#0a0a12]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0c0c1a] to-[#080810]" />
         )}
 
         {/* Hero name overlaid on banner */}
@@ -276,7 +284,7 @@ export default async function HeroDetailPage({ params }: Props) {
             <SectionLabel>{t.stadium_label}</SectionLabel>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
               {hero.stadium_powers.map(p => (
-                <div key={p.name} className="flex gap-3 p-3 border border-zinc-800/40 bg-[#0d0d1a] rounded">
+                <div key={p.name} className="flex gap-3 p-3 border border-zinc-800/40 bg-[#0a0a18] rounded">
                   <div className="w-8 h-8 shrink-0 rounded-sm border border-zinc-700/40 overflow-hidden">
                     <Image src={p.icon} alt={p.name} width={32} height={32} unoptimized />
                   </div>

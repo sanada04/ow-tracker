@@ -200,7 +200,7 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
                   voted
                     ? "border-[#f4a029]/50 bg-[#f4a029]/5 text-white"
                     : canVote
-                    ? "border-zinc-800 bg-[#111119] text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
+                    ? "border-zinc-800 bg-[#0f0f1c] text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
                     : "border-zinc-800/30 bg-[#0d0d15] text-zinc-600 opacity-50 cursor-not-allowed"
                 }`}
               >

@@ -10,70 +10,49 @@ export default function SiteHeader({
   dict?: Dictionary;
   lang?: Locale;
 }) {
+  const navItems = [
+    { href: `/${lang}/heroes`,                label: dict?.header.nav_heroes },
+    { href: `/${lang}/tier-list`,             label: dict?.tier_list.nav },
+    { href: `/${lang}/meta`,                  label: dict?.meta_page.nav },
+    { href: `/${lang}/maps`,                  label: dict?.maps_page.nav },
+    { href: `/${lang}/counters`,              label: dict?.counters_page.nav },
+    { href: `/${lang}/stats/rank-distribution`, label: dict?.rank_page.nav },
+    { href: `/${lang}/compare`,               label: dict?.header.nav_compare },
+  ];
+
   return (
-    <header className="border-b border-zinc-800/60 bg-[#0d0d1a]/90 backdrop-blur-sm fixed top-0 left-0 right-0 z-30">
-      <div className="max-w-5xl mx-auto px-6 h-[60px] flex items-center gap-4">
+    <header
+      className="fixed top-0 left-0 right-0 z-30"
+      style={{
+        background: "rgba(8, 8, 16, 0.92)",
+        backdropFilter: "blur(12px)",
+        borderBottom: "1px solid rgba(244, 160, 41, 0.12)",
+      }}
+    >
+      <div className="max-w-6xl mx-auto px-6 h-[60px] flex items-center gap-2">
+        {/* Logo */}
         <Link
           href={`/${lang}`}
-          className="text-[#f4a029] font-bold text-base tracking-widest shrink-0 hover:text-[#ffbe55] transition-colors"
+          className="shrink-0 mr-2 hover:opacity-90 transition-opacity"
           style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.15em" }}
         >
-          <span className="text-[#fff]">OW</span> TRACKER
+          <span className="text-white font-black text-lg">OW</span>
+          <span className="text-[#f4a029] font-black text-lg"> TRACKER</span>
         </Link>
-        {/* Nav links */}
-        <nav className="hidden sm:flex items-center gap-1">
-          <Link
-            href={`/${lang}/heroes`}
-            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
-          >
-            {dict?.header.nav_heroes}
-          </Link>
-          <Link
-            href={`/${lang}/compare`}
-            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
-          >
-            {dict?.header.nav_compare}
-          </Link>
-          <Link
-            href={`/${lang}/tier-list`}
-            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
-          >
-            {dict?.tier_list.nav}
-          </Link>
-          <Link
-            href={`/${lang}/meta`}
-            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
-          >
-            {dict?.meta_page.nav}
-          </Link>
-          <Link
-            href={`/${lang}/maps`}
-            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
-          >
-            {dict?.maps_page.nav}
-          </Link>
-          <Link
-            href={`/${lang}/counters`}
-            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
-          >
-            {dict?.counters_page.nav}
-          </Link>
-          <Link
-            href={`/${lang}/stats/rank-distribution`}
-            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
-          >
-            {dict?.rank_page.nav}
-          </Link>
-          <Link
-            href={`/${lang}/contact`}
-            className="px-3 py-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#f4a029] transition-colors"
-          >
-            {dict?.contact.nav}
-          </Link>
+
+        {/* Nav */}
+        <nav className="hidden lg:flex items-center">
+          {navItems.map(({ href, label }) => (
+            <Link key={href} href={href} className="ow-nav-link">
+              {label}
+            </Link>
+          ))}
         </nav>
-        <div className="flex-1 flex justify-end">
-          <HeaderSearch dict={dict} lang={lang} />
-        </div>
+
+        <div className="flex-1" />
+
+        {/* Search + lang */}
+        <HeaderSearch dict={dict} lang={lang} />
         <LanguageSwitcher lang={lang} />
       </div>
     </header>

@@ -109,7 +109,7 @@ function HeroCard({
 
       {/* Tier picker popover */}
       {open && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 flex gap-1 p-1.5 rounded border border-zinc-700/60 bg-[#0d0d1a] shadow-xl">
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 flex gap-1 p-1.5 rounded border border-zinc-700/60 bg-[#0a0a18] shadow-xl">
           {TIERS.map((t) => (
             <button
               key={t}
