@@ -96,24 +96,29 @@ export default async function HomePage({ params }: Props) {
           style={{ borderRight: "1px solid rgba(255,255,255,0.04)" }}
         >
           {/* Page heading */}
-          <h1
-            className="animate-fade-up"
-            style={{
-              fontFamily: '"Rajdhani", system-ui, sans-serif',
-              fontWeight: 900,
-              fontSize: "clamp(2.2rem, 5vw, 3.6rem)",
-              lineHeight: 1.05,
-              letterSpacing: "0.03em",
-              color: "#f0f0ff",
-              marginBottom: "2rem",
-              animationDelay: "-40ms",
-            }}
-          >
-            <span style={{ color: "#505070", fontWeight: 600, fontSize: "0.55em", letterSpacing: "0.12em", display: "block", marginBottom: "0.2em" }}>
-              OVERWATCH 2
-            </span>
-            {isEn ? "STATS TRACKER" : "戦績トラッカー"}
-          </h1>
+          <div className="animate-fade-up" style={{ marginBottom: "2rem", animationDelay: "-40ms" }}>
+            <h1
+              style={{
+                fontFamily: '"Rajdhani", system-ui, sans-serif',
+                fontWeight: 900,
+                fontSize: "clamp(2.2rem, 5vw, 3.6rem)",
+                lineHeight: 1.05,
+                letterSpacing: "0.04em",
+              }}
+            >
+              <span style={{ color: "#f4a029", textShadow: "0 0 40px rgba(244,160,41,0.22)" }}>OW</span>
+              <span style={{ color: "#f0f0ff" }}> TRACKER</span>
+            </h1>
+            <div
+              style={{
+                marginTop: "0.45rem",
+                width: "52px",
+                height: "2px",
+                background: "linear-gradient(to right, #f4a029, transparent)",
+                borderRadius: "1px",
+              }}
+            />
+          </div>
 
           {/* Mono label */}
           <p
