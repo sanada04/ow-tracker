@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${title} — OW Tracker`,
       description: t.subtitle,
     },
+    robots: { index: false, follow: true },
   };
 }
 
@@ -153,6 +154,24 @@ export default async function HeroVsPage({ params }: Props) {
             </div>
           </div>
         </div>
+
+        {/* Hero descriptions */}
+        {(heroA?.description || heroB?.description) && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            {heroA?.description && (
+              <div className="ow-card p-4">
+                <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-2">{nameA}</p>
+                <p className="text-[#9090b0] text-sm leading-relaxed">{heroA.description}</p>
+              </div>
+            )}
+            {heroB?.description && (
+              <div className="ow-card p-4">
+                <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-2">{nameB}</p>
+                <p className="text-[#9090b0] text-sm leading-relaxed">{heroB.description}</p>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Stats comparison */}
         <section className="mb-8">

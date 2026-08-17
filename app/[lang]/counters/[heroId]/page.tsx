@@ -98,6 +98,16 @@ export default async function CounterPage({ params }: Props) {
           </div>
         </div>
 
+        {/* Hero description — adds content for SEO/AdSense */}
+        {heroDetail?.description && (
+          <div className="mb-8 ow-card p-5">
+            <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-3">
+              {lang === "ja" ? "ヒーロー紹介" : "About this Hero"}
+            </p>
+            <p className="text-[#9090b0] text-sm leading-relaxed">{heroDetail.description}</p>
+          </div>
+        )}
+
         {/* Counter voting */}
         <CounterList
           heroKey={heroId}
@@ -107,56 +117,93 @@ export default async function CounterPage({ params }: Props) {
           lang={lang}
         />
 
-        {/* Hero info from OverFast */}
+        {/* Hero stats + abilities — core content for counter analysis */}
         {heroDetail && (
-          <section className="mt-10">
-            <div className="mb-4 pb-2 border-b border-zinc-800">
-              <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
-                {t.hero_info}
-              </span>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {heroDetail.hitpoints && (
-                <>
-                  <div className="ow-card p-4 text-center">
-                    <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
-                      {dict.hero_detail.hp_total}
-                    </p>
-                    <p className="text-2xl font-bold text-white" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
-                      {heroDetail.hitpoints.total}
-                    </p>
-                  </div>
-                  {heroDetail.hitpoints.armor > 0 && (
+          <section className="mt-10 space-y-6">
+            {/* HP stats */}
+            <div>
+              <div className="mb-4 pb-2 border-b border-zinc-800">
+                <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+                  {t.hero_info}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {heroDetail.hitpoints && (
+                  <>
                     <div className="ow-card p-4 text-center">
                       <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
-                        {dict.hero_detail.hp_armor}
+                        {dict.hero_detail.hp_total}
                       </p>
-                      <p className="text-2xl font-bold text-[#f4a029]" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
-                        {heroDetail.hitpoints.armor}
-                      </p>
-                    </div>
-                  )}
-                  {heroDetail.hitpoints.shields > 0 && (
-                    <div className="ow-card p-4 text-center">
-                      <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
-                        {dict.hero_detail.hp_shields}
-                      </p>
-                      <p className="text-2xl font-bold text-blue-400" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
-                        {heroDetail.hitpoints.shields}
+                      <p className="text-2xl font-bold text-white" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                        {heroDetail.hitpoints.total}
                       </p>
                     </div>
-                  )}
-                </>
-              )}
-              <div className="ow-card p-4 text-center">
-                <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
-                  {dict.hero_detail.abilities_label}
-                </p>
-                <p className="text-2xl font-bold text-white" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
-                  {heroDetail.abilities.length}
-                </p>
+                    {heroDetail.hitpoints.armor > 0 && (
+                      <div className="ow-card p-4 text-center">
+                        <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
+                          {dict.hero_detail.hp_armor}
+                        </p>
+                        <p className="text-2xl font-bold text-[#f4a029]" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                          {heroDetail.hitpoints.armor}
+                        </p>
+                      </div>
+                    )}
+                    {heroDetail.hitpoints.shields > 0 && (
+                      <div className="ow-card p-4 text-center">
+                        <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
+                          {dict.hero_detail.hp_shields}
+                        </p>
+                        <p className="text-2xl font-bold text-blue-400" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                          {heroDetail.hitpoints.shields}
+                        </p>
+                      </div>
+                    )}
+                  </>
+                )}
+                <div className="ow-card p-4 text-center">
+                  <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
+                    {dict.hero_detail.abilities_label}
+                  </p>
+                  <p className="text-2xl font-bold text-white" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                    {heroDetail.abilities.length}
+                  </p>
+                </div>
               </div>
             </div>
+
+            {/* Abilities — crucial for understanding how to counter this hero */}
+            {heroDetail.abilities.length > 0 && (
+              <div>
+                <div className="mb-4 pb-2 border-b border-zinc-800">
+                  <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+                    {lang === "ja" ? `${displayName} のアビリティ` : `${displayName} Abilities`}
+                  </span>
+                </div>
+                <div className="space-y-3">
+                  {heroDetail.abilities.map((ability) => (
+                    <div key={ability.name} className="ow-card-sm p-4 flex gap-4">
+                      {ability.icon && (
+                        <div className="w-10 h-10 shrink-0 rounded border border-zinc-700/40 overflow-hidden bg-zinc-800/40">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={ability.icon} alt={ability.name} className="w-full h-full object-contain" />
+                        </div>
+                      )}
+                      <div className="min-w-0">
+                        <p className="text-white text-sm font-semibold mb-1" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                          {ability.name}
+                        </p>
+                        <p className="text-[#9090b0] text-xs leading-relaxed">{ability.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-xs text-[#505070] mt-3">
+                  {lang === "ja"
+                    ? `${displayName} のアビリティを理解することが、効果的なカウンターピックの第一歩です。`
+                    : `Understanding ${displayName}'s abilities is the first step to picking an effective counter.`}
+                </p>
+              </div>
+            )}
           </section>
         )}
 

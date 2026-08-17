@@ -312,6 +312,72 @@ export default async function HomePage({ params }: Props) {
         </div>
       </div>
 
+      {/* ── About section — content for AdSense/SEO ── */}
+      <div
+        className="max-w-6xl mx-auto px-8 py-12"
+        style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}
+      >
+        <p
+          style={{
+            fontFamily: "ui-monospace, monospace",
+            fontSize: "0.6rem",
+            letterSpacing: "0.25em",
+            color: "#505070",
+            marginBottom: "1rem",
+          }}
+        >
+          {isEn ? "ABOUT" : "このサービスについて"}
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl">
+          {(isEn ? [
+            {
+              title: "Player Stats",
+              body: "Search any Overwatch 2 player by BattleTag. View competitive ranks for Tank, Damage, and Support roles — plus win rate, KDA, and hero stats.",
+            },
+            {
+              title: "Hero Database",
+              body: "Detailed data on every OW2 hero: abilities, perks, HP breakdown, role info, and full lore. Updated from the official API.",
+            },
+            {
+              title: "Meta & Counters",
+              body: "Community-voted tier list, counter picks, rank distribution, and map data — all in one place.",
+            },
+          ] : [
+            {
+              title: "プレイヤー戦績",
+              body: "BattleTagで検索するだけ。タンク・ダメージ・サポートのランク、勝率、KDA、ヒーロー別スタッツを即確認。",
+            },
+            {
+              title: "ヒーロー情報",
+              body: "Overwatch 2 の全ヒーローのアビリティ・パーク・HP・ロール・ストーリーを公式APIから最新データで提供。",
+            },
+            {
+              title: "メタ・カウンター",
+              body: "コミュニティ投票によるTierList・カウンター情報・ランク分布・マップデータを一か所で確認。",
+            },
+          ]).map((item) => (
+            <div key={item.title}>
+              <p
+                style={{
+                  fontFamily: '"Rajdhani", system-ui, sans-serif',
+                  fontSize: "0.85rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase" as const,
+                  color: "#d8d8f0",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                {item.title}
+              </p>
+              <p style={{ fontSize: "0.8rem", lineHeight: 1.7, color: "#686888" }}>
+                {item.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* ── Mobile nav (only visible < lg) ── */}
       <div
         className="lg:hidden px-6 py-8"
