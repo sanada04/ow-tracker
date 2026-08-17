@@ -134,7 +134,7 @@ export default async function HomePage({ params }: Props) {
             PLAYER LOOKUP
           </p>
 
-          <div className="max-w-xl w-full animate-fade-up" style={{ animationDelay: "60ms" }}>
+          <div className="max-w-xl w-full animate-fade-up" style={{ animationDelay: "60ms", position: "relative", zIndex: 10 }}>
             <SearchBar
               placeholder={dict.search.placeholder}
               buttonText={dict.search.button}
