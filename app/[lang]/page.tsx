@@ -95,6 +95,26 @@ export default async function HomePage({ params }: Props) {
           className="px-8 py-14 lg:py-20 flex flex-col justify-center"
           style={{ borderRight: "1px solid rgba(255,255,255,0.04)" }}
         >
+          {/* Page heading */}
+          <h1
+            className="animate-fade-up"
+            style={{
+              fontFamily: '"Rajdhani", system-ui, sans-serif',
+              fontWeight: 900,
+              fontSize: "clamp(2.2rem, 5vw, 3.6rem)",
+              lineHeight: 1.05,
+              letterSpacing: "0.03em",
+              color: "#f0f0ff",
+              marginBottom: "2rem",
+              animationDelay: "-40ms",
+            }}
+          >
+            <span style={{ color: "#505070", fontWeight: 600, fontSize: "0.55em", letterSpacing: "0.12em", display: "block", marginBottom: "0.2em" }}>
+              OVERWATCH 2
+            </span>
+            {isEn ? "STATS TRACKER" : "戦績トラッカー"}
+          </h1>
+
           {/* Mono label */}
           <p
             className="mb-8 animate-fade-up"
