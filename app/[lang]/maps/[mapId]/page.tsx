@@ -71,7 +71,7 @@ export default async function MapDetailPage({ params }: Props) {
   );
 
   return (
-    <div className="min-h-screen bg-[#07070e] text-white">
+    <div className="min-h-screen bg-[#0c0c10] text-white">
       {/* Banner */}
       <div className="relative h-[50vh] min-h-64 overflow-hidden">
         <Image
@@ -100,7 +100,7 @@ export default async function MapDetailPage({ params }: Props) {
         <div className="absolute bottom-0 left-0 right-0 max-w-5xl mx-auto px-6 pb-8">
           <Link
             href={`/${lang}/maps`}
-            className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#00c4ef] transition-colors mb-5"
+            className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#00ccff] transition-colors mb-5"
           >
             <span className="text-xs">←</span> {t.back}
           </Link>
@@ -133,7 +133,7 @@ export default async function MapDetailPage({ params }: Props) {
       <div className="max-w-5xl mx-auto px-6 py-10 space-y-12">
         {/* Info strip */}
         <div className="flex flex-wrap gap-4">
-          <div className="p-4 border border-zinc-800/40 bg-[#0a0a18] rounded">
+          <div className="p-4 border border-zinc-800/40 bg-[#10101a] rounded">
             <p className="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
               {t.gamemode_label}
             </p>
@@ -142,7 +142,7 @@ export default async function MapDetailPage({ params }: Props) {
             </p>
           </div>
           {map.country_code && (
-            <div className="p-4 border border-zinc-800/40 bg-[#0a0a18] rounded">
+            <div className="p-4 border border-zinc-800/40 bg-[#10101a] rounded">
               <p className="text-[10px] uppercase tracking-widest text-zinc-600 mb-1">
                 {t.country_label}
               </p>
@@ -162,7 +162,7 @@ export default async function MapDetailPage({ params }: Props) {
                 <Link
                   key={m.key}
                   href={`/${lang}/maps/${m.key}`}
-                  className="group relative block rounded overflow-hidden border border-zinc-800/40 hover:border-[#00c4ef]/35 transition-all"
+                  className="group relative block rounded overflow-hidden border border-zinc-800/40 hover:border-[#00ccff]/35 transition-all"
                 >
                   <div className="relative aspect-video bg-zinc-900">
                     <Image

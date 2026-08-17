@@ -79,11 +79,11 @@ export default async function HeroVsPage({ params }: Props) {
     const bWins = numA !== null && numB !== null && numB > numA;
     return (
       <div className={`grid grid-cols-3 items-center py-3 border-b border-zinc-800/50 last:border-0 ${highlight ? "bg-zinc-800/10" : ""}`}>
-        <span className={`text-sm text-right pr-4 tabular-nums ${aWins ? "text-[#00c4ef] font-semibold" : "text-zinc-300"}`}>
+        <span className={`text-sm text-right pr-4 tabular-nums ${aWins ? "text-[#00ccff] font-semibold" : "text-zinc-300"}`}>
           {valA ?? "—"}
         </span>
         <span className="text-xs text-center text-zinc-500 uppercase tracking-wider">{label}</span>
-        <span className={`text-sm text-left pl-4 tabular-nums ${bWins ? "text-[#00c4ef] font-semibold" : "text-zinc-300"}`}>
+        <span className={`text-sm text-left pl-4 tabular-nums ${bWins ? "text-[#00ccff] font-semibold" : "text-zinc-300"}`}>
           {valB ?? "—"}
         </span>
       </div>
@@ -91,7 +91,7 @@ export default async function HeroVsPage({ params }: Props) {
   }
 
   return (
-    <div className="min-h-screen bg-[#07070e] text-white">
+    <div className="min-h-screen bg-[#0c0c10] text-white">
       <main className="max-w-4xl mx-auto px-6 py-12">
         {/* Back */}
         <Link
@@ -111,7 +111,7 @@ export default async function HeroVsPage({ params }: Props) {
               )}
               <Link
                 href={`/${lang}/heroes/${heroId}`}
-                className="text-xl font-bold text-white hover:text-[#00c4ef] transition-colors text-center"
+                className="text-xl font-bold text-white hover:text-[#00ccff] transition-colors text-center"
                 style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
               >
                 {nameA}
@@ -140,7 +140,7 @@ export default async function HeroVsPage({ params }: Props) {
               )}
               <Link
                 href={`/${lang}/heroes/${vsId}`}
-                className="text-xl font-bold text-white hover:text-[#00c4ef] transition-colors text-center"
+                className="text-xl font-bold text-white hover:text-[#00ccff] transition-colors text-center"
                 style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
               >
                 {nameB}
@@ -254,7 +254,7 @@ export default async function HeroVsPage({ params }: Props) {
           <div className="grid grid-cols-2 gap-3">
             <Link
               href={`/${lang}/counters/${heroId}`}
-              className="ow-card p-4 flex items-center gap-3 hover:border-[#00c4ef]/35 transition-colors"
+              className="ow-card p-4 flex items-center gap-3 hover:border-[#00ccff]/35 transition-colors"
             >
               {portraitA && (
                 <Image src={portraitA} alt={nameA} width={36} height={36} className="rounded shrink-0" unoptimized />
@@ -266,7 +266,7 @@ export default async function HeroVsPage({ params }: Props) {
             </Link>
             <Link
               href={`/${lang}/counters/${vsId}`}
-              className="ow-card p-4 flex items-center gap-3 hover:border-[#00c4ef]/35 transition-colors"
+              className="ow-card p-4 flex items-center gap-3 hover:border-[#00ccff]/35 transition-colors"
             >
               {portraitB && (
                 <Image src={portraitB} alt={nameB} width={36} height={36} className="rounded shrink-0" unoptimized />

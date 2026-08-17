@@ -113,11 +113,11 @@ export default function SearchBar({
             value={value}
             onChange={(e) => { setValue(e.target.value); setNoResults(false); }}
             onFocus={(e) => {
-              (e.target as HTMLInputElement).style.borderColor = "rgba(0,196,239,0.5)";
+              (e.target as HTMLInputElement).style.borderColor = "rgba(0,204,255,0.55)";
               if (suggestions.length > 0) setOpen(true);
             }}
             onBlur={(e) => {
-              (e.target as HTMLInputElement).style.borderColor = "rgba(0,196,239,0.18)";
+              (e.target as HTMLInputElement).style.borderColor = "rgba(255,255,255,0.12)";
             }}
             placeholder={placeholder}
             autoComplete="off"
@@ -125,8 +125,8 @@ export default function SearchBar({
             className="w-full px-5 text-white placeholder-zinc-600 focus:outline-none transition-colors text-sm"
             style={{
               height: compact ? "40px" : "52px",
-              background: "#0c0c1a",
-              border: "1px solid rgba(0,196,239,0.18)",
+              background: "#101014",
+              border: "1px solid rgba(255,255,255,0.12)",
               borderRight: "none",
               borderRadius: "2px 0 0 2px",
               fontFamily: '"Rajdhani", system-ui, sans-serif',
@@ -136,7 +136,7 @@ export default function SearchBar({
           />
           {loading && (
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
-              <div className="w-4 h-4 border-2 border-[#00c4ef] border-t-transparent rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-[#00ccff] border-t-transparent rounded-full animate-spin" />
             </div>
           )}
         </div>
@@ -168,12 +168,12 @@ export default function SearchBar({
         <div
           className="absolute mt-1 w-full z-50 px-4 py-3 text-sm text-zinc-400"
           style={{
-            background: "#0b0b1c",
-            border: "1px solid rgba(0,196,239,0.12)",
+            background: "#141418",
+            border: "1px solid rgba(255,255,255,0.1)",
             borderRadius: "2px",
           }}
         >
-          {noResultsText}
+          <span className="text-[#9090b0] text-sm">{noResultsText}</span>
         </div>
       )}
 
@@ -182,8 +182,8 @@ export default function SearchBar({
         <ul
           className="absolute z-50 mt-1 w-full shadow-2xl overflow-hidden"
           style={{
-            background: "#0b0b1c",
-            border: "1px solid rgba(0,196,239,0.18)",
+            background: "#141418",
+            border: "1px solid rgba(0,204,255,0.25)",
             borderRadius: "2px",
           }}
         >
@@ -225,7 +225,7 @@ export default function SearchBar({
                     {result.name}
                   </p>
                   {result.title && (
-                    <p className="text-[11px] text-[#00c4ef]/50 truncate">{result.title}</p>
+                    <p className="text-[11px] text-[#00ccff]/50 truncate">{result.title}</p>
                   )}
                 </div>
                 {!result.is_public && (

@@ -82,7 +82,7 @@ export default async function HomePage({ params }: Props) {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: "#07070e", color: "#e8e8f8" }}>
+    <div className="min-h-screen" style={{ background: "#0c0c10", color: "#f0f0ff" }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* ── Split layout ── */}

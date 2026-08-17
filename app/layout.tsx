@@ -59,7 +59,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja" className={`${geist.variable} ${rajdhani.variable}`} suppressHydrationWarning>
-      <body className="bg-[#07070e] text-[#e8e8f8] antialiased" suppressHydrationWarning>
+      <body className="bg-[#0c0c10] text-[#f0f0ff] antialiased" suppressHydrationWarning>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9780704405934373"

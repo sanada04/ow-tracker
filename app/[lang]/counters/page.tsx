@@ -39,7 +39,7 @@ export default async function CountersIndexPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[#07070e] text-white">
+    <div className="min-h-screen bg-[#0c0c10] text-white">
       <main className="max-w-5xl mx-auto px-6 py-12">
         <div className="mb-10">
           <h1
@@ -63,7 +63,7 @@ export default async function CountersIndexPage({ params }: Props) {
                 <Link
                   key={hero.key}
                   href={`/${lang}/counters/${hero.key}`}
-                  className="ow-card p-3 flex flex-col items-center gap-2 text-center hover:border-[#00c4ef]/35 transition-colors"
+                  className="ow-card p-3 flex flex-col items-center gap-2 text-center hover:border-[#00ccff]/35 transition-colors"
                 >
                   <Image
                     src={HERO_PORTRAITS[hero.key] ?? hero.portrait}

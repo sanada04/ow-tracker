@@ -70,7 +70,7 @@ export default async function PlayerPage({ params, searchParams }: Props) {
     summary = await getPlayerSummary(playerId);
   } catch {
     return (
-      <div className="min-h-screen bg-[#07070e] text-white">
+      <div className="min-h-screen bg-[#0c0c10] text-white">
         <main className="max-w-5xl mx-auto px-6 py-20 text-center space-y-8 animate-fade-up">
           <div className="inline-block text-5xl font-bold text-[#f4a029]/20 mb-2"
             style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
@@ -105,7 +105,7 @@ export default async function PlayerPage({ params, searchParams }: Props) {
   const battleTag = formatBattleTag(playerId);
 
   return (
-    <div className="min-h-screen bg-[#07070e] text-white">
+    <div className="min-h-screen bg-[#0c0c10] text-white">
       {/* Record this player in localStorage history */}
       <PlayerHistoryRecorder playerId={playerId} username={summary.username} avatar={summary.avatar} />
 
@@ -114,10 +114,10 @@ export default async function PlayerPage({ params, searchParams }: Props) {
         {summary.namecard ? (
           <>
             <Image src={summary.namecard} alt="namecard" fill className="object-cover" unoptimized priority />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#07070e]/30 via-[#07070e]/50 to-[#07070e]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0c0c10]/30 via-[#0c0c10]/50 to-[#0c0c10]" />
           </>
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0c0c1a] to-[#07070e]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#101014] to-[#0c0c10]" />
         )}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full opacity-10"
@@ -134,12 +134,12 @@ export default async function PlayerPage({ params, searchParams }: Props) {
               <Image src={summary.avatar} alt={summary.username} width={96} height={96}
                 className="rounded border border-zinc-700" unoptimized priority />
             ) : (
-              <div className="w-24 h-24 border border-zinc-700 bg-[#0f0f1c] rounded flex items-center justify-center text-3xl font-bold text-zinc-300">
+              <div className="w-24 h-24 border border-zinc-700 bg-[#141418] rounded flex items-center justify-center text-3xl font-bold text-zinc-300">
                 {summary.username[0].toUpperCase()}
               </div>
             )}
             {summary.endorsement && (
-              <div className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-[#07070e] border border-zinc-700 flex items-center justify-center">
+              <div className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-[#0c0c10] border border-zinc-700 flex items-center justify-center">
                 <Image src={summary.endorsement.frame} alt="endorsement" width={22} height={22} unoptimized />
               </div>
             )}

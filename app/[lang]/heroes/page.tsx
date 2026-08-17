@@ -26,7 +26,7 @@ export default async function HeroesPage({ params }: Props) {
   const heroes = await getHeroes(lang).catch(() => []);
 
   return (
-    <div className="min-h-screen bg-[#07070e] text-white">
+    <div className="min-h-screen bg-[#0c0c10] text-white">
       <main className="max-w-5xl mx-auto px-6 py-12 space-y-8">
         <div className="animate-fade-up">
           <p className="ow-section-title mb-1">{t.title}</p>

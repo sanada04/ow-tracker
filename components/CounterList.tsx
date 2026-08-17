@@ -133,7 +133,7 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
                   <div className="flex-1 min-w-0">
                     <Link
                       href={`/${lang}/heroes/${hero.key}`}
-                      className="text-white font-semibold hover:text-[#00c4ef] transition-colors"
+                      className="text-white font-semibold hover:text-[#00ccff] transition-colors"
                       style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
                     >
                       {getHeroDisplayName(hero.key)}
@@ -141,7 +141,7 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
                     <div className="flex items-center gap-2 mt-1">
                       <div className="flex-1 h-1 bg-zinc-800 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-[#00c4ef]/45 rounded-full transition-all duration-500"
+                          className="h-full bg-[#00ccff]/45 rounded-full transition-all duration-500"
                           style={{ width: `${pct}%` }}
                         />
                       </div>
@@ -162,7 +162,7 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
                       disabled={isPending}
                       className={`text-[11px] px-3 py-1 rounded border transition-colors ${
                         voted
-                          ? "border-[#00c4ef]/50 text-[#00c4ef] bg-[#00c4ef]/8"
+                          ? "border-[#00ccff]/50 text-[#00ccff] bg-[#00ccff]/8"
                           : "border-zinc-700/50 text-zinc-400 hover:border-zinc-500"
                       }`}
                     >
@@ -198,10 +198,10 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
                 disabled={!canVote || isPending}
                 className={`flex items-center gap-2 p-2.5 rounded border text-left transition-colors ${
                   voted
-                    ? "border-[#00c4ef]/45 bg-[#00c4ef]/5 text-white"
+                    ? "border-[#00ccff]/45 bg-[#00ccff]/5 text-white"
                     : canVote
-                    ? "border-zinc-800 bg-[#0f0f1c] text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
-                    : "border-zinc-800/30 bg-[#0d0d15] text-zinc-600 opacity-50 cursor-not-allowed"
+                    ? "border-zinc-800 bg-[#141418] text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
+                    : "border-zinc-800/30 bg-[#10101a] text-zinc-600 opacity-50 cursor-not-allowed"
                 }`}
               >
                 <Image
@@ -219,7 +219,7 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
                   {getHeroDisplayName(hero.key)}
                 </span>
                 {voted && (
-                  <span className="ml-auto text-[#00c4ef] shrink-0 text-xs">✓</span>
+                  <span className="ml-auto text-[#00ccff] shrink-0 text-xs">✓</span>
                 )}
               </button>
             );

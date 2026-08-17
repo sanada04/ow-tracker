@@ -73,7 +73,7 @@ export default function HeroRoster({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={labels.search_placeholder}
-          className="flex-1 h-10 px-4 bg-[#0f0f1c] border border-white/[0.08] text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/50 transition-colors text-sm rounded"
+          className="flex-1 h-10 px-4 bg-[#141418] border border-white/[0.08] text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/50 transition-colors text-sm rounded"
           style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.03em" }}
         />
         <div className="flex gap-1">

@@ -31,7 +31,7 @@ export default async function MapsPage({ params }: Props) {
   const maps = await getMaps(lang).catch(() => []);
 
   return (
-    <div className="min-h-screen bg-[#07070e] text-white">
+    <div className="min-h-screen bg-[#0c0c10] text-white">
       <main className="max-w-5xl mx-auto px-6 pt-24 pb-16">
         <div className="mb-8 animate-fade-up">
           <p className="ow-section-title mb-1">{t.title}</p>
