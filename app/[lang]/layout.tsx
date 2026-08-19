@@ -20,12 +20,13 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       languages: {
         ja: "/ja",
         en: "/en",
+        ko: "/ko",
         "x-default": "/ja",
       },
     },
     openGraph: {
-      locale: lang === "en" ? "en_US" : "ja_JP",
-      alternateLocale: lang === "en" ? "ja_JP" : "en_US",
+      locale: lang === "en" ? "en_US" : lang === "ko" ? "ko_KR" : "ja_JP",
+      alternateLocale: lang === "en" ? ["ja_JP", "ko_KR"] : lang === "ko" ? ["ja_JP", "en_US"] : ["en_US", "ko_KR"],
     },
   };
 }
