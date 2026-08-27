@@ -6,7 +6,7 @@ import { getDictionary } from "@/lib/i18n";
 import AbilityShowcase from "@/components/AbilityShowcase";
 import HeroHpDisplay from "@/components/HeroHpDisplay";
 import { getHeroDisplayName, HERO_PORTRAITS } from "@/lib/heroes";
-import { getHeroGuide } from "@/lib/hero-guides";
+import { getHeroGuide, HERO_TIPS } from "@/lib/hero-guides";
 import type { Metadata } from "next";
 import type { HeroPerk, HeroStoryChapter } from "@/types/overwatch";
 
@@ -326,15 +326,39 @@ export default async function HeroDetailPage({ params }: Props) {
           const guide = getHeroGuide(hero.role, lang);
           if (!guide) return null;
           const isEn = lang === "en";
+          const heroKey = heroId;
+          const heroTips = HERO_TIPS[heroKey];
+          const heroTipList = heroTips ? (isEn ? heroTips.en : heroTips.ja) : [];
           const strengthsLabel = isEn ? "Strengths" : "強み";
           const weaknessesLabel = isEn ? "Weaknesses" : "弱点";
-          const tipsLabel = isEn ? `Tips for Playing ${hero.name}` : `${hero.name} の立ち回りのコツ`;
           const posLabel = isEn ? "Positioning" : "ポジショニング";
           const guideTitle = isEn ? `${hero.name} Strategy Guide` : `${hero.name} 攻略ガイド`;
           return (
             <div>
               <SectionLabel>{guideTitle}</SectionLabel>
               <div className="space-y-5">
+                {/* Hero-specific tips (unique per hero) */}
+                {heroTipList.length > 0 && (
+                  <div className="ow-card p-5">
+                    <p className="text-[11px] uppercase tracking-widest mb-4" style={{ color: "#f4a029" }}>
+                      {isEn ? `${hero.name} Tips` : `${hero.name} のコツ`}
+                    </p>
+                    <ol className="space-y-3">
+                      {heroTipList.map((tip, i) => (
+                        <li key={i} className="flex gap-3 text-sm text-[#9090b0]">
+                          <span
+                            className="shrink-0 w-5 h-5 flex items-center justify-center text-[10px] font-bold rounded-sm mt-0.5"
+                            style={{ background: "rgba(244,160,41,0.12)", color: "#f4a029", fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                          >
+                            {i + 1}
+                          </span>
+                          {tip}
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                )}
+
                 {/* Role overview */}
                 <div className="ow-card p-5">
                   <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-3">
@@ -373,24 +397,6 @@ export default async function HeroDetailPage({ params }: Props) {
                       ))}
                     </ul>
                   </div>
-                </div>
-
-                {/* Tips */}
-                <div className="ow-card p-5">
-                  <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-4">{tipsLabel}</p>
-                  <ol className="space-y-3">
-                    {guide.tips.map((tip, i) => (
-                      <li key={i} className="flex gap-3 text-sm text-[#9090b0]">
-                        <span
-                          className="shrink-0 w-5 h-5 flex items-center justify-center text-[10px] font-bold rounded-sm mt-0.5"
-                          style={{ background: "rgba(244,160,41,0.12)", color: "#f4a029", fontFamily: '"Rajdhani", system-ui, sans-serif' }}
-                        >
-                          {i + 1}
-                        </span>
-                        {tip}
-                      </li>
-                    ))}
-                  </ol>
                 </div>
               </div>
             </div>
