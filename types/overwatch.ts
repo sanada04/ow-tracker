@@ -84,6 +84,7 @@ export interface MapSummary {
   screenshot: string;
   gamemodes: string[];
   country_code: string | null;
+  location: string | null;
 }
 
 // ── Hero types ──────────────────────────────────────────────────────────
