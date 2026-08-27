@@ -6,6 +6,7 @@ import { getDictionary } from "@/lib/i18n";
 import AbilityShowcase from "@/components/AbilityShowcase";
 import HeroHpDisplay from "@/components/HeroHpDisplay";
 import { getHeroDisplayName, HERO_PORTRAITS } from "@/lib/heroes";
+import { getHeroGuide } from "@/lib/hero-guides";
 import type { Metadata } from "next";
 import type { HeroPerk, HeroStoryChapter } from "@/types/overwatch";
 
@@ -319,6 +320,82 @@ export default async function HeroDetailPage({ params }: Props) {
             )}
           </div>
         )}
+
+        {/* ── Strategy Guide — Original editorial content ── */}
+        {(() => {
+          const guide = getHeroGuide(hero.role, lang);
+          if (!guide) return null;
+          const isEn = lang === "en";
+          const strengthsLabel = isEn ? "Strengths" : "強み";
+          const weaknessesLabel = isEn ? "Weaknesses" : "弱点";
+          const tipsLabel = isEn ? `Tips for Playing ${hero.name}` : `${hero.name} の立ち回りのコツ`;
+          const posLabel = isEn ? "Positioning" : "ポジショニング";
+          const guideTitle = isEn ? `${hero.name} Strategy Guide` : `${hero.name} 攻略ガイド`;
+          return (
+            <div>
+              <SectionLabel>{guideTitle}</SectionLabel>
+              <div className="space-y-5">
+                {/* Role overview */}
+                <div className="ow-card p-5">
+                  <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-3">
+                    {isEn ? `${roleLabel} Overview` : `${roleLabel} の役割`}
+                  </p>
+                  <p className="text-[#9090b0] text-sm leading-relaxed">{guide.overview}</p>
+                </div>
+
+                {/* Positioning */}
+                <div className="ow-card p-5">
+                  <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-3">{posLabel}</p>
+                  <p className="text-[#9090b0] text-sm leading-relaxed">{guide.positioning}</p>
+                </div>
+
+                {/* Strengths & Weaknesses */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="ow-card p-4">
+                    <p className="text-[11px] uppercase tracking-widest text-green-500/70 mb-3">{strengthsLabel}</p>
+                    <ul className="space-y-2">
+                      {guide.strengths.map((s) => (
+                        <li key={s} className="flex gap-2 text-sm text-[#9090b0]">
+                          <span className="text-green-500/60 shrink-0 mt-0.5">+</span>
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="ow-card p-4">
+                    <p className="text-[11px] uppercase tracking-widest text-red-500/70 mb-3">{weaknessesLabel}</p>
+                    <ul className="space-y-2">
+                      {guide.weaknesses.map((w) => (
+                        <li key={w} className="flex gap-2 text-sm text-[#9090b0]">
+                          <span className="text-red-500/60 shrink-0 mt-0.5">−</span>
+                          {w}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Tips */}
+                <div className="ow-card p-5">
+                  <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-4">{tipsLabel}</p>
+                  <ol className="space-y-3">
+                    {guide.tips.map((tip, i) => (
+                      <li key={i} className="flex gap-3 text-sm text-[#9090b0]">
+                        <span
+                          className="shrink-0 w-5 h-5 flex items-center justify-center text-[10px] font-bold rounded-sm mt-0.5"
+                          style={{ background: "rgba(244,160,41,0.12)", color: "#f4a029", fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                        >
+                          {i + 1}
+                        </span>
+                        {tip}
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* ── Related: counters + VS links ── */}
         <div>
