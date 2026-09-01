@@ -50,6 +50,15 @@ export default function ContactForm({ t }: Props) {
 
   return (
     <form ref={formRef} action={action} noValidate className="space-y-6 animate-fade-up">
+      {/* Honeypot — hidden from real users, bots fill it in */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }}
+      />
       {/* Topic selector */}
       <fieldset>
         <legend className="block text-[11px] uppercase tracking-widest text-zinc-500 mb-3">

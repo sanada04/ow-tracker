@@ -19,6 +19,12 @@ export async function submitContact(
   if (!to) return { status: "error", message: "Contact email is not configured." };
   if (!process.env.RESEND_API_KEY) return { status: "error", message: "Email service is not configured." };
 
+  // Honeypot: bots fill this, real users never see it
+  const honeypot = formData.get("website") as string;
+  if (honeypot?.trim()) {
+    return { status: "success" }; // silently discard
+  }
+
   const topic = formData.get("topic") as string;
   const name = formData.get("name") as string;
   const senderEmail = formData.get("senderEmail") as string;
@@ -26,6 +32,26 @@ export async function submitContact(
 
   if (!name?.trim() || !message?.trim()) {
     return { status: "error", message: "Name and message are required." };
+  }
+
+  // Spam filters — silently discard to avoid giving bots feedback
+  const combined = `${name} ${message}`;
+
+  // Cyrillic characters (Russian/Ukrainian spam)
+  if (/[Ѐ-ӿ]/.test(combined)) {
+    return { status: "success" };
+  }
+
+  // Multiple URLs in message body
+  const urlCount = (message.match(/https?:\/\//gi) ?? []).length;
+  if (urlCount >= 2) {
+    return { status: "success" };
+  }
+
+  // Known spam domains / patterns
+  const spamPatterns = [/ozon\.ru/i, /share\.google/i, /t\.me\//i, /bit\.ly\//i];
+  if (spamPatterns.some((p) => p.test(combined))) {
+    return { status: "success" };
   }
 
   const replyTo = senderEmail?.trim() || undefined;
