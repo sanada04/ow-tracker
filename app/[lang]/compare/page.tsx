@@ -4,7 +4,9 @@ import { getPlayerSummary, getPlayerStats, formatBattleTag, formatTimePlayed } f
 import { getDictionary } from "@/lib/i18n";
 import RankBadge from "@/components/RankBadge";
 import CompareForm from "@/components/CompareForm";
+import { buildBreadcrumbList } from "@/lib/structured-data";
 import type { PlayerSummary, PlayerStatsSummary } from "@/types/overwatch";
+import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -14,6 +16,26 @@ interface Props {
 interface PlayerData {
   summary: PlayerSummary;
   stats: PlayerStatsSummary | null;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { lang } = await params;
+  const isEn = lang === "en";
+  return {
+    title: isEn ? "Compare Players — OW Tracker" : "プレイヤー比較 — OW Tracker",
+    description: isEn
+      ? "Compare two Overwatch 2 players side by side: rank, win rate, KDA, play time, and hero pool."
+      : "2人のOverwatch 2プレイヤーを比較。ランク・勝率・KDA・プレイ時間・使用ヒーローを並べて確認できます。",
+    alternates: {
+      canonical: `https://owtracker.org/${lang}/compare`,
+      languages: {
+        ja: "https://owtracker.org/ja/compare",
+        en: "https://owtracker.org/en/compare",
+        ko: "https://owtracker.org/ko/compare",
+        "x-default": "https://owtracker.org/ja/compare",
+      },
+    },
+  };
 }
 
 async function fetchPlayer(playerId: string): Promise<PlayerData | null> {
@@ -125,8 +147,15 @@ export default async function ComparePage({ params, searchParams }: Props) {
   const statsA = dataA?.stats?.general ?? null;
   const statsB = dataB?.stats?.general ?? null;
 
+  const isEn = lang === "en";
+  const breadcrumb = buildBreadcrumbList([
+    { name: isEn ? "Home" : "ホーム", path: `/${lang}` },
+    { name: t.title, path: `/${lang}/compare` },
+  ]);
+
   return (
     <div className="min-h-screen bg-[#0c0c10] text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
       <main className="max-w-4xl mx-auto px-6 py-12 space-y-8">
         {/* Title */}
         <div className="animate-fade-up">

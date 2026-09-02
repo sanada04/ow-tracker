@@ -21,7 +21,13 @@ export async function generateMetadata({
       ? "みんなの投票で決まる Overwatch 2 ヒーロー Tier List。ヒーローをS〜Dで評価して、コミュニティの意見を確認しよう。"
       : "Community-voted Overwatch 2 hero tier list. Rate heroes from S to D and see what the community thinks.",
     alternates: {
-      languages: { ja: "/ja/tier-list", en: "/en/tier-list", "x-default": "/ja/tier-list" },
+      canonical: `https://owtracker.org/${lang}/tier-list`,
+      languages: {
+        ja: "https://owtracker.org/ja/tier-list",
+        en: "https://owtracker.org/en/tier-list",
+        ko: "https://owtracker.org/ko/tier-list",
+        "x-default": "https://owtracker.org/ja/tier-list",
+      },
     },
   };
 }

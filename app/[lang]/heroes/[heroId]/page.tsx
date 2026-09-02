@@ -27,6 +27,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         (isEn
           ? `${hero.name} abilities, perks, and story in Overwatch 2.`
           : `${hero.name} のアビリティ・パーク・ストーリー詳細 — Overwatch 2`),
+      alternates: {
+        canonical: `https://owtracker.org/${lang}/heroes/${heroId}`,
+        languages: {
+          ja: `https://owtracker.org/ja/heroes/${heroId}`,
+          en: `https://owtracker.org/en/heroes/${heroId}`,
+          ko: `https://owtracker.org/ko/heroes/${heroId}`,
+          "x-default": `https://owtracker.org/ja/heroes/${heroId}`,
+        },
+      },
       openGraph: {
         title: `${hero.name} | OW Tracker`,
         images: hero.portrait ? [{ url: hero.portrait }] : [],
@@ -142,7 +151,7 @@ export default async function HeroDetailPage({ params }: Props) {
       <div className="relative h-[55vh] min-h-72 overflow-hidden">
         {bgUrl ? (
           <>
-            <Image src={bgUrl} alt={hero.name} fill className="object-cover object-center" unoptimized priority />
+            <Image src={bgUrl} alt={hero.name} fill className="object-cover object-center" priority />
             <div className="absolute inset-0" style={{
               background: "linear-gradient(to bottom, rgba(10,10,18,0.1) 0%, rgba(10,10,18,0.5) 60%, rgba(10,10,18,1) 100%)"
             }} />

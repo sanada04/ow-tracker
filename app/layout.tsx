@@ -1,17 +1,7 @@
 ﻿import type { Metadata } from "next";
-import { Geist } from "next/font/google";
-import { Rajdhani } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
-const rajdhani = Rajdhani({
-  weight: ["600", "700"],
-  subsets: ["latin"],
-  variable: "--font-rajdhani",
-});
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ow-tracker.example.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://owtracker.org";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -57,25 +47,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="ja" className={`${geist.variable} ${rajdhani.variable}`} suppressHydrationWarning>
-      <body className="bg-[#0c0c10] text-[#f0f0ff] antialiased" suppressHydrationWarning>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9780704405934373"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-5DMLXX97W1" strategy="afterInteractive" />
-        <Script id="gtag-init" strategy="afterInteractive">{`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-5DMLXX97W1');
-        `}</Script>
-        {children}
-      </body>
-    </html>
-  );
+  return children;
 }
 

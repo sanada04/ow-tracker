@@ -15,6 +15,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "static.playoverwatch.com",
       },
+      {
+        protocol: "https",
+        hostname: "blz-contentstack-images.akamaized.net",
+      },
     ],
   },
 };

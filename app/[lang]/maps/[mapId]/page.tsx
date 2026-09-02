@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { getMaps } from "@/lib/api";
 import { getDictionary } from "@/lib/i18n";
 import { getMapModeGuide } from "@/lib/map-guides";
+import { buildBreadcrumbList } from "@/lib/structured-data";
 
 export const revalidate = 3600;
 
@@ -77,8 +78,15 @@ export default async function MapDetailPage({ params }: Props) {
   const primaryMode = map.gamemodes[0] ?? "";
   const guide = getMapModeGuide(primaryMode, lang);
 
+  const breadcrumb = buildBreadcrumbList([
+    { name: isEn ? "Home" : "ホーム", path: `/${lang}` },
+    { name: tp.nav, path: `/${lang}/maps` },
+    { name: map.name, path: `/${lang}/maps/${mapId}` },
+  ]);
+
   return (
     <div className="min-h-screen bg-[#0c0c10] text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
       {/* Banner — tall cinematic view */}
       <div className="relative h-[65vh] min-h-80 overflow-hidden">
         <Image

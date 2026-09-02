@@ -113,7 +113,7 @@ export default async function PlayerPage({ params, searchParams }: Props) {
       <div className="relative h-48 sm:h-56 overflow-hidden">
         {summary.namecard ? (
           <>
-            <Image src={summary.namecard} alt="namecard" fill className="object-cover" unoptimized priority />
+            <Image src={summary.namecard} alt="namecard" fill className="object-cover" priority />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0c0c10]/30 via-[#0c0c10]/50 to-[#0c0c10]" />
           </>
         ) : (

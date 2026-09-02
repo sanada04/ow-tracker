@@ -5,6 +5,7 @@ import { getHeroCounterVotes } from "@/lib/upstash";
 import { getDictionary } from "@/lib/i18n";
 import { HERO_PORTRAITS, getHeroDisplayName } from "@/lib/heroes";
 import CounterList from "@/components/CounterList";
+import { buildBreadcrumbList } from "@/lib/structured-data";
 import type { Metadata } from "next";
 
 export const revalidate = 60;
@@ -57,8 +58,16 @@ export default async function CounterPage({ params }: Props) {
     (h) => h.key !== heroId && h.role !== heroDetail?.role
   ).slice(0, 8);
 
+  const isEn = lang === "en";
+  const breadcrumb = buildBreadcrumbList([
+    { name: isEn ? "Home" : "ホーム", path: `/${lang}` },
+    { name: t.nav, path: `/${lang}/counters` },
+    { name: displayName, path: `/${lang}/counters/${heroId}` },
+  ]);
+
   return (
     <div className="min-h-screen bg-[#0c0c10] text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
       <main className="max-w-5xl mx-auto px-6 py-12">
         {/* Back */}
         <Link
