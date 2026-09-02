@@ -131,7 +131,7 @@ export default async function HomePage({ params }: Props) {
               animationDelay: "0ms",
             }}
           >
-            PLAYER LOOKUP
+            {isEn ? "OVERWATCH TRACKER — RANK & STATS LOOKUP" : "PLAYER LOOKUP"}
           </p>
 
           <div className="max-w-xl w-full animate-fade-up" style={{ animationDelay: "60ms", position: "relative", zIndex: 10 }}>
@@ -357,15 +357,15 @@ export default async function HomePage({ params }: Props) {
           {(isEn ? [
             {
               title: "Player Stats",
-              body: "Search any Overwatch 2 player by BattleTag. View competitive ranks for Tank, Damage, and Support roles — plus win rate, KDA, and hero stats.",
+              body: "OW Tracker is a free Overwatch tracker and Overwatch rank tracker. Search any Overwatch 2 player by BattleTag to view competitive ranks for Tank, Damage, and Support roles — plus win rate, KDA, and hero stats.",
             },
             {
               title: "Hero Database",
-              body: "Detailed data on every OW2 hero: abilities, perks, HP breakdown, role info, and full lore. Updated from the official API.",
+              body: "Detailed Overwatch stats on every OW2 hero: abilities, perks, HP breakdown, role info, and full lore. Updated from the official API.",
             },
             {
               title: "Meta & Counters",
-              body: "Community-voted tier list, counter picks, rank distribution, and map data — all in one place.",
+              body: "As a complete Overwatch stats hub, OW Tracker offers a community-voted tier list, counter picks, rank distribution, and map data — all in one place.",
             },
           ] : [
             {
