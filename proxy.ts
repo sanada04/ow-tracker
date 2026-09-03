@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { LOCALES, DEFAULT_LOCALE } from "@/lib/i18n";
+import { LOCALES, detectLocale } from "@/lib/i18n";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -10,9 +10,8 @@ export function proxy(request: NextRequest) {
   );
   if (hasLocale) return;
 
-  // Detect preferred locale from Accept-Language header
-  const acceptLang = request.headers.get("accept-language") ?? "";
-  const preferred = acceptLang.toLowerCase().includes("ja") ? "ja" : DEFAULT_LOCALE;
+  // Detect preferred locale from the browser's Accept-Language header
+  const preferred = detectLocale(request.headers.get("accept-language"));
 
   request.nextUrl.pathname = `/${preferred}${pathname}`;
   return NextResponse.redirect(request.nextUrl);
