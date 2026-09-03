@@ -491,14 +491,14 @@ export const HERO_TIPS: Record<string, HeroTip> = {
     ja: [
       "バリアを過信しない。バリアが溶け始めたら一度引いて盾を回復させる判断が重要。溶かされた後に引くのでは遅い。",
       "ファイヤーストライク（射撃アビリティ）はバリアを展開しながらでも使える。こまめに使って前線を削ることを意識しよう。",
-      "アースシャター（アルティメット）は壁沿いに這う判定がある。建物の角や岩の裏に隠れている敵にも当てられることを覚えておこう。",
-      "チャージは確殺コンボとして強力だが、壁がない場所では当てても仕留められないことがある。地形を選んで使おう。",
+      "アースシャターの衝撃波は地面に沿って扇状に広がるが、壁の裏まで回り込むわけではない。低い遮蔽物の陰にいる敵は巻き込めても、完全に視線が通らない敵には過度な期待をしないこと。",
+      "チャージは壁際で当てると大ダメージ＋確定行動不能で仕留めやすいが、何もない場所で当てても相手をひるませるだけで終わることが多い。壁を背にした敵を狙って使おう。",
     ],
     en: [
       "Don't let Barrier shield reach zero before retreating — once it shatters there's a cooldown window where you're completely vulnerable; pull back earlier.",
       "Firestrike passes through the barrier and hits enemies behind it; use it constantly during standoffs to chip enemies down while the shield holds.",
-      "Earthshatter's shockwave travels along walls and around corners — learn map geometry to hit enemies sheltering behind pillars and in doorways.",
-      "Charge pinned to a wall deals the highest damage; always aim Charge toward a wall rather than open space to guarantee the kill rather than a stagger.",
+      "Earthshatter's shockwave spreads along the ground in a wide arc in front of you — it can catch enemies near low cover, but it won't reliably wrap around corners or walls, so line up a clear ground path to your targets.",
+      "Charge deals far more damage — and reliably secures the kill — when it pins a target against a wall; in open space it only staggers them, so look for a backstop before committing to a Charge.",
     ],
   },
   roadhog: {
@@ -768,23 +768,23 @@ type RoleKey = "tank" | "damage" | "support";
 const GUIDES_JA: Record<RoleKey, RoleGuide> = {
   tank: {
     overview:
-      "タンクはチームの盾であり、前線を維持することが最大の役割です。敵の攻撃を引きつけながら空間を作り出し、ダメージディーラーとサポートが安全に動ける環境を整えます。ヘルスが高く生存能力に優れていますが、単独行動は禁物です。チームと連携しながら押し引きのタイミングを判断することが、勝利への鍵となります。",
+      "タンクの本質は「ダメージを受け止める壁」になることではなく、他のロールでは踏み込めない危険な空間を確保・制圧することです。危険な角度に圧をかけ続けることで敵にその脅威を意識させ、結果としてダメージやサポートが安全に動ける状況を作り出します。タンクは総じて高いHPと強力な防御アビリティを持ちますが、それは「盾になって耐える」ためではなく、空間を取るための道具です。ボイスチャットでの密な連携よりも、どの角度なら安全に踏み込めるか、いつ引くべきかを自分で判断する力の方が重要です。多くのサポートは戦闘中は敵への応急処置（トリアージ）に手一杯で、常にタンクを回復し続けられるわけではありません。",
     positioning:
-      "タンクは常にチームの前方に位置し、ダメージを受けながら前進します。仲間が視界内にいることを確認し、一人だけ突出して孤立しないようにしましょう。カバー（障害物）を活用して、不要なダメージを避けることも重要です。",
+      "立ち位置はヒーローやマッチアップによって大きく変わり、「常に敵と味方の間に一直線で立つ」という単純な話ではありません。Reinhardtのようなブロウル系タンクは特定の角度を確保して圧をかけるのが役割であり、単に敵と味方の間に突っ立つことではありません。OrisaやRamattraのようなポーク・遠距離型のタンクが相手だと、正面から一直線に組み合う戦い方は不利になりやすく、スパムダメージや機動力の高いヒーローが多いマップでも通用しにくくなります。味方の位置を把握し、孤立する前に引く判断は大切ですが、戦闘中にサポートから常に回復してもらえることは期待しないこと。今のヒール量では、タンクはHPやクールダウンを一度の価値ある交戦に使い切り、次の戦闘までの間に回復する立ち回りが基本です。",
     strengths: [
-      "高いヘルスで前線を維持できる",
+      "高いHPと防御アビリティで、他のロールでは生き残れない危険な空間を確保できる",
       "味方のためのスペースを作り出す",
       "アルティメットで試合の流れを変えられる",
-      "敵の攻撃を引きつけてチームを守れる",
+      "存在そのものが敵に対応を強制し、チームに時間と空間の余裕を生む",
     ],
     weaknesses: [
-      "回復がなければ長期戦では消耗しやすい",
+      "回復は基本的に戦闘の合間のためのもの。戦闘中に頼ろうとすると味方のリソースを無駄にする",
       "単独行動では狙われやすい",
-      "アビリティのクールダウン中は隙が生まれる",
+      "間違った角度に踏み込むと、HPとクールダウンだけでなく試合の流れごと相手に渡してしまう",
       "高火力・高機動のダメージヒーローに弱い場合がある",
     ],
     tips: [
-      "サポートヒーローと常に連携し、回復を受けながら前進しよう。",
+      "回復してもらえることを前提にせず、自分の判断だけで勝てる交戦かどうかを見極めてから踏み込もう。",
       "敵のアルティメットゲージを把握し、引くタイミングを計ること。",
       "チームが追いついていない状態での単独突撃は避ける。",
       "エネミーのヒーラーを常に意識し、チームとともに優先ターゲットにしよう。",
@@ -846,23 +846,23 @@ const GUIDES_JA: Record<RoleKey, RoleGuide> = {
 const GUIDES_EN: Record<RoleKey, RoleGuide> = {
   tank: {
     overview:
-      "Tanks are the backbone of any team, responsible for creating space and absorbing damage so their teammates can operate safely. With the highest health pools in the game, tanks lead the frontline push and draw enemy fire. However, a tank who overextends alone becomes an easy target. Success as a tank requires constant communication with your support to know when to push and when to pull back.",
+      "Tanks lead by contesting space the rest of the team can't take alone — not by standing still and soaking damage as a wall for allies to hide behind. Pressuring a dangerous angle forces the enemy to respect the threat you represent, which is what actually lets your damage and support operate safely. Tanks generally have large health pools and strong defensive tools, but those exist to let you take space, not to make you a stationary shield. Reading which angle you can hold — and when to pull out — matters far more than constant voice comms with your supports, most of whom are busy triaging the fight rather than actively topping you up.",
     positioning:
-      "Always position yourself between the enemy team and your allies. Use cover to avoid chip damage, and make sure your support can see and heal you at all times. Avoid pushing so far ahead that you lose your healer's line of sight — a tank without healing is a dead tank.",
+      "Where you position depends heavily on the tank and the matchup, not a fixed front-to-back rule. Brawl tanks like Reinhardt want to hold a specific angle and pressure it — not simply stand between the enemy and your team. Against dive- or poke-heavy compositions (Orisa, Ramattra, mobile flankers), playing straight front-to-back plays into their strengths and loses on most maps. Track your team's position and disengage before you're isolated, but don't expect your supports to keep you topped up mid-fight — with healing output reduced across the board, most tanks are meant to spend their HP and cooldowns on a trade and recover between fights, not during them.",
     strengths: [
-      "Highest health pool in the game, capable of sustaining extended fights",
+      "Large health pools and defensive cooldowns that let you contest space other roles can't survive in",
       "Creates space and draws focus fire away from squishier teammates",
       "Ultimate abilities can decisively swing team fights",
-      "Natural peel capability to protect backline allies",
+      "Presence alone forces the enemy team to play around you, buying space and time for your team",
     ],
     weaknesses: [
-      "Heavily reliant on support healing to sustain through fights",
+      "Healing is mostly meant to top you up between fights, not during them — expecting emergency heals mid-fight wastes your supports' resources",
       "Overextending solo leads to quick elimination",
-      "Vulnerable during cooldown windows when defensive abilities are down",
+      "Committing to the wrong angle can cost your HP and cooldowns and swing the fight against your team",
       "High-mobility damage heroes can outmaneuver slow tanks",
     ],
     tips: [
-      "Coordinate your push timing with your support — never dive in when your healer is on cooldown.",
+      "Commit to space when you can win the trade on your own terms — not because you're hoping for a heal to bail you out.",
       "Track enemy ultimates and back off before a fight-winning ult hits you.",
       "Don't rush objectives alone; let your team engage together.",
       "Focus the enemy support alongside your DPS — removing healing collapses enemy sustain.",

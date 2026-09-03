@@ -52,7 +52,7 @@ function Bar({
   );
 }
 
-function HeroCard({ row, maxWinrate, maxKda, delay }: { row: HeroRow; maxWinrate: number; maxKda: number; delay: number }) {
+function HeroCard({ row, maxWinrate, maxKda, delay, labels }: { row: HeroRow; maxWinrate: number; maxKda: number; delay: number; labels: Labels }) {
   const [imgError, setImgError] = useState(false);
   const portrait = imgError ? null : HERO_PORTRAITS[row.key];
   const winrateColor = row.stats.winrate >= 60 ? "bg-green-500" : row.stats.winrate >= 50 ? "bg-[#f4a029]" : "bg-red-500";
@@ -79,7 +79,7 @@ function HeroCard({ row, maxWinrate, maxKda, delay }: { row: HeroRow; maxWinrate
       </div>
       <div className="space-y-1.5">
         <div className="flex items-center gap-2 w-full">
-          <span className="text-[10px] text-zinc-500 w-16 shrink-0 text-right">勝率</span>
+          <span className="text-[10px] text-zinc-500 w-16 shrink-0 text-right">{labels.winrate}</span>
           <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full winrate-bar ${winrateColor}`}
@@ -158,6 +158,7 @@ export default function HeroChart({
               maxWinrate={maxWinrate}
               maxKda={maxKda}
               delay={i * 50}
+              labels={labels}
             />
           ))}
         </div>

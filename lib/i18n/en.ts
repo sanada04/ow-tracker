@@ -240,6 +240,7 @@ export const en = {
       silver: { name: "Silver", desc: "Building consistency. Work on reducing deaths and improving positioning.", color: "#c0c0c0" },
       gold: { name: "Gold", desc: "The most populated rank. Team coordination starts to matter more.", color: "#ffd700" },
       platinum: { name: "Platinum", desc: "Above average play. Strong individual mechanics are key.", color: "#e5e4e2" },
+      emerald: { name: "Emerald", desc: "Consistently strong fundamentals. Positioning and cooldown management separate you from Platinum.", color: "#50c878" },
       diamond: { name: "Diamond", desc: "High skill level. Game sense and adaptation become critical.", color: "#b9f2ff" },
       master: { name: "Master", desc: "Top players. Near-optimal decision making and execution.", color: "#a335ee" },
       grandmaster: { name: "Grandmaster", desc: "Elite tier. Exceptional mechanics and deep game knowledge.", color: "#ff8000" },

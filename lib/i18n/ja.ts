@@ -242,6 +242,7 @@ export const ja: Dictionary = {
       silver: { name: "シルバー", desc: "安定性を高める段階。デス数を減らし、ポジショニングを改善しましょう。", color: "#c0c0c0" },
       gold: { name: "ゴールド", desc: "最も人口の多いランク。チーム連携が重要になり始めます。", color: "#ffd700" },
       platinum: { name: "プラチナ", desc: "平均以上のプレイ。優れた個人スキルが鍵になります。", color: "#e5e4e2" },
+      emerald: { name: "エメラルド", desc: "安定して高い基礎力を持つ段階。ポジショニングとクールダウン管理の差がプラチナとの分かれ目になります。", color: "#50c878" },
       diamond: { name: "ダイヤモンド", desc: "高いスキルレベル。ゲームセンスと適応力が重要になります。", color: "#b9f2ff" },
       master: { name: "マスター", desc: "トッププレイヤー。ほぼ最適な判断と実行力が求められます。", color: "#a335ee" },
       grandmaster: { name: "グランドマスター", desc: "エリート層。卓越したメカニクスと深いゲーム知識が必要。", color: "#ff8000" },

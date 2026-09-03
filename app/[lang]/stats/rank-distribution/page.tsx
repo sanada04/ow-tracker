@@ -12,10 +12,11 @@ interface Props { params: Promise<{ lang: string }> }
 
 // Approximate rank distribution for OW2 (community estimates, Season 12+)
 const RANK_DISTRIBUTION = [
-  { key: "bronze",      pct: 8 },
-  { key: "silver",      pct: 22 },
-  { key: "gold",        pct: 32 },
-  { key: "platinum",    pct: 22 },
+  { key: "bronze",      pct: 7 },
+  { key: "silver",      pct: 20 },
+  { key: "gold",        pct: 28 },
+  { key: "platinum",    pct: 16 },
+  { key: "emerald",     pct: 13 },
   { key: "diamond",     pct: 10 },
   { key: "master",      pct: 4 },
   { key: "grandmaster", pct: 1.5 },

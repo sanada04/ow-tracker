@@ -242,6 +242,7 @@ export const ko: Dictionary = {
       silver: { name: "실버", desc: "안정성을 키우는 단계. 사망 횟수를 줄이고 포지셔닝을 개선하세요.", color: "#c0c0c0" },
       gold: { name: "골드", desc: "가장 인구가 많은 랭크. 팀 협력이 중요해지기 시작합니다.", color: "#ffd700" },
       platinum: { name: "플래티넘", desc: "평균 이상의 실력. 뛰어난 개인 기술이 핵심입니다.", color: "#e5e4e2" },
+      emerald: { name: "에메랄드", desc: "꾸준히 탄탄한 기본기를 갖춘 단계. 포지셔닝과 쿨다운 관리 능력이 플래티넘과의 차이를 만듭니다.", color: "#50c878" },
       diamond: { name: "다이아몬드", desc: "높은 실력 수준. 게임 감각과 적응력이 중요해집니다.", color: "#b9f2ff" },
       master: { name: "마스터", desc: "상위 플레이어. 거의 최적의 판단력과 실행력이 요구됩니다.", color: "#a335ee" },
       grandmaster: { name: "그랜드마스터", desc: "엘리트 티어. 탁월한 메카닉과 깊은 게임 지식이 필요합니다.", color: "#ff8000" },
