@@ -14,13 +14,19 @@ export function getDictionary(locale: string) {
   return ja;
 }
 
+// Fallback locale when the Accept-Language header is missing or matches
+// none of our supported locales. Kept separate from DEFAULT_LOCALE (which
+// still represents the site's primary identity elsewhere) since English is
+// the more useful catch-all for unrecognized/international visitors.
+const FALLBACK_LOCALE: Locale = "en";
+
 /**
  * Parses an Accept-Language header (e.g. "en-US,en;q=0.9,ja;q=0.8") into
  * the best-matching supported locale, ordered by the browser's stated
- * preference. Falls back to DEFAULT_LOCALE when nothing matches.
+ * preference. Falls back to FALLBACK_LOCALE when nothing matches.
  */
 export function detectLocale(acceptLanguage: string | null): Locale {
-  if (!acceptLanguage) return DEFAULT_LOCALE;
+  if (!acceptLanguage) return FALLBACK_LOCALE;
 
   const preferences = acceptLanguage
     .split(",")
@@ -34,5 +40,5 @@ export function detectLocale(acceptLanguage: string | null): Locale {
   for (const { primary } of preferences) {
     if ((LOCALES as string[]).includes(primary)) return primary as Locale;
   }
-  return DEFAULT_LOCALE;
+  return FALLBACK_LOCALE;
 }
