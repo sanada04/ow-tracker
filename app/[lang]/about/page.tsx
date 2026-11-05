@@ -111,11 +111,11 @@ function JaContent({ lang }: { lang: string }) {
 
       <section className="mb-10">
         <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
-          プライバシーと広告
+          プライバシー
         </h2>
         <p className="text-[#9090b0] text-sm leading-relaxed mb-3">
-          OW Trackerは Google AdSense を利用した広告を表示することがあります。
-          広告の表示にあたり、Google が Cookie を使用することがあります。
+          OW Trackerは現在、広告を表示していません。
+          アクセス解析に Google Analytics を利用しており、Google が Cookie を使用することがあります。
           詳細は{" "}
           <Link href={`/ja/privacy`} className="text-[#00ccff] hover:underline">
             プライバシーポリシー
@@ -243,11 +243,11 @@ function EnContent({ lang }: { lang: string }) {
 
       <section className="mb-10">
         <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
-          Privacy &amp; Advertising
+          Privacy
         </h2>
         <p className="text-[#9090b0] text-sm leading-relaxed">
-          OW Tracker may display ads served by Google AdSense. Google may use cookies for ad personalization.
-          See our{" "}
+          OW Tracker does not currently display ads. We use Google Analytics for site analytics, and Google may use
+          cookies for this purpose. See our{" "}
           <Link href={`/en/privacy`} className="text-[#00ccff] hover:underline">
             Privacy Policy
           </Link>{" "}

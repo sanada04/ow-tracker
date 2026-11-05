@@ -12,14 +12,14 @@ export async function generateMetadata({
   return {
     title: isJa ? "プライバシーポリシー" : "Privacy Policy",
     description: isJa
-      ? "OW Tracker のプライバシーポリシー。Cookie・広告・データ収集に関する方針を説明します。"
-      : "OW Tracker privacy policy covering cookies, advertising, and data collection practices.",
+      ? "OW Tracker のプライバシーポリシー。Cookie・データ収集に関する方針を説明します。"
+      : "OW Tracker privacy policy covering cookies and data collection practices.",
     robots: { index: true, follow: true },
   };
 }
 
-const LAST_UPDATED_JA = "2025年7月";
-const LAST_UPDATED_EN = "July 2025";
+const LAST_UPDATED_JA = "2026年11月";
+const LAST_UPDATED_EN = "November 2026";
 
 function JaContent() {
   return (
@@ -57,22 +57,6 @@ function JaContent() {
 
       <section>
         <h2>3. サードパーティサービス</h2>
-
-        <h3>Google AdSense</h3>
-        <p>
-          本サイトでは、Google LLC が提供する広告配信サービス「Google AdSense」を使用しています。
-          Google AdSense は、ユーザーの興味・関心に基づいた広告（インタレストベース広告）を表示するために Cookie を使用します。
-          Google の Cookie ポリシーおよびプライバシーポリシーについては{" "}
-          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
-            Google プライバシーポリシー
-          </a>
-          {" "}をご確認ください。
-          広告のパーソナライズは{" "}
-          <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">
-            Google 広告設定
-          </a>
-          {" "}からオプトアウトできます。
-        </p>
 
         <h3>Google Analytics</h3>
         <p>
@@ -174,20 +158,6 @@ function EnContent() {
 
       <section>
         <h2>3. Third-Party Services</h2>
-
-        <h3>Google AdSense</h3>
-        <p>
-          This Site uses Google AdSense, an advertising service provided by Google LLC. Google AdSense uses cookies to
-          serve interest-based advertisements. For more information on Google&apos;s data practices, please review the{" "}
-          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
-            Google Privacy Policy
-          </a>
-          . You may opt out of personalized advertising via{" "}
-          <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer">
-            Google Ad Settings
-          </a>
-          .
-        </p>
 
         <h3>Google Analytics</h3>
         <p>

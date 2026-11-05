@@ -48,12 +48,6 @@ export default async function LangLayout({ children, params }: Props) {
   return (
     <html lang={locale} className={`${geist.variable} ${rajdhani.variable}`} suppressHydrationWarning>
       <body className="bg-[#0c0c10] text-[#f0f0ff] antialiased" suppressHydrationWarning>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9780704405934373"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-5DMLXX97W1" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
