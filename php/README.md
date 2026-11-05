@@ -7,7 +7,8 @@ and the daily stats snapshot.
 
 | Repository | Server | Public |
 |---|---|---|
-| `php/public/api/` | `~/public_html/api/` | Yes |
+| `out/` (from `npm run build`) | `~/public_html/` | Yes |
+| `php/public/` | `~/public_html/` | Yes |
 | `php/private/` | `~/ow-php/` | No |
 | `php/private/config.example.php` | `~/ow-config/config.php` (copy, then fill in) | No |
 | (created at runtime) | `~/ow-cache/` | No |

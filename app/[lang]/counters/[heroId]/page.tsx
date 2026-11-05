@@ -8,12 +8,14 @@ import CounterList from "@/components/CounterList";
 import { buildBreadcrumbList } from "@/lib/structured-data";
 import type { Metadata } from "next";
 
-export const revalidate = 60;
 
 interface Props { params: Promise<{ lang: string; heroId: string }> }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
-  return [];
+  const heroes = await getHeroes("en");
+  return heroes.map((hero) => ({ heroId: hero.key }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -41,8 +43,8 @@ export default async function CounterPage({ params }: Props) {
   const t = dict.counters_page;
 
   const [heroes, heroDetail, counterVotes] = await Promise.all([
-    getHeroes(lang).catch(() => []),
-    getHeroDetail(heroId, lang).catch(() => null),
+    getHeroes(lang),
+    getHeroDetail(heroId, lang),
     getHeroCounterVotes(heroId),
   ]);
 

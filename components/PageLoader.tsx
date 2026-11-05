@@ -1,6 +1,6 @@
 import OwDotLoader from "@/components/OwDotLoader";
 
-export default function PlayerLoading() {
+export default function PageLoader() {
   return (
     <div className="min-h-[calc(100vh-90px)] bg-[#0c0c10] text-white flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">

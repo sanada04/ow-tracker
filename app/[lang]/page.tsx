@@ -8,7 +8,6 @@ import { getAllTierVotes, getWinningTier } from "@/lib/upstash";
 import { HERO_PORTRAITS, getHeroDisplayName } from "@/lib/heroes";
 import type { Metadata } from "next";
 
-export const revalidate = 300;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://owtracker.org";
 
@@ -56,7 +55,7 @@ export default async function HomePage({ params }: Props) {
   };
 
   // Community top picks from Redis
-  const heroes = await getHeroes(lang).catch(() => []);
+  const heroes = await getHeroes(lang);
   const heroKeys = heroes.map((h) => h.key);
   const tierVotes = heroKeys.length > 0
     ? await getAllTierVotes(heroKeys).catch(() => Object.fromEntries(heroKeys.map((k) => [k, { S: 0, A: 0, B: 0, C: 0, D: 0 }])))

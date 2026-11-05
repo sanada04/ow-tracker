@@ -3,7 +3,6 @@ import { getMaps } from "@/lib/api";
 import { getDictionary } from "@/lib/i18n";
 import MapsGrid from "@/components/MapsGrid";
 
-export const revalidate = 3600;
 
 interface Props {
   params: Promise<{ lang: string }>;
@@ -28,7 +27,7 @@ export default async function MapsPage({ params }: Props) {
   const dict = getDictionary(lang);
   const t = dict.maps_page;
 
-  const maps = await getMaps(lang).catch(() => []);
+  const maps = await getMaps(lang);
   const isJa = lang === "ja";
 
   const modeDescriptions = isJa ? [

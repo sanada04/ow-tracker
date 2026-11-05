@@ -3,10 +3,10 @@
 import { useState, useEffect, useTransition, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { castTierVote, removeTierVote } from "@/app/actions/tier-vote";
+import { castTierVote, fetchTierVotes, removeTierVote } from "@/lib/client-api";
 import type { HeroListItem } from "@/types/overwatch";
-import { TIERS, getWinningTier, getTotalVotes } from "@/lib/upstash";
-import type { Tier, TierVotes } from "@/lib/upstash";
+import { TIERS, getWinningTier, getTotalVotes } from "@/lib/tiers";
+import type { Tier, TierVotes } from "@/lib/tiers";
 import type { Dictionary } from "@/lib/i18n";
 
 const STORAGE_KEY = "ow_tier_votes";
@@ -223,7 +223,9 @@ export default function TierList({
   const [, startTransition] = useTransition();
 
   useEffect(() => {
-    setUserVotes(loadUserVotes());
+    // Pages are prebuilt, so the latest counts arrive after load.
+    fetchTierVotes().then(setVotes).catch(() => {});
+    Promise.resolve(loadUserVotes()).then(setUserVotes);
   }, []);
 
   const handleVote = useCallback(
@@ -248,10 +250,14 @@ export default function TierList({
 
       setPendingKeys((s) => new Set(s).add(heroKey));
       startTransition(async () => {
-        if (tier === null && prevTier) {
-          await removeTierVote(heroKey, prevTier);
-        } else if (tier) {
-          await castTierVote(heroKey, tier, prevTier);
+        try {
+          if (tier === null && prevTier) {
+            await removeTierVote(heroKey, prevTier);
+          } else if (tier) {
+            await castTierVote(heroKey, tier, prevTier);
+          }
+        } catch {
+          // The optimistic count stays until the next page load.
         }
         setPendingKeys((s) => {
           const next = new Set(s);

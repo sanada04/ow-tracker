@@ -3,7 +3,7 @@
 import { useState, useTransition, useCallback, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { castCounterVoteAction, removeCounterVoteAction } from "@/app/actions/counter-vote";
+import { castCounterVote, fetchCounterVotes, removeCounterVote } from "@/lib/client-api";
 import { getHeroDisplayName, HERO_PORTRAITS } from "@/lib/heroes";
 import type { HeroListItem } from "@/types/overwatch";
 import type { CounterVotes } from "@/lib/upstash";
@@ -53,8 +53,9 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    const stored = loadUserVotes();
-    setMyVotes(stored[heroKey] ?? []);
+    // Pages are prebuilt, so the latest counts arrive after load.
+    fetchCounterVotes(heroKey).then(setVotes).catch(() => {});
+    Promise.resolve(loadUserVotes()).then((stored) => setMyVotes(stored[heroKey] ?? []));
   }, [heroKey]);
 
   const toggle = useCallback(
@@ -75,10 +76,14 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
       }));
 
       startTransition(async () => {
-        if (alreadyVoted) {
-          await removeCounterVoteAction(heroKey, counterKey);
-        } else {
-          await castCounterVoteAction(heroKey, counterKey);
+        try {
+          if (alreadyVoted) {
+            await removeCounterVote(heroKey, counterKey);
+          } else {
+            await castCounterVote(heroKey, counterKey);
+          }
+        } catch {
+          // The optimistic count stays until the next page load.
         }
       });
     },

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
-import { submitContact, type ContactState } from "@/app/actions/contact";
+import { sendContact, type ContactState } from "@/lib/client-api";
 import type { Dictionary } from "@/lib/i18n";
 
 type Topic = Dictionary["contact"]["topics"][number];
@@ -13,7 +13,10 @@ interface Props {
 const initialState: ContactState = { status: "idle" };
 
 export default function ContactForm({ t }: Props) {
-  const [state, action, pending] = useActionState(submitContact, initialState);
+  const [state, action, pending] = useActionState(
+    (_prev: ContactState, formData: FormData) => sendContact(formData),
+    initialState
+  );
   const [sent, setSent] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 

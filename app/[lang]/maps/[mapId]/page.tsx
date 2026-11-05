@@ -7,10 +7,16 @@ import { getDictionary } from "@/lib/i18n";
 import { getMapModeGuide } from "@/lib/map-guides";
 import { buildBreadcrumbList } from "@/lib/structured-data";
 
-export const revalidate = 3600;
 
 interface Props {
   params: Promise<{ lang: string; mapId: string }>;
+}
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const maps = await getMaps("en");
+  return maps.map((map) => ({ mapId: map.key }));
 }
 
 function getModeName(key: string, gamemodes: Record<string, string>): string {
@@ -21,35 +27,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, mapId } = await params;
   const dict = getDictionary(lang);
   const isEn = lang === "en";
-  try {
-    const maps = await getMaps(lang);
-    const map = maps.find((m) => m.key === mapId);
-    if (!map) return { title: "Map — OW Tracker" };
-    const gm = getModeName(
-      map.gamemodes[0] ?? "",
-      dict.maps_page.gamemodes as Record<string, string>
-    );
-    const location = map.location ? ` (${map.location})` : "";
-    return {
-      title: `${map.name} — OW Tracker`,
-      description: isEn
-        ? `${map.name}${location} is an Overwatch 2 ${gm} map. Explore map strategy, positioning tips, and related maps.`
-        : `${map.name}${location} は Overwatch 2 の ${gm} マップです。攻略ポイントや関連マップを確認できます。`,
-      openGraph: {
-        title: `${map.name} | OW Tracker`,
-        images: [{ url: map.screenshot }],
+  const maps = await getMaps(lang);
+  const map = maps.find((m) => m.key === mapId);
+  if (!map) return { title: "Map — OW Tracker" };
+  const gm = getModeName(
+    map.gamemodes[0] ?? "",
+    dict.maps_page.gamemodes as Record<string, string>
+  );
+  const location = map.location ? ` (${map.location})` : "";
+  return {
+    title: `${map.name} — OW Tracker`,
+    description: isEn
+      ? `${map.name}${location} is an Overwatch 2 ${gm} map. Explore map strategy, positioning tips, and related maps.`
+      : `${map.name}${location} は Overwatch 2 の ${gm} マップです。攻略ポイントや関連マップを確認できます。`,
+    openGraph: {
+      title: `${map.name} | OW Tracker`,
+      images: [{ url: map.screenshot }],
+    },
+    alternates: {
+      canonical: `https://owtracker.org/${lang}/maps/${mapId}`,
+      languages: {
+        ja: `https://owtracker.org/ja/maps/${mapId}`,
+        en: `https://owtracker.org/en/maps/${mapId}`,
       },
-      alternates: {
-        canonical: `https://owtracker.org/${lang}/maps/${mapId}`,
-        languages: {
-          ja: `https://owtracker.org/ja/maps/${mapId}`,
-          en: `https://owtracker.org/en/maps/${mapId}`,
-        },
-      },
-    };
-  } catch {
-    return { title: "Map — OW Tracker" };
-  }
+    },
+  };
 }
 
 export default async function MapDetailPage({ params }: Props) {
@@ -60,12 +62,7 @@ export default async function MapDetailPage({ params }: Props) {
   const gmLabels = tp.gamemodes as Record<string, string>;
   const isEn = lang === "en";
 
-  let maps: Awaited<ReturnType<typeof getMaps>>;
-  try {
-    maps = await getMaps(lang);
-  } catch {
-    notFound();
-  }
+  const maps = await getMaps(lang);
 
   const map = maps.find((m) => m.key === mapId);
   if (!map) notFound();

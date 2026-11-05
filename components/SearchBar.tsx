@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { formatPlayerId, searchPlayers } from "@/lib/api";
+import { formatPlayerId } from "@/lib/format";
+import { searchPlayers } from "@/lib/client-api";
 import type { SearchResult } from "@/types/overwatch";
 
 export default function SearchBar({

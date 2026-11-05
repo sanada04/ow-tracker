@@ -33,7 +33,7 @@ export default async function HeroesPage({ params }: Props) {
   const dict = getDictionary(lang);
   const t = dict.heroes_page;
 
-  const heroes = await getHeroes(lang).catch(() => []);
+  const heroes = await getHeroes(lang);
 
   const isEn = lang === "en";
   const breadcrumb = buildBreadcrumbList([

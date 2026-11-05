@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { formatPlayerId } from "@/lib/api";
+import { formatPlayerId } from "@/lib/format";
 
 interface Labels {
   player_a: string;

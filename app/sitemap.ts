@@ -3,10 +3,11 @@ import { getHeroes } from "@/lib/api";
 
 const BASE = "https://owtracker.org";
 
-export const revalidate = 86400; // 1 day
+export const dynamic = "force-static";
+
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const heroes = await getHeroes("en").catch(() => []);
+  const heroes = await getHeroes("en");
 
   const staticUrls: MetadataRoute.Sitemap = [
     { url: `${BASE}/ja`,                             priority: 1.0, changeFrequency: "daily" },

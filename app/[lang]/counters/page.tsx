@@ -5,7 +5,6 @@ import { getDictionary } from "@/lib/i18n";
 import { HERO_PORTRAITS, getHeroDisplayName } from "@/lib/heroes";
 import type { Metadata } from "next";
 
-export const revalidate = 3600;
 
 interface Props { params: Promise<{ lang: string }> }
 
@@ -24,7 +23,7 @@ export default async function CountersIndexPage({ params }: Props) {
   const { lang } = await params;
   const dict = getDictionary(lang);
   const t = dict.counters_page;
-  const heroes = await getHeroes(lang).catch(() => []);
+  const heroes = await getHeroes(lang);
 
   const byRole = {
     tank: heroes.filter((h) => h.role === "tank"),

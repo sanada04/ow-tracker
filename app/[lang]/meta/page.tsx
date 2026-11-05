@@ -7,7 +7,6 @@ import { getAllTierVotes, getWinningTier, getTotalVotes, TIERS } from "@/lib/ups
 import type { Tier, TierVotes } from "@/lib/upstash";
 import type { HeroListItem } from "@/types/overwatch";
 
-export const revalidate = 30;
 
 const TIER_STYLE: Record<Tier, { border: string; label: string; bg: string; text: string }> = {
   S: { border: "#f4a029", label: "#f4a029", bg: "rgba(244,160,41,0.10)", text: "#f4a029" },
@@ -93,7 +92,7 @@ export default async function MetaPage({ params }: Props) {
   const t = dict.meta_page;
   const isJa = lang === "ja";
 
-  const heroes = await getHeroes(lang).catch(() => [] as HeroListItem[]);
+  const heroes = await getHeroes(lang);
   const votes = await getAllTierVotes(heroes.map((h) => h.key)).catch(
     () => ({}) as Record<string, TierVotes>
   );

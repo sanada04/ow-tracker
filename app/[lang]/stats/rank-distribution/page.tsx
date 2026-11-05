@@ -6,7 +6,6 @@ import { HERO_PORTRAITS, getHeroDisplayName } from "@/lib/heroes";
 import Image from "next/image";
 import type { Metadata } from "next";
 
-export const revalidate = 3600;
 
 interface Props { params: Promise<{ lang: string }> }
 
@@ -39,7 +38,7 @@ export default async function RankDistributionPage({ params }: Props) {
   const dict = getDictionary(lang);
   const t = dict.rank_page;
 
-  const heroes = await getHeroes(lang).catch(() => []);
+  const heroes = await getHeroes(lang);
   const heroKeys = heroes.map((h) => h.key);
   const tierVotes = await getAllTierVotes(heroKeys).catch(() =>
     Object.fromEntries(heroKeys.map((k) => [k, { S: 0, A: 0, B: 0, C: 0, D: 0 }]))

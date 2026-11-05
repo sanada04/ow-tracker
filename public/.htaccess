@@ -1,0 +1,20 @@
+Options -Indexes -MultiViews
+DirectorySlash Off
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+
+# Paths without a language go to the visitor's language.
+RewriteCond %{REQUEST_URI} !^/(ja|en|ko)(/|$)
+RewriteCond %{REQUEST_URI} !^/_next/
+RewriteCond %{REQUEST_URI} !\.
+RewriteRule ^ /lang-redirect.php [L]
+
+# One prebuilt page serves every player and matchup.
+RewriteRule ^(ja|en|ko)/players/([^/]+)$ /player-page.php?lang=$1&id=$2 [B,L,QSA]
+RewriteRule ^(ja|en|ko)/heroes/[^/]+/vs/[^/]+$ /$1/heroes/_/vs/_.html [L]
+
+# Canonical URLs have no trailing slash or .html.
+RewriteRule ^(.+)/$ /$1 [R=301,L]
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+)$ /$1.html [L]

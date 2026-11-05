@@ -1,7 +1,7 @@
 "use client";
 
 import type { RoleStats } from "@/types/overwatch";
-import { formatTimePlayed } from "@/lib/api";
+import { formatTimePlayed } from "@/lib/format";
 import AnimatedNumber from "./AnimatedNumber";
 
 const WINRATE_COLOR = (v: number) =>

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { getHeroDetail, getHeroes } from "@/lib/api";
 import { getDictionary } from "@/lib/i18n";
 import AbilityShowcase from "@/components/AbilityShowcase";
@@ -14,36 +13,39 @@ interface Props {
   params: Promise<{ lang: string; heroId: string }>;
 }
 
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  const heroes = await getHeroes("en");
+  return heroes.map((hero) => ({ heroId: hero.key }));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, heroId } = await params;
-  try {
-    const hero = await getHeroDetail(heroId, lang);
-    const isEn = lang === "en";
-    return {
-      title: `${hero.name} — OW Tracker`,
-      description:
-        hero.story?.summary ??
-        hero.description ??
-        (isEn
-          ? `${hero.name} abilities, perks, and story in Overwatch 2.`
-          : `${hero.name} のアビリティ・パーク・ストーリー詳細 — Overwatch 2`),
-      alternates: {
-        canonical: `https://owtracker.org/${lang}/heroes/${heroId}`,
-        languages: {
-          ja: `https://owtracker.org/ja/heroes/${heroId}`,
-          en: `https://owtracker.org/en/heroes/${heroId}`,
-          ko: `https://owtracker.org/ko/heroes/${heroId}`,
-          "x-default": `https://owtracker.org/ja/heroes/${heroId}`,
-        },
+  const hero = await getHeroDetail(heroId, lang);
+  const isEn = lang === "en";
+  return {
+    title: `${hero.name} — OW Tracker`,
+    description:
+      hero.story?.summary ??
+      hero.description ??
+      (isEn
+        ? `${hero.name} abilities, perks, and story in Overwatch 2.`
+        : `${hero.name} のアビリティ・パーク・ストーリー詳細 — Overwatch 2`),
+    alternates: {
+      canonical: `https://owtracker.org/${lang}/heroes/${heroId}`,
+      languages: {
+        ja: `https://owtracker.org/ja/heroes/${heroId}`,
+        en: `https://owtracker.org/en/heroes/${heroId}`,
+        ko: `https://owtracker.org/ko/heroes/${heroId}`,
+        "x-default": `https://owtracker.org/ja/heroes/${heroId}`,
       },
-      openGraph: {
-        title: `${hero.name} | OW Tracker`,
-        images: hero.portrait ? [{ url: hero.portrait }] : [],
-      },
-    };
-  } catch {
-    return { title: "Hero — OW Tracker" };
-  }
+    },
+    openGraph: {
+      title: `${hero.name} | OW Tracker`,
+      images: hero.portrait ? [{ url: hero.portrait }] : [],
+    },
+  };
 }
 
 const ROLE_COLORS = {
@@ -125,14 +127,8 @@ export default async function HeroDetailPage({ params }: Props) {
   const dict = getDictionary(lang);
   const t = dict.hero_detail;
 
-  let hero;
-  try {
-    hero = await getHeroDetail(heroId, lang);
-  } catch {
-    notFound();
-  }
-
-  const allHeroes = await getHeroes(lang).catch(() => []);
+  const hero = await getHeroDetail(heroId, lang);
+  const allHeroes = await getHeroes(lang);
   const sameRoleHeroes = allHeroes.filter((h) => h.key !== heroId && h.role === hero.role).slice(0, 6);
 
   const bgUrl = hero.backgrounds.find(b => b.sizes.includes("lg"))?.url

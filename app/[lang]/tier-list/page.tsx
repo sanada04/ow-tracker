@@ -4,7 +4,6 @@ import { getHeroes } from "@/lib/api";
 import { getAllTierVotes } from "@/lib/upstash";
 import TierList from "@/components/TierList";
 
-export const revalidate = 30;
 
 export async function generateMetadata({
   params,
@@ -40,7 +39,7 @@ export default async function TierListPage({
   const { lang } = await params;
   const dict = getDictionary(lang);
 
-  const heroes = await getHeroes(lang).catch(() => []);
+  const heroes = await getHeroes(lang);
   const votes = await getAllTierVotes(heroes.map((h) => h.key));
 
   const isJa = lang === "ja";

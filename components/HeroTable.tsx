@@ -1,7 +1,7 @@
 "use client";
 
 import type { RoleStats } from "@/types/overwatch";
-import { formatTimePlayed } from "@/lib/api";
+import { formatTimePlayed } from "@/lib/format";
 import { HERO_PORTRAITS, getHeroDisplayName } from "@/lib/heroes";
 import Image from "next/image";
 import { useState } from "react";

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import type { RoleStats } from "@/types/overwatch";
 import { HERO_PORTRAITS, getHeroDisplayName } from "@/lib/heroes";
-import { formatTimePlayed } from "@/lib/api";
+import { formatTimePlayed } from "@/lib/format";
 
 interface HeroRow {
   key: string;
