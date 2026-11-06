@@ -1,14 +1,21 @@
 import { localeAlternates } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
-import { getHeroes, getHeroDetail } from "@/lib/api";
+import { getHeroes, getHeroDetail, getMaps } from "@/lib/api";
 import { getHeroCounterVotes } from "@/lib/upstash";
 import { getDictionary } from "@/lib/i18n";
 import { HERO_PORTRAITS, getHeroDisplayName } from "@/lib/heroes";
 import CounterList from "@/components/CounterList";
+import { HeroSummary, MapList, RankTable } from "@/components/HeroStatsPanel";
+import { SectionHeading } from "@/components/ui/Hero";
+import { getHeroByDivision, getHeroByMap, getMatchupPairs, getScoredHeroes } from "@/lib/stats";
+import { defaultRegion, matchupPath } from "@/lib/stats-config";
 import { buildBreadcrumbList } from "@/lib/structured-data";
 import type { Metadata } from "next";
 
+
+const WEAK_MAP_SIZE = 5;
+const MATCHUP_LINKS = 8;
 
 interface Props { params: Promise<{ lang: string; heroId: string }> }
 
@@ -23,7 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, heroId } = await params;
   const dict = getDictionary(lang);
   const t = dict.counters_page;
-  const displayName = getHeroDisplayName(heroId);
+  const heroes = await getHeroes(lang);
+  const displayName = heroes.find((hero) => hero.key === heroId)?.name ?? getHeroDisplayName(heroId);
   const title = t.page_title.replace("{hero}", displayName);
   const desc = t.page_subtitle.replace("{hero}", displayName);
   return {
@@ -43,13 +51,25 @@ export default async function CounterPage({ params }: Props) {
   const dict = getDictionary(lang);
   const t = dict.counters_page;
 
-  const [heroes, heroDetail, counterVotes] = await Promise.all([
+  const [heroes, heroDetail, counterVotes, scored, divisions, maps, pairs] = await Promise.all([
     getHeroes(lang),
     getHeroDetail(heroId, lang),
     getHeroCounterVotes(heroId),
+    getScoredHeroes(lang),
+    getHeroByDivision(lang, heroId),
+    getMaps(lang),
+    getMatchupPairs(),
   ]);
 
-  const displayName = getHeroDisplayName(heroId);
+  const names = Object.fromEntries(heroes.map((hero) => [hero.key, hero.name]));
+  const displayName = names[heroId] ?? getHeroDisplayName(heroId);
+  const data = dict.data;
+  const self = scored.find((hero) => hero.hero === heroId);
+  const mapStats = await getHeroByMap(lang, heroId, maps.map((map) => map.key));
+  const mapNames = { ...Object.fromEntries(maps.map((map) => [map.key, map.name])), __label: data.col_map };
+  const weakMaps = mapStats.slice(-WEAK_MAP_SIZE).reverse();
+  const matchups = pairs.filter((pair) => pair.includes(heroId)).slice(0, MATCHUP_LINKS);
+  const scope = data.scope_default.replace("{region}", data.regions[defaultRegion(lang)]);
   const portrait = HERO_PORTRAITS[heroId] ?? heroDetail?.portrait ?? "";
 
   const roleLabel = heroDetail?.role
@@ -127,6 +147,20 @@ export default async function CounterPage({ params }: Props) {
           t={t}
           lang={lang}
         />
+
+        {self && (
+          <section className="mt-10 space-y-4">
+            <SectionHeading aside={scope}>{data.counter_data_h2.replace("{hero}", displayName)}</SectionHeading>
+            <p className="text-sm text-[var(--ow-text-3)]">{data.counter_basis}</p>
+            <HeroSummary hero={self} labels={data} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <RankTable divisions={divisions} lang={lang} labels={data} />
+              {weakMaps.length > 0 && (
+                <MapList title={data.worst_maps} rows={weakMaps} mapNames={mapNames} lang={lang} winLabel={data.col_win} />
+              )}
+            </div>
+          </section>
+        )}
 
         {/* Hero stats + abilities — core content for counter analysis */}
         {heroDetail && (
@@ -230,21 +264,30 @@ export default async function CounterPage({ params }: Props) {
               href={`/${lang}/heroes/${heroId}`}
               className="text-sm text-zinc-400 hover:text-white border border-zinc-700/50 hover:border-zinc-500 px-3 py-1.5 rounded transition-colors"
             >
-              {displayName} Hero Page
+              {data.hero_page_link.replace("{hero}", displayName)}
             </Link>
             <Link
               href={`/${lang}/tier-list`}
               className="text-sm text-zinc-400 hover:text-white border border-zinc-700/50 hover:border-zinc-500 px-3 py-1.5 rounded transition-colors"
             >
-              Tier List
+              {data.see_tier}
             </Link>
+            {matchups.map(([first, second]) => (
+              <Link
+                key={`${first}-${second}`}
+                href={matchupPath(lang, first, second)}
+                className="text-sm text-zinc-400 hover:text-white border border-zinc-700/50 hover:border-zinc-500 px-3 py-1.5 rounded transition-colors"
+              >
+                {data.vs_h1.replace("{a}", names[first] ?? first).replace("{b}", names[second] ?? second)}
+              </Link>
+            ))}
             {sameRoleOpponents.slice(0, 5).map((hero) => (
               <Link
                 key={hero.key}
                 href={`/${lang}/counters/${hero.key}`}
                 className="text-sm text-zinc-400 hover:text-white border border-zinc-700/50 hover:border-zinc-500 px-3 py-1.5 rounded transition-colors"
               >
-                {getHeroDisplayName(hero.key)} Counters
+                {data.counters_link.replace("{hero}", hero.name)}
               </Link>
             ))}
           </div>

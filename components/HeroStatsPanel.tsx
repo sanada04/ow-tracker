@@ -2,12 +2,13 @@ import Link from "next/link";
 import { HeroCell, SectionHeading, TierBadge, type HeroRef } from "@/components/ui/Hero";
 import type { ScoredHero } from "@/lib/meta-score";
 import type { DivisionStat, HeroMapStat } from "@/lib/stats";
+import { matchupPath } from "@/lib/stats-config";
 import type { Dictionary } from "@/lib/i18n";
 
 const MAP_LIST_SIZE = 5;
 const SAME_ROLE_SIZE = 6;
 
-function MapList({
+export function MapList({
   title,
   rows,
   mapNames,
@@ -47,6 +48,69 @@ function MapList({
   );
 }
 
+export function HeroSummary({ hero, labels }: { hero: ScoredHero; labels: Dictionary["data"] }) {
+  const summary = [
+    { label: labels.col_win, value: `${hero.winrate.toFixed(1)}%` },
+    { label: labels.col_pick, value: `${hero.pickrate.toFixed(1)}%` },
+    { label: labels.col_ban, value: `${hero.banrate.toFixed(1)}%` },
+    { label: labels.col_score, value: String(hero.score) },
+  ];
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+      <div className="ow-card p-3">
+        <p className="text-sm text-[var(--ow-text-3)] mb-1">{labels.stat_tier}</p>
+        <TierBadge tier={hero.tier} />
+      </div>
+      {summary.map(({ label, value }) => (
+        <div key={label} className="ow-card p-3">
+          <p className="text-sm text-[var(--ow-text-3)] mb-1">{label}</p>
+          <p className="ow-stat-value">{value}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function RankTable({
+  divisions,
+  lang,
+  labels,
+}: {
+  divisions: DivisionStat[];
+  lang: string;
+  labels: Dictionary["data"];
+}) {
+  return (
+    <div className="ow-card p-4 overflow-x-auto">
+      <h3 className="text-base font-bold mb-1">{labels.by_rank}</h3>
+      <table className="ow-table">
+        <thead>
+          <tr>
+            <th scope="col">{labels.col_rank}</th>
+            <th scope="col">{labels.col_win}</th>
+            <th scope="col">{labels.col_pick}</th>
+            <th scope="col">{labels.col_ban}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {divisions.map(({ division, stat }) => (
+            <tr key={division}>
+              <td>
+                <Link href={`/${lang}/stats/ranks/${division}`} className="hover:text-[var(--ow-accent)]">
+                  {labels.ranks[division]}
+                </Link>
+              </td>
+              <td>{stat ? `${stat.winrate.toFixed(1)}%` : "-"}</td>
+              <td>{stat ? `${stat.pickrate.toFixed(1)}%` : "-"}</td>
+              <td>{stat ? `${stat.banrate.toFixed(1)}%` : "-"}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export default function HeroStatsPanel({
   heroKey,
   heroName,
@@ -76,12 +140,6 @@ export default function HeroStatsPanel({
   const sameRole = scored
     .filter((hero) => hero.role === self.role && hero.hero !== heroKey)
     .slice(0, SAME_ROLE_SIZE);
-  const summary = [
-    { label: labels.col_win, value: `${self.winrate.toFixed(1)}%` },
-    { label: labels.col_pick, value: `${self.pickrate.toFixed(1)}%` },
-    { label: labels.col_ban, value: `${self.banrate.toFixed(1)}%` },
-    { label: labels.col_score, value: String(self.score) },
-  ];
   const namesWithLabel = { ...mapNames, __label: labels.col_map };
   const showMaps = mapStats.length >= MAP_LIST_SIZE * 2;
 
@@ -89,44 +147,11 @@ export default function HeroStatsPanel({
     <section className="space-y-6">
       <SectionHeading aside={scope}>{labels.hero_stats_h2.replace("{hero}", heroName)}</SectionHeading>
 
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-        <div className="ow-card p-3">
-          <p className="text-sm text-[var(--ow-text-3)] mb-1">{labels.stat_tier}</p>
-          <TierBadge tier={self.tier} />
-        </div>
-        {summary.map(({ label, value }) => (
-          <div key={label} className="ow-card p-3">
-            <p className="text-sm text-[var(--ow-text-3)] mb-1">{label}</p>
-            <p className="ow-stat-value">{value}</p>
-          </div>
-        ))}
-      </div>
+      <HeroSummary hero={self} labels={labels} />
       {self.lowData && <p className="text-sm text-[var(--ow-text-3)]">{labels.how_limits}</p>}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="ow-card p-4 overflow-x-auto">
-          <h3 className="text-base font-bold mb-1">{labels.by_rank}</h3>
-          <table className="ow-table">
-            <thead>
-              <tr>
-                <th scope="col">{labels.col_rank}</th>
-                <th scope="col">{labels.col_win}</th>
-                <th scope="col">{labels.col_pick}</th>
-                <th scope="col">{labels.col_ban}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {divisions.map(({ division, stat }) => (
-                <tr key={division}>
-                  <td>{labels.ranks[division]}</td>
-                  <td>{stat ? `${stat.winrate.toFixed(1)}%` : "-"}</td>
-                  <td>{stat ? `${stat.pickrate.toFixed(1)}%` : "-"}</td>
-                  <td>{stat ? `${stat.banrate.toFixed(1)}%` : "-"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <RankTable divisions={divisions} lang={lang} labels={labels} />
 
         <div className="ow-card p-4 overflow-x-auto">
           <h3 className="text-base font-bold mb-1">{labels.same_role}</h3>
@@ -146,7 +171,7 @@ export default function HeroStatsPanel({
                   <td>{hero.winrate.toFixed(1)}%</td>
                   <td>{hero.pickrate.toFixed(1)}%</td>
                   <td>
-                    <Link href={`/${lang}/heroes/${heroKey}/vs/${hero.hero}`} className="text-[var(--ow-accent)]">
+                    <Link href={matchupPath(lang, heroKey, hero.hero)} className="text-[var(--ow-accent)]">
                       {labels.compare_link}
                     </Link>
                   </td>

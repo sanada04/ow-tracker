@@ -21,3 +21,9 @@ export function statsFileName({ platform, region, division }: StatsFilter): stri
 export function defaultRegion(lang: string): Region {
   return lang === "en" ? "americas" : "asia";
 }
+
+/** Each pair has one address, so a matchup is never split across two URLs. */
+export function matchupPath(lang: string, heroA: string, heroB: string): string {
+  const [first, second] = [heroA, heroB].sort();
+  return `/${lang}/heroes/${first}/vs/${second}`;
+}

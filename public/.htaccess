@@ -15,8 +15,14 @@ RewriteCond %{REQUEST_URI} !^/_next/
 RewriteCond %{REQUEST_URI} !\.
 RewriteRule ^ /lang-redirect.php [L]
 
-# One prebuilt page serves every player and matchup.
+# One prebuilt page serves every player. Popular matchups have their own page at
+# one address; the reversed URL redirects there and the rest share a single page.
 RewriteRule ^(ja|en|ko)/players/([^/]+)$ /player-page.php?lang=$1&id=$2 [B,L,QSA]
+RewriteCond %{DOCUMENT_ROOT}/$1/heroes/$3/vs/$2.html -f
+RewriteCond %{DOCUMENT_ROOT}/$1/heroes/$2/vs/$3.html !-f
+RewriteRule ^(ja|en|ko)/heroes/([^/]+)/vs/([^/]+)$ /$1/heroes/$3/vs/$2 [R=301,L]
+RewriteCond %{DOCUMENT_ROOT}/$1/heroes/$2/vs/$3.html -f
+RewriteRule ^(ja|en|ko)/heroes/([^/]+)/vs/([^/]+)$ /$1/heroes/$2/vs/$3.html [L]
 RewriteRule ^(ja|en|ko)/heroes/[^/]+/vs/[^/]+$ /$1/heroes/_/vs/_.html [L]
 
 # Canonical URLs have no trailing slash or .html.

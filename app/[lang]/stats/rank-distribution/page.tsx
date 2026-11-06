@@ -104,7 +104,11 @@ export default async function RankDistributionPage({ params }: Props) {
                       className="font-bold text-white text-sm"
                       style={{ fontFamily: "var(--font-heading)" }}
                     >
-                      {rankData.name}
+                      {key === "champion" ? rankData.name : (
+                        <Link href={`/${lang}/stats/ranks/${key}`} className="hover:text-[var(--ow-accent)]">
+                          {rankData.name}
+                        </Link>
+                      )}
                     </p>
                     <p className="text-xs text-zinc-500 mt-0.5">{rankData.desc}</p>
                   </div>

@@ -112,6 +112,8 @@ export default function HeroVsView({
           {t.back_to_hero.replace("{hero}", nameA)}
         </Link>
 
+        <h1 className="sr-only">{dict.data.vs_h1.replace("{a}", nameA).replace("{b}", nameB)}</h1>
+
         {/* Hero A vs B header */}
         <div className="ow-card p-6 mb-8">
           <div className="grid grid-cols-3 items-center gap-4">

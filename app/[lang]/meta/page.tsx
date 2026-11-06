@@ -107,6 +107,10 @@ export default async function MetaPage({ params }: Props) {
           <MapLeaderGrid leaders={mapLeaders} heroes={refs} lang={lang} bestLabel={t.best_on_map} />
         </section>
       )}
+
+      <p>
+        <Link href={`/${lang}/stats/ranks`} className="text-[var(--ow-accent)]">{t.ranks_h1}</Link>
+      </p>
     </main>
   );
 }

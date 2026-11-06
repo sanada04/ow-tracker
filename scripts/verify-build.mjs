@@ -7,7 +7,7 @@ import { join } from "node:path";
 const OUT = "out";
 const LANGS = ["ja", "en", "ko"];
 const MIN_PAGES = { heroes: 40, maps: 40, counters: 40 };
-const INDEX_PAGES = ["heroes", "maps", "counters", "compare", "tier-list", "meta", "about", "privacy", "contact"];
+const INDEX_PAGES = ["heroes", "maps", "counters", "compare", "tier-list", "meta", "about", "privacy", "contact", "stats/ranks", "stats/ranks/gold", "heroes/genji/vs/tracer"];
 const KANA = /[\u3040-\u30ff]/;
 
 const problems = [];

@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getHeroes, getMaps } from "@/lib/api";
+import { getMatchupPairs } from "@/lib/stats";
+import { DIVISIONS } from "@/lib/stats-config";
 
 const BASE = "https://owtracker.org";
 
@@ -17,6 +19,7 @@ const STATIC_PAGES: [string, number, Frequency][] = [
   ["/heroes", 0.9, "weekly"],
   ["/maps", 0.8, "weekly"],
   ["/counters", 0.8, "weekly"],
+  ["/stats/ranks", 0.8, "daily"],
   ["/stats/rank-distribution", 0.8, "weekly"],
   ["/compare", 0.7, "monthly"],
   ["/about", 0.5, "monthly"],
@@ -25,7 +28,7 @@ const STATIC_PAGES: [string, number, Frequency][] = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [heroes, maps] = await Promise.all([getHeroes("en"), getMaps("en")]);
+  const [heroes, maps, pairs] = await Promise.all([getHeroes("en"), getMaps("en"), getMatchupPairs()]);
 
   const paths: [string, number, Frequency][] = [
     ...STATIC_PAGES,
@@ -34,6 +37,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       [`/counters/${hero.key}`, 0.7, "weekly"],
     ]),
     ...maps.map((map): [string, number, Frequency] => [`/maps/${map.key}`, 0.7, "daily"]),
+    ...DIVISIONS.map((rank): [string, number, Frequency] => [`/stats/ranks/${rank}`, 0.7, "daily"]),
+    ...pairs.map(([first, second]): [string, number, Frequency] => [`/heroes/${first}/vs/${second}`, 0.6, "weekly"]),
   ];
 
   return LANGS.flatMap((lang) =>
