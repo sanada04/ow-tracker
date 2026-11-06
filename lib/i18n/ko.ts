@@ -86,6 +86,7 @@ export const ko: Dictionary = {
   },
   compare: {
     title: "플레이어 비교",
+    meta_description: "두 Overwatch 플레이어의 랭크, 승률, KDA, 플레이 시간, 사용 영웅을 나란히 비교합니다.",
     player_a: "플레이어 A",
     player_b: "플레이어 B",
     enter_tag: "예: Name#1234",
@@ -104,6 +105,7 @@ export const ko: Dictionary = {
   },
   heroes_page: {
     title: "영웅 목록",
+    meta_description: "Overwatch의 모든 플레이어블 영웅 목록입니다. 탱커, 딜러, 지원가별로 찾아볼 수 있습니다.",
     subtitle: "Overwatch의 모든 플레이어블 영웅",
     search_placeholder: "영웅 검색...",
     role_all: "전체",
@@ -255,6 +257,7 @@ export const ko: Dictionary = {
   contact: {
     nav: "문의",
     title: "문의하기",
+    meta_description: "OW Tracker에 버그 제보, 기능 요청, 문의를 보낼 수 있습니다.",
     subtitle: "질문·버그 제보·의견을 보내주세요",
     topics: [
       { value: "bug", icon: "⚠", label: "버그 제보" },
@@ -278,6 +281,7 @@ export const ko: Dictionary = {
     },
   },
   data: {
+    "home": "홈",
     "about": "사이트 소개",
     "hero_h1": "오버워치 전적과 메타 확인",
     "hero_sub": "배틀태그로 플레이어를 검색할 수 있습니다. 영웅 승률, 픽률, 밴률은 매일 갱신됩니다.",

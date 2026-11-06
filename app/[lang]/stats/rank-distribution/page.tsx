@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const dict = getDictionary(lang);
   const t = dict.rank_page;
   return {
-    title: `${t.title} — OW Tracker`,
+    title: t.title,
     description: t.subtitle,
     alternates: {
       canonical: `https://owtracker.org/${lang}/stats/rank-distribution`,

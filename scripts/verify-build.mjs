@@ -7,6 +7,8 @@ import { join } from "node:path";
 const OUT = "out";
 const LANGS = ["ja", "en", "ko"];
 const MIN_PAGES = { heroes: 40, maps: 40, counters: 40 };
+const INDEX_PAGES = ["heroes", "maps", "counters", "compare", "tier-list", "meta", "about", "privacy", "contact"];
+const KANA = /[\u3040-\u30ff]/;
 
 const problems = [];
 
@@ -44,6 +46,29 @@ for (const lang of LANGS) {
     if (links < MIN_PAGES[page]) {
       problems.push(`${lang}/${page}: only ${links} links`);
     }
+  }
+}
+
+function htmlFiles(dir) {
+  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const path = join(dir, entry.name);
+    if (entry.isDirectory()) return htmlFiles(path);
+    return entry.name.endsWith(".html") ? [path] : [];
+  });
+}
+
+for (const lang of LANGS) {
+  for (const page of INDEX_PAGES) {
+    const html = readFileSync(join(OUT, lang, `${page}.html`), "utf8");
+    if (!pageHeading(html)) problems.push(`${lang}/${page}: no h1`);
+    if (!html.includes('rel="canonical"')) problems.push(`${lang}/${page}: no canonical`);
+  }
+  for (const path of htmlFiles(join(OUT, lang))) {
+    const html = readFileSync(path, "utf8");
+    const title = pageTitle(html);
+    const description = html.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? "";
+    if (title.split("OW Tracker").length > 2) problems.push(`${path}: repeated site name in "${title}"`);
+    if (lang === "ko" && KANA.test(title + description)) problems.push(`${path}: Japanese metadata in "${title}"`);
   }
 }
 

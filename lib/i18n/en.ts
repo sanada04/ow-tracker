@@ -84,6 +84,7 @@ export const en = {
   },
   compare: {
     title: "Compare Players",
+    meta_description: "Compare two Overwatch players side by side: rank, win rate, KDA, play time, and hero pool.",
     player_a: "Player A",
     player_b: "Player B",
     enter_tag: "e.g. Name#1234",
@@ -102,6 +103,7 @@ export const en = {
   },
   heroes_page: {
     title: "Hero Roster",
+    meta_description: "All playable heroes in Overwatch. Browse by role: Tank, Damage, Support.",
     subtitle: "All playable heroes in Overwatch",
     search_placeholder: "Search heroes...",
     role_all: "All",
@@ -253,6 +255,7 @@ export const en = {
   contact: {
     nav: "Contact",
     title: "Contact",
+    meta_description: "Contact OW Tracker for bug reports, feature requests, or general inquiries.",
     subtitle: "Questions, bug reports, or feedback",
     topics: [
       { value: "bug", icon: "⚠", label: "Bug report" },
@@ -276,6 +279,7 @@ export const en = {
     },
   },
   data: {
+    "home": "Home",
     "about": "About",
     "hero_h1": "Overwatch stats and meta",
     "hero_sub": "Look up any player by BattleTag. Hero win, pick, and ban rates update daily.",

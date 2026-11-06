@@ -1,3 +1,4 @@
+import { localeAlternates } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { getHeroes, getHeroDetail } from "@/lib/api";
@@ -26,9 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const title = t.page_title.replace("{hero}", displayName);
   const desc = t.page_subtitle.replace("{hero}", displayName);
   return {
-    title: `${title} — OW Tracker`,
+    title,
     description: desc,
-    alternates: { canonical: `https://owtracker.org/${lang}/counters/${heroId}` },
+    alternates: localeAlternates(lang, `/counters/${heroId}`),
     openGraph: {
       title: `${title} — OW Tracker`,
       description: desc,
@@ -60,9 +61,8 @@ export default async function CounterPage({ params }: Props) {
     (h) => h.key !== heroId && h.role !== heroDetail?.role
   ).slice(0, 8);
 
-  const isEn = lang === "en";
   const breadcrumb = buildBreadcrumbList([
-    { name: isEn ? "Home" : "ホーム", path: `/${lang}` },
+    { name: dict.data.home, path: `/${lang}` },
     { name: t.nav, path: `/${lang}/counters` },
     { name: displayName, path: `/${lang}/counters/${heroId}` },
   ]);

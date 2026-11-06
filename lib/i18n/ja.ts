@@ -86,6 +86,7 @@ export const ja: Dictionary = {
   },
   compare: {
     title: "プレイヤー比較",
+    meta_description: "2人のOverwatchプレイヤーを比較。ランク・勝率・KDA・プレイ時間・使用ヒーローを並べて確認できます。",
     player_a: "プレイヤー A",
     player_b: "プレイヤー B",
     enter_tag: "例: Name#1234",
@@ -104,6 +105,7 @@ export const ja: Dictionary = {
   },
   heroes_page: {
     title: "ヒーロー一覧",
+    meta_description: "Overwatch の全プレイアブルヒーロー一覧。タンク・ダメージ・サポートで絞り込めます。",
     subtitle: "Overwatch の全プレイアブルヒーロー",
     search_placeholder: "ヒーローを検索...",
     role_all: "すべて",
@@ -255,6 +257,7 @@ export const ja: Dictionary = {
   contact: {
     nav: "お問い合わせ",
     title: "お問い合わせ",
+    meta_description: "OW Trackerへのお問い合わせ。不具合報告・機能リクエスト・ご質問など。",
     subtitle: "ご質問・不具合報告・ご意見など",
     topics: [
       { value: "bug", icon: "⚠", label: "不具合報告" },
@@ -278,6 +281,7 @@ export const ja: Dictionary = {
     },
   },
   data: {
+    "home": "ホーム",
     "about": "このサイトについて",
     "hero_h1": "Overwatch の戦績とメタを調べる",
     "hero_sub": "BattleTag でプレイヤーを検索できます。ヒーローの勝率、ピック率、バン率は毎日更新します。",

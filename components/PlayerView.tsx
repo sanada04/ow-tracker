@@ -31,9 +31,12 @@ function applyPlayerMeta(lang: string, playerId: string, username: string) {
   const tag = formatBattleTag(playerId);
   const display = tag ? `${username} (${tag})` : username;
   const title = `${display} — Overwatch Stats | OW Tracker`;
-  const description = lang === "en"
-    ? `View ${display}'s Overwatch stats: competitive rank, winrate, KDA, and hero statistics.`
-    : `${display} の Overwatch 戦績: コンペティティブランク・勝率・KDA・ヒーロー別スタッツを確認。`;
+  const descriptions: Record<string, string> = {
+    en: `View ${display}'s Overwatch stats: competitive rank, winrate, KDA, and hero statistics.`,
+    ja: `${display} の Overwatch 戦績: コンペティティブランク・勝率・KDA・ヒーロー別スタッツを確認。`,
+    ko: `${display}의 Overwatch 전적: 경쟁전 랭크, 승률, KDA, 영웅별 통계를 확인하세요.`,
+  };
+  const description = descriptions[lang] ?? descriptions.en;
 
   document.title = title;
   const setContent = (selector: string, value: string) =>

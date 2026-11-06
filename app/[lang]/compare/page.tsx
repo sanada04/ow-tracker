@@ -1,3 +1,4 @@
+import { localeAlternates } from "@/lib/seo";
 import { Suspense } from "react";
 import { getDictionary } from "@/lib/i18n";
 import CompareView from "@/components/CompareView";
@@ -10,29 +11,24 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
-  const isEn = lang === "en";
+  const t = getDictionary(lang).compare;
   return {
-    title: isEn ? "Compare Players — OW Tracker" : "プレイヤー比較 — OW Tracker",
-    description: isEn
-      ? "Compare two Overwatch players side by side: rank, win rate, KDA, play time, and hero pool."
-      : "2人のOverwatchプレイヤーを比較。ランク・勝率・KDA・プレイ時間・使用ヒーローを並べて確認できます。",
-    alternates: {
-      canonical: `https://owtracker.org/${lang}/compare`,
-      languages: {
-        ja: "https://owtracker.org/ja/compare",
-        en: "https://owtracker.org/en/compare",
-        ko: "https://owtracker.org/ko/compare",
-        "x-default": "https://owtracker.org/ja/compare",
-      },
-    },
+    title: t.title,
+    description: t.meta_description,
+    alternates: localeAlternates(lang, "/compare"),
   };
 }
 
 export default async function ComparePage({ params }: Props) {
   const { lang } = await params;
+  const dict = getDictionary(lang);
   return (
-    <Suspense fallback={<PageLoader />}>
-      <CompareView lang={lang} dict={getDictionary(lang)} />
-    </Suspense>
+    <div className="bg-[var(--ow-bg)] text-white">
+      {/* Outside Suspense: CompareView reads the URL, so it only renders in the browser. */}
+      <h1 className="ow-section-title max-w-4xl mx-auto px-6 pt-12">{dict.compare.title}</h1>
+      <Suspense fallback={<PageLoader />}>
+        <CompareView lang={lang} dict={dict} />
+      </Suspense>
+    </div>
   );
 }

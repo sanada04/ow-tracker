@@ -1,3 +1,4 @@
+import { localeAlternates } from "@/lib/seo";
 import type { Metadata } from "next";
 import { getMaps } from "@/lib/api";
 import { getDictionary } from "@/lib/i18n";
@@ -13,12 +14,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const dict = getDictionary(lang);
   const t = dict.maps_page;
   return {
-    title: `${t.title} — OW Tracker`,
+    title: t.title,
     description: t.subtitle,
-    alternates: {
-      canonical: `https://owtracker.org/${lang}/maps`,
-      languages: { ja: "https://owtracker.org/ja/maps", en: "https://owtracker.org/en/maps" },
-    },
+    alternates: localeAlternates(lang, "/maps"),
   };
 }
 
@@ -50,7 +48,7 @@ export default async function MapsPage({ params }: Props) {
     <div className="min-h-screen bg-[var(--ow-bg)] text-white">
       <main className="max-w-5xl mx-auto px-6 pt-24 pb-16">
         <div className="mb-8">
-          <p className="ow-section-title mb-1">{t.title}</p>
+          <h1 className="ow-section-title mb-1">{t.title}</h1>
           <p className="text-zinc-500 text-sm">{t.subtitle}</p>
         </div>
 

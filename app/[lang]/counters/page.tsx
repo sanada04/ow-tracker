@@ -1,3 +1,4 @@
+import { localeAlternates } from "@/lib/seo";
 import Image from "next/image";
 import Link from "next/link";
 import { getHeroes } from "@/lib/api";
@@ -13,9 +14,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const dict = getDictionary(lang);
   const t = dict.counters_page;
   return {
-    title: `${t.index_title} — OW Tracker`,
+    title: t.index_title,
     description: t.index_subtitle,
-    alternates: { canonical: `https://owtracker.org/${lang}/counters` },
+    alternates: localeAlternates(lang, "/counters"),
   };
 }
 

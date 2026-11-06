@@ -1,3 +1,4 @@
+import { localeAlternates } from "@/lib/seo";
 import { getDictionary } from "@/lib/i18n";
 import ContactForm from "@/components/ContactForm";
 import type { Metadata } from "next";
@@ -10,16 +11,11 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
-  const isEn = lang === "en";
+  const t = getDictionary(lang).contact;
   return {
-    title: isEn ? "Contact — OW Tracker" : "お問い合わせ — OW Tracker",
-    description: isEn
-      ? "Contact OW Tracker for bug reports, feature requests, or general inquiries."
-      : "OW Trackerへのお問い合わせ。不具合報告・機能リクエスト・ご質問など。",
-    alternates: {
-      canonical: `/${lang}/contact`,
-      languages: { ja: "/ja/contact", en: "/en/contact", "x-default": "/ja/contact" },
-    },
+    title: t.title,
+    description: t.meta_description,
+    alternates: localeAlternates(lang, "/contact"),
   };
 }
 

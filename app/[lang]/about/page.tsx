@@ -1,3 +1,4 @@
+import { localeAlternates } from "@/lib/seo";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -7,14 +8,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params;
   const isJa = lang === "ja";
   return {
-    title: isJa ? "OW Trackerについて" : "About OW Tracker",
+    title: { absolute: isJa ? "OW Trackerについて" : "About OW Tracker" },
     description: isJa
       ? "OW Trackerは、Overwatch 2 プレイヤーのための無料の戦績・データ確認サービスです。BattleTagで検索するだけで、ランク・勝率・ヒーロー統計を確認できます。"
       : "OW Tracker is a free Overwatch 2 stats and data service. Search by BattleTag to view competitive ranks, win rates, and hero statistics.",
-    alternates: {
-      canonical: `https://owtracker.org/${lang}/about`,
-      languages: { ja: "/ja/about", en: "/en/about" },
-    },
+    alternates: localeAlternates(lang, "/about"),
     robots: { index: true, follow: true },
   };
 }

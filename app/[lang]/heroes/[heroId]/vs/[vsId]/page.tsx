@@ -17,7 +17,7 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
-  title: "Hero Matchup — OW Tracker",
+  title: "Hero Matchup",
   robots: { index: false, follow: true },
 };
 

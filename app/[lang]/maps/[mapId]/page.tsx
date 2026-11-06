@@ -30,17 +30,17 @@ function getModeName(key: string, gamemodes: Record<string, string>): string {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, mapId } = await params;
   const dict = getDictionary(lang);
-  const isEn = lang === "en";
+  const isEn = lang !== "ja";
   const maps = await getMaps(lang);
   const map = maps.find((m) => m.key === mapId);
-  if (!map) return { title: "Map — OW Tracker" };
+  if (!map) return { title: "Map" };
   const gm = getModeName(
     map.gamemodes[0] ?? "",
     dict.maps_page.gamemodes as Record<string, string>
   );
   const location = map.location ? ` (${map.location})` : "";
   return {
-    title: `${map.name} — OW Tracker`,
+    title: map.name,
     description: isEn
       ? `${map.name}${location} is an Overwatch ${gm} map. Explore map strategy, positioning tips, and related maps.`
       : `${map.name}${location} は Overwatch の ${gm} マップです。攻略ポイントや関連マップを確認できます。`,
@@ -66,7 +66,7 @@ export default async function MapDetailPage({ params }: Props) {
   const t = dict.map_detail;
   const tp = dict.maps_page;
   const gmLabels = tp.gamemodes as Record<string, string>;
-  const isEn = lang === "en";
+  const isEn = lang !== "ja";
 
   const maps = await getMaps(lang);
 
@@ -89,7 +89,7 @@ export default async function MapDetailPage({ params }: Props) {
   const guide = getMapModeGuide(primaryMode, lang);
 
   const breadcrumb = buildBreadcrumbList([
-    { name: isEn ? "Home" : "ホーム", path: `/${lang}` },
+    { name: dict.data.home, path: `/${lang}` },
     { name: tp.nav, path: `/${lang}/maps` },
     { name: map.name, path: `/${lang}/maps/${mapId}` },
   ]);

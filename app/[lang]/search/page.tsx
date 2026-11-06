@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-  title: "Search — OW Tracker",
+  title: "Search",
   robots: { index: false },
 };
 

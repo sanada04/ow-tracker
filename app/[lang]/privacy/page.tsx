@@ -1,3 +1,4 @@
+import { localeAlternates } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getDictionary } from "@/lib/i18n";
@@ -14,6 +15,7 @@ export async function generateMetadata({
     description: isJa
       ? "OW Tracker のプライバシーポリシー。Cookie・データ収集に関する方針を説明します。"
       : "OW Tracker privacy policy covering cookies and data collection practices.",
+    alternates: localeAlternates(lang, "/privacy"),
     robots: { index: true, follow: true },
   };
 }

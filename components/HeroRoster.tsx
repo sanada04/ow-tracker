@@ -44,8 +44,8 @@ export default function HeroRoster({
           role: h.role,
           portrait: h.portrait,
         }))
-        .sort((a, b) => a.name.localeCompare(b.name)),
-    [heroes]
+        .sort((a, b) => a.name.localeCompare(b.name, lang)),
+    [heroes, lang]
   );
 
   const filtered = useMemo(() => {

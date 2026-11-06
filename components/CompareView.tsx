@@ -125,21 +125,15 @@ export default function CompareView({ lang, dict }: { lang: string; dict: Dictio
   const statsA = dataA?.stats?.general ?? null;
   const statsB = dataB?.stats?.general ?? null;
 
-  const isEn = lang === "en";
   const breadcrumb = buildBreadcrumbList([
-    { name: isEn ? "Home" : "ホーム", path: `/${lang}` },
+    { name: dict.data.home, path: `/${lang}` },
     { name: t.title, path: `/${lang}/compare` },
   ]);
 
   return (
     <div className="min-h-screen bg-[var(--ow-bg)] text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
-      <main className="max-w-4xl mx-auto px-6 py-12 space-y-8">
-        {/* Title */}
-        <div className="">
-          <p className="ow-section-title mb-2">{t.title}</p>
-        </div>
-
+      <main className="max-w-4xl mx-auto px-6 pt-6 pb-12 space-y-8">
         {/* Form */}
         <div className="ow-card p-5">
           <CompareForm lang={lang} initialA={idA ?? ""} initialB={idB ?? ""} labels={t} />

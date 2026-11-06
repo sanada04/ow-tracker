@@ -29,6 +29,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params;
   return {
+    description: getDictionary(lang).data.hero_sub,
     // NOTE: no `alternates` here. This layout applies to every route under
     // /[lang]/**, and a static languages map would incorrectly tell search
     // engines that e.g. /en/heroes/genji's ja translation is just /ja (the

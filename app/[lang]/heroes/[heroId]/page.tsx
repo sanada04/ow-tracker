@@ -28,9 +28,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang, heroId } = await params;
   const hero = await getHeroDetail(heroId, lang);
-  const isEn = lang === "en";
+  const isEn = lang !== "ja";
   return {
-    title: `${hero.name} — OW Tracker`,
+    title: hero.name,
     description:
       hero.story?.summary ??
       hero.description ??
@@ -342,7 +342,7 @@ export default async function HeroDetailPage({ params }: Props) {
         {(() => {
           const guide = getHeroGuide(hero.role, lang);
           if (!guide) return null;
-          const isEn = lang === "en";
+          const isEn = lang !== "ja";
           const heroKey = heroId;
           const heroTips = HERO_TIPS[heroKey];
           const heroTipList = heroTips ? (isEn ? heroTips.en : heroTips.ja) : [];
