@@ -5,7 +5,7 @@ import { formatTimePlayed } from "@/lib/format";
 import AnimatedNumber from "./AnimatedNumber";
 
 const WINRATE_COLOR = (v: number) =>
-  v >= 60 ? "text-green-400 text-glow-green" : v >= 50 ? "text-[#f4a029] text-glow-orange" : "text-red-400 text-glow-red";
+  v >= 60 ? "text-green-400 text-glow-green" : v >= 50 ? "text-[var(--ow-accent)] text-glow-orange" : "text-red-400 text-glow-red";
 
 interface CardProps {
   label: string;
@@ -17,12 +17,12 @@ interface CardProps {
 function StatCard({ label, children, sub, delay = 0 }: CardProps) {
   return (
     <div
-      className="ow-card p-4 flex flex-col gap-1 animate-fade-up"
+      className="ow-card p-4 flex flex-col gap-1"
       style={{ animationDelay: `${delay}ms` }}
     >
-      <span className="text-[10px] uppercase tracking-widest text-zinc-500 font-medium">{label}</span>
+      <span className="text-xs tracking-normal text-zinc-500 font-medium">{label}</span>
       <span className="ow-stat-value text-white">{children}</span>
-      {sub && <span className="text-[11px] text-zinc-500 mt-0.5">{sub}</span>}
+      {sub && <span className="text-xs text-zinc-500 mt-0.5">{sub}</span>}
     </div>
   );
 }

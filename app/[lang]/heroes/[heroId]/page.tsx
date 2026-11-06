@@ -6,6 +6,11 @@ import AbilityShowcase from "@/components/AbilityShowcase";
 import HeroHpDisplay from "@/components/HeroHpDisplay";
 import { getHeroDisplayName, HERO_PORTRAITS } from "@/lib/heroes";
 import { getHeroGuide, HERO_TIPS } from "@/lib/hero-guides";
+import HeroStatsPanel from "@/components/HeroStatsPanel";
+import { getHeroByDivision, getHeroByMap, getScoredHeroes } from "@/lib/stats";
+import { defaultRegion } from "@/lib/stats-config";
+import { getHeroRefs } from "@/lib/hero-refs";
+import { getMaps } from "@/lib/api";
 import type { Metadata } from "next";
 import type { HeroPerk, HeroStoryChapter } from "@/types/overwatch";
 
@@ -30,8 +35,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       hero.story?.summary ??
       hero.description ??
       (isEn
-        ? `${hero.name} abilities, perks, and story in Overwatch 2.`
-        : `${hero.name} のアビリティ・パーク・ストーリー詳細 — Overwatch 2`),
+        ? `${hero.name} abilities, perks, and story in Overwatch.`
+        : `${hero.name} のアビリティ・パーク・ストーリー詳細 — Overwatch`),
     alternates: {
       canonical: `https://owtracker.org/${lang}/heroes/${heroId}`,
       languages: {
@@ -55,40 +60,26 @@ const ROLE_COLORS = {
 };
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="mb-6 flex items-center gap-3">
-      <div style={{ width: "3px", minHeight: "1.1rem", background: "#f4a029", borderRadius: "1px", flexShrink: 0, alignSelf: "stretch" }} />
-      <span style={{
-        fontFamily: '"Rajdhani", system-ui, sans-serif',
-        fontSize: "0.8rem",
-        fontWeight: 700,
-        letterSpacing: "0.2em",
-        textTransform: "uppercase" as const,
-        color: "#ffffff",
-      }}>
-        {children}
-      </span>
-    </div>
-  );
+  return <h2 className="text-xl font-bold mb-4">{children}</h2>;
 }
 
 function PerkCard({ perk, highlight = false }: { perk: HeroPerk; highlight?: boolean }) {
   return (
     <div className={`flex gap-4 p-4 border rounded transition-colors ${
       highlight
-        ? "border-[#f4a029]/25 bg-[#f4a029]/5"
-        : "border-zinc-800/60 bg-[#10101a]"
+        ? "border-[var(--ow-accent)]/25 bg-[var(--ow-accent)]/5"
+        : "border-zinc-800/60 bg-[var(--ow-surface)]"
     }`}
     >
       <div className={`shrink-0 w-10 h-10 rounded-sm border overflow-hidden ${
-        highlight ? "border-[#f4a029]/40" : "border-zinc-700/40"
+        highlight ? "border-[var(--ow-accent)]/40" : "border-zinc-700/40"
       }`}>
         <Image src={perk.icon} alt={perk.name} width={40} height={40} unoptimized />
       </div>
       <div className="min-w-0">
         <p
-          className={`font-bold text-sm mb-1 leading-tight ${highlight ? "text-[#f4a029]" : "text-white"}`}
-          style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}
+          className={`font-bold text-sm mb-1 leading-tight ${highlight ? "text-[var(--ow-accent)]" : "text-white"}`}
+          style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.05em" }}
         >
           {perk.name}
         </p>
@@ -106,13 +97,13 @@ function StoryChapter({ chapter, index }: { chapter: HeroStoryChapter; index: nu
         <div className="sm:w-72 shrink-0">
           <div className="relative aspect-[16/10] overflow-hidden border border-zinc-800/60 rounded">
             <Image src={chapter.picture} alt={chapter.title} fill className="object-cover" unoptimized />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0c10]/70 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--ow-bg)]/70 to-transparent" />
           </div>
         </div>
       )}
       <div className="flex-1 flex flex-col justify-center">
         <p
-          className="text-[11px] uppercase tracking-[0.2em] text-[#f4a029]/70 mb-2 font-medium"
+          className="text-xs tracking-normal text-[var(--ow-accent)]/70 mb-2 font-medium"
         >
           {chapter.title}
         </p>
@@ -130,6 +121,14 @@ export default async function HeroDetailPage({ params }: Props) {
   const hero = await getHeroDetail(heroId, lang);
   const allHeroes = await getHeroes(lang);
   const sameRoleHeroes = allHeroes.filter((h) => h.key !== heroId && h.role === hero.role).slice(0, 6);
+  const maps = await getMaps(lang);
+  const [scored, divisions, mapStats, refs] = await Promise.all([
+    getScoredHeroes(lang),
+    getHeroByDivision(lang, heroId),
+    getHeroByMap(lang, heroId, maps.map((map) => map.key)),
+    getHeroRefs(lang),
+  ]);
+  const scope = dict.data.scope_default.replace("{region}", dict.data.regions[defaultRegion(lang)]);
 
   const bgUrl = hero.backgrounds.find(b => b.sizes.includes("lg"))?.url
     ?? hero.backgrounds.at(-1)?.url
@@ -141,31 +140,31 @@ export default async function HeroDetailPage({ params }: Props) {
   const roleLabel = dict.player.roles[hero.role as keyof typeof dict.player.roles] ?? hero.role;
 
   return (
-    <div className="min-h-screen bg-[#0c0c10] text-white">
+    <div className="min-h-screen bg-[var(--ow-bg)] text-white">
 
       {/* ── Cinematic banner ── */}
-      <div className="relative h-[55vh] min-h-72 overflow-hidden">
+      <div className="relative h-72 sm:h-80 overflow-hidden">
         {bgUrl ? (
           <>
             <Image src={bgUrl} alt={hero.name} fill className="object-cover object-center" priority />
             <div className="absolute inset-0" style={{
-              background: "linear-gradient(to bottom, rgba(10,10,18,0.1) 0%, rgba(10,10,18,0.5) 60%, rgba(10,10,18,1) 100%)"
+              background: "linear-gradient(to bottom, rgba(16,17,19,0.1) 0%, rgba(16,17,19,0.5) 60%, rgba(16,17,19,1) 100%)"
             }} />
             <div className="absolute inset-0" style={{
-              background: "linear-gradient(to right, rgba(10,10,18,0.8) 0%, transparent 50%)"
+              background: "linear-gradient(to right, rgba(16,17,19,0.8) 0%, transparent 50%)"
             }} />
           </>
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-b from-[#101014] to-[#0c0c10]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--ow-surface)] to-[var(--ow-bg)]" />
         )}
 
         {/* Hero name overlaid on banner */}
         <div className="absolute bottom-0 left-0 right-0 max-w-5xl mx-auto px-6 pb-8">
           <Link
             href={`/${lang}/heroes`}
-            className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#00ccff] transition-colors mb-6"
+            className="inline-flex items-center gap-1.5 text-xs tracking-normal text-zinc-500 hover:text-[var(--ow-accent)] transition-colors mb-6"
           >
-            <span className="text-xs">←</span> {t.back}
+            {t.back}
           </Link>
 
           <div className="flex items-end gap-5">
@@ -180,18 +179,18 @@ export default async function HeroDetailPage({ params }: Props) {
             />
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <span className={`text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 border rounded font-medium ${roleColors.text} ${roleColors.border} ${roleColors.bg}`}>
+                <span className={`text-xs tracking-normal px-2.5 py-1 border rounded font-medium ${roleColors.text} ${roleColors.border} ${roleColors.bg}`}>
                   {roleLabel}
                 </span>
                 {hero.subrole && (
-                  <span className="text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 border border-zinc-700/40 text-zinc-500 rounded">
+                  <span className="text-xs tracking-normal px-2.5 py-1 border border-zinc-700/40 text-zinc-500 rounded">
                     {hero.subrole}
                   </span>
                 )}
               </div>
               <h1
-                className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-none text-white"
-                style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.02em" }}
+                className="text-4xl sm:text-5xl font-bold leading-none text-white"
+                style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.02em" }}
               >
                 {hero.name}
               </h1>
@@ -212,19 +211,19 @@ export default async function HeroDetailPage({ params }: Props) {
               <div className="flex flex-row sm:flex-col gap-4 sm:gap-3 text-right shrink-0">
                 {hero.location && (
                   <div>
-                    <p className="text-[10px] uppercase tracking-widest text-zinc-600 mb-0.5">{t.location_label}</p>
+                    <p className="text-xs tracking-normal text-zinc-500 mb-0.5">{t.location_label}</p>
                     <p className="text-white text-sm font-medium">{hero.location}</p>
                   </div>
                 )}
                 {hero.age != null && (
                   <div>
-                    <p className="text-[10px] uppercase tracking-widest text-zinc-600 mb-0.5">{t.age_label}</p>
+                    <p className="text-xs tracking-normal text-zinc-500 mb-0.5">{t.age_label}</p>
                     <p className="text-white text-sm font-medium">{hero.age}</p>
                   </div>
                 )}
                 {hero.birthday && (
                   <div>
-                    <p className="text-[10px] uppercase tracking-widest text-zinc-600 mb-0.5">{t.birthday_label}</p>
+                    <p className="text-xs tracking-normal text-zinc-500 mb-0.5">{t.birthday_label}</p>
                     <p className="text-white text-sm font-medium">{hero.birthday}</p>
                   </div>
                 )}
@@ -232,6 +231,19 @@ export default async function HeroDetailPage({ params }: Props) {
             )}
           </div>
         )}
+
+        <HeroStatsPanel
+          heroKey={heroId}
+          heroName={hero.name}
+          scored={scored}
+          divisions={divisions}
+          mapStats={mapStats}
+          mapNames={Object.fromEntries(maps.map((map) => [map.key, map.name]))}
+          refs={refs}
+          lang={lang}
+          scope={scope}
+          labels={dict.data}
+        />
 
         {/* ── HP ── */}
         {hp && (
@@ -262,8 +274,8 @@ export default async function HeroDetailPage({ params }: Props) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {hero.perks.minor.length > 0 && (
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-3">
-                    {t.perks_minor} <span className="text-zinc-700 ml-1">— {t.perks_choose}</span>
+                  <p className="text-xs tracking-normal text-zinc-500 mb-3">
+                    {t.perks_minor} <span className="text-zinc-500 ml-1">— {t.perks_choose}</span>
                   </p>
                   <div className="space-y-2">
                     {hero.perks.minor.map(p => <PerkCard key={p.name} perk={p} />)}
@@ -272,8 +284,8 @@ export default async function HeroDetailPage({ params }: Props) {
               )}
               {hero.perks.major.length > 0 && (
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-[#f4a029]/60 mb-3">
-                    {t.perks_major} <span className="text-zinc-700 ml-1">— {t.perks_choose}</span>
+                  <p className="text-xs tracking-normal text-[var(--ow-accent)]/60 mb-3">
+                    {t.perks_major} <span className="text-zinc-500 ml-1">— {t.perks_choose}</span>
                   </p>
                   <div className="space-y-2">
                     {hero.perks.major.map(p => <PerkCard key={p.name} perk={p} highlight />)}
@@ -290,14 +302,14 @@ export default async function HeroDetailPage({ params }: Props) {
             <SectionLabel>{t.stadium_label}</SectionLabel>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
               {hero.stadium_powers.map(p => (
-                <div key={p.name} className="flex gap-3 p-3 border border-zinc-800/40 bg-[#10101a] rounded">
+                <div key={p.name} className="flex gap-3 p-3 border border-zinc-800/40 bg-[var(--ow-surface)] rounded">
                   <div className="w-8 h-8 shrink-0 rounded-sm border border-zinc-700/40 overflow-hidden">
                     <Image src={p.icon} alt={p.name} width={32} height={32} unoptimized />
                   </div>
                   <div className="min-w-0">
                     <p className="text-white text-xs font-semibold leading-tight mb-0.5"
-                      style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>{p.name}</p>
-                    <p className="text-zinc-600 text-[11px] leading-relaxed">{p.description}</p>
+                      style={{ fontFamily: "var(--font-heading)" }}>{p.name}</p>
+                    <p className="text-zinc-500 text-xs leading-relaxed">{p.description}</p>
                   </div>
                 </div>
               ))}
@@ -311,7 +323,7 @@ export default async function HeroDetailPage({ params }: Props) {
             <SectionLabel>{t.story_label}</SectionLabel>
 
             {hero.story.summary && (
-              <div className="relative mb-12 pl-5 border-l border-[#00ccff]/20">
+              <div className="relative mb-12 pl-5 border-l border-[var(--ow-accent)]/20">
                 <p className="text-zinc-300 text-sm leading-[1.9]">{hero.story.summary}</p>
               </div>
             )}
@@ -345,15 +357,15 @@ export default async function HeroDetailPage({ params }: Props) {
                 {/* Hero-specific tips (unique per hero) */}
                 {heroTipList.length > 0 && (
                   <div className="ow-card p-5">
-                    <p className="text-[11px] uppercase tracking-widest mb-4" style={{ color: "#f4a029" }}>
+                    <p className="text-xs tracking-normal mb-4" style={{ color: "var(--ow-accent)" }}>
                       {isEn ? `${hero.name} Tips` : `${hero.name} のコツ`}
                     </p>
                     <ol className="space-y-3">
                       {heroTipList.map((tip, i) => (
-                        <li key={i} className="flex gap-3 text-sm text-[#9090b0]">
+                        <li key={i} className="flex gap-3 text-sm text-[var(--ow-text-2)]">
                           <span
-                            className="shrink-0 w-5 h-5 flex items-center justify-center text-[10px] font-bold rounded-sm mt-0.5"
-                            style={{ background: "rgba(244,160,41,0.12)", color: "#f4a029", fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                            className="shrink-0 w-5 h-5 flex items-center justify-center text-xs font-bold rounded-sm mt-0.5"
+                            style={{ background: "rgba(244,160,41,0.12)", color: "var(--ow-accent)", fontFamily: "var(--font-heading)" }}
                           >
                             {i + 1}
                           </span>
@@ -366,25 +378,25 @@ export default async function HeroDetailPage({ params }: Props) {
 
                 {/* Role overview */}
                 <div className="ow-card p-5">
-                  <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-3">
+                  <p className="text-xs tracking-normal text-[var(--ow-text-3)] mb-3">
                     {isEn ? `${roleLabel} Overview` : `${roleLabel} の役割`}
                   </p>
-                  <p className="text-[#9090b0] text-sm leading-relaxed">{guide.overview}</p>
+                  <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">{guide.overview}</p>
                 </div>
 
                 {/* Positioning */}
                 <div className="ow-card p-5">
-                  <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-3">{posLabel}</p>
-                  <p className="text-[#9090b0] text-sm leading-relaxed">{guide.positioning}</p>
+                  <p className="text-xs tracking-normal text-[var(--ow-text-3)] mb-3">{posLabel}</p>
+                  <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">{guide.positioning}</p>
                 </div>
 
                 {/* Strengths & Weaknesses */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="ow-card p-4">
-                    <p className="text-[11px] uppercase tracking-widest text-green-500/70 mb-3">{strengthsLabel}</p>
+                    <p className="text-xs tracking-normal text-green-500/70 mb-3">{strengthsLabel}</p>
                     <ul className="space-y-2">
                       {guide.strengths.map((s) => (
-                        <li key={s} className="flex gap-2 text-sm text-[#9090b0]">
+                        <li key={s} className="flex gap-2 text-sm text-[var(--ow-text-2)]">
                           <span className="text-green-500/60 shrink-0 mt-0.5">+</span>
                           {s}
                         </li>
@@ -392,10 +404,10 @@ export default async function HeroDetailPage({ params }: Props) {
                     </ul>
                   </div>
                   <div className="ow-card p-4">
-                    <p className="text-[11px] uppercase tracking-widest text-red-500/70 mb-3">{weaknessesLabel}</p>
+                    <p className="text-xs tracking-normal text-red-500/70 mb-3">{weaknessesLabel}</p>
                     <ul className="space-y-2">
                       {guide.weaknesses.map((w) => (
-                        <li key={w} className="flex gap-2 text-sm text-[#9090b0]">
+                        <li key={w} className="flex gap-2 text-sm text-[var(--ow-text-2)]">
                           <span className="text-red-500/60 shrink-0 mt-0.5">−</span>
                           {w}
                         </li>
@@ -414,7 +426,7 @@ export default async function HeroDetailPage({ params }: Props) {
           <div className="flex flex-wrap gap-2">
             <Link
               href={`/${lang}/counters/${heroId}`}
-              className="px-3 py-1.5 text-sm border border-zinc-700/50 text-zinc-400 hover:border-[#00ccff]/40 hover:text-[#00ccff] rounded transition-colors"
+              className="px-3 py-1.5 text-sm border border-zinc-700/50 text-zinc-400 hover:border-[var(--ow-accent)]/40 hover:text-[var(--ow-accent)] rounded transition-colors"
             >
               {hero.name} Counters
             </Link>

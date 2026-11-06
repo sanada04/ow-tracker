@@ -13,9 +13,9 @@ export default function ShareButtons({
   const [tweetHref, setTweetHref] = useState("");
 
   useEffect(() => {
-    const text = encodeURIComponent(`${username} の Overwatch 2 戦績 — OW Tracker`);
+    const text = encodeURIComponent(`${username} の Overwatch 戦績 — OW Tracker`);
     const url = encodeURIComponent(window.location.href);
-    setTweetHref(`https://x.com/intent/tweet?text=${text}&url=${url}`);
+    Promise.resolve(`https://x.com/intent/tweet?text=${text}&url=${url}`).then(setTweetHref);
   }, [username]);
 
   function handleCopy() {
@@ -26,7 +26,7 @@ export default function ShareButtons({
   }
 
   const baseClass =
-    "flex items-center gap-1.5 px-3 py-1.5 border text-xs uppercase tracking-widest font-medium transition-colors";
+    "flex items-center gap-1.5 px-3 py-1.5 border text-xs tracking-normal font-medium transition-colors";
 
   return (
     <div className="flex items-center gap-2">

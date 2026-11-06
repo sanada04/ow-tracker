@@ -42,14 +42,14 @@ export default async function HeroesPage({ params }: Props) {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#0c0c10] text-white">
+    <div className="min-h-screen bg-[var(--ow-bg)] text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
       <main className="max-w-5xl mx-auto px-6 py-12 space-y-8">
-        <div className="animate-fade-up">
+        <div className="">
           <p className="ow-section-title mb-1">{t.title}</p>
           <p className="text-zinc-500 text-sm">{t.subtitle}</p>
         </div>
-        <div className="animate-fade-up" style={{ animationDelay: "60ms" }}>
+        <div className="">
           <HeroRoster labels={t} lang={lang} heroes={heroes} />
         </div>
       </main>

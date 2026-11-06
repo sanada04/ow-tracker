@@ -1,5 +1,5 @@
 /**
- * Original editorial strategy guide content for Overwatch 2 map game modes.
+ * Original editorial strategy guide content for Overwatch map game modes.
  * Authored independently for OW Tracker — not sourced from any external API.
  */
 
@@ -140,7 +140,7 @@ const GUIDES_JA: Record<string, MapModeGuide> = {
   },
   stadium: {
     overview:
-      "スタジアムはOverwatch 2の新しいゲームモードで、ラウンド制の戦闘形式をとります。各ラウンドの間にヒーローを強化するアビリティやパワーを購入・選択し、ラウンドが進むにつれて強化されたヒーローで戦います。先に一定ラウンドを取得したチームが勝利します。",
+      "スタジアムはOverwatchの新しいゲームモードで、ラウンド制の戦闘形式をとります。各ラウンドの間にヒーローを強化するアビリティやパワーを購入・選択し、ラウンドが進むにつれて強化されたヒーローで戦います。先に一定ラウンドを取得したチームが勝利します。",
     attacker_tips: [
       "ラウンド間の強化選択が戦略の核心 — チーム全体のシナジーを意識して選択する",
       "序盤ラウンドで状況を把握し、後半に向けて構成を調整する",
@@ -227,7 +227,7 @@ const GUIDES_EN: Record<string, MapModeGuide> = {
   },
   push: {
     overview:
-      "Push maps feature a single robot (BPT) that travels toward whichever team currently controls it. Both teams start equidistant from the robot, and the team that pushes it furthest into the enemy side by the end of regulation wins. Crucially, control of the robot can flip instantly — a won team fight means the robot immediately reverses direction. This creates a back-and-forth dynamic unlike any other mode in Overwatch 2.",
+      "Push maps feature a single robot (BPT) that travels toward whichever team currently controls it. Both teams start equidistant from the robot, and the team that pushes it furthest into the enemy side by the end of regulation wins. Crucially, control of the robot can flip instantly — a won team fight means the robot immediately reverses direction. This creates a back-and-forth dynamic unlike any other mode in Overwatch.",
     attacker_tips: [
       "Clear the enemy ahead of the robot before advancing — leading with the robot into a fight is dangerous",
       "After winning a fight, push the robot as far as possible before the enemy can respawn",
@@ -290,7 +290,7 @@ const GUIDES_EN: Record<string, MapModeGuide> = {
   },
   stadium: {
     overview:
-      "Stadium is Overwatch 2's third-person round-based mode where both teams earn currency between rounds to upgrade their heroes with powerful Stadium Powers. Matches consist of multiple rounds, and the team that wins the required number of rounds first wins the match. Choosing the right upgrades and building synergistic power combinations is as important as individual combat skill.",
+      "Stadium is Overwatch's third-person round-based mode where both teams earn currency between rounds to upgrade their heroes with powerful Stadium Powers. Matches consist of multiple rounds, and the team that wins the required number of rounds first wins the match. Choosing the right upgrades and building synergistic power combinations is as important as individual combat skill.",
     attacker_tips: [
       "Coordinate your power purchases with teammates — combined upgrades create stronger synergy than solo builds",
       "Identify the enemy team's power direction early and adapt your choices to counter their strategy",

@@ -29,12 +29,12 @@ export default async function ContactPage({ params }: Props) {
   const t = dict.contact;
 
   return (
-    <div className="bg-[#0c0c10] text-white min-h-screen overflow-hidden">
+    <div className="bg-[var(--ow-bg)] text-white min-h-screen overflow-hidden">
       {/* Background decorative elements */}
       <div className="fixed inset-0 pointer-events-none select-none" aria-hidden>
         <div
           className="absolute -top-32 -right-32 w-[500px] h-[500px] opacity-[0.04]"
-          style={{ background: "radial-gradient(circle, #f4a029 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(circle, var(--ow-accent) 0%, transparent 70%)" }}
         />
         <div
           className="absolute inset-0 opacity-[0.025]"
@@ -48,16 +48,16 @@ export default async function ContactPage({ params }: Props) {
 
       <main className="relative z-10 max-w-2xl mx-auto px-6 py-14">
         {/* Heading */}
-        <div className="mb-10 animate-fade-up">
+        <div className="mb-10">
           <div className="flex items-center gap-3 mb-2">
-            <div className="h-[1px] w-10 bg-gradient-to-r from-transparent to-[#f4a029]/60" />
-            <span className="text-[11px] uppercase tracking-[0.3em] text-[#f4a029]/70 font-medium">
+            <div className="h-[1px] w-10 bg-gradient-to-r from-transparent to-[var(--ow-accent)]/60" />
+            <span className="text-xs tracking-normal text-[var(--ow-accent)]/70 font-medium">
               {t.subtitle}
             </span>
           </div>
           <h1
             className="text-4xl sm:text-5xl font-bold tracking-tight"
-            style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+            style={{ fontFamily: "var(--font-heading)" }}
           >
             {t.title}
           </h1>

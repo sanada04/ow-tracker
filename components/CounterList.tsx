@@ -107,7 +107,7 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
       {/* Top Counters */}
       <section>
         <div className="mb-4 pb-2 border-b border-zinc-800">
-          <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+          <span className="text-xs tracking-normal text-zinc-500 font-medium">
             {t.top_counters}
           </span>
         </div>
@@ -123,10 +123,10 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
               return (
                 <div
                   key={hero.key}
-                  className="ow-card px-4 py-3 flex items-center gap-4 animate-fade-up"
+                  className="ow-card px-4 py-3 flex items-center gap-4"
                   style={{ animationDelay: `${i * 30}ms` }}
                 >
-                  <span className="text-zinc-600 text-sm tabular-nums w-6 shrink-0">{i + 1}</span>
+                  <span className="text-zinc-500 text-sm tabular-nums w-6 shrink-0">{i + 1}</span>
                   <Image
                     src={HERO_PORTRAITS[hero.key] ?? hero.portrait}
                     alt={hero.name}
@@ -138,19 +138,19 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
                   <div className="flex-1 min-w-0">
                     <Link
                       href={`/${lang}/heroes/${hero.key}`}
-                      className="text-white font-semibold hover:text-[#00ccff] transition-colors"
-                      style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                      className="text-white font-semibold hover:text-[var(--ow-accent)] transition-colors"
+                      style={{ fontFamily: "var(--font-heading)" }}
                     >
                       {getHeroDisplayName(hero.key)}
                     </Link>
                     <div className="flex items-center gap-2 mt-1">
                       <div className="flex-1 h-1 bg-zinc-800 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-[#00ccff]/45 rounded-full transition-all duration-500"
+                          className="h-full bg-[var(--ow-accent)]/45 rounded-full transition-all duration-500"
                           style={{ width: `${pct}%` }}
                         />
                       </div>
-                      <span className="text-[11px] text-zinc-500 tabular-nums shrink-0">
+                      <span className="text-xs text-zinc-500 tabular-nums shrink-0">
                         {t.votes_label.replace("{n}", String(voteCount))}
                       </span>
                     </div>
@@ -158,16 +158,16 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
                   <div className="flex gap-2 shrink-0">
                     <Link
                       href={`/${lang}/counters/${hero.key}`}
-                      className="text-[11px] text-zinc-500 hover:text-zinc-300 border border-zinc-700/50 px-2 py-1 rounded transition-colors"
+                      className="text-xs text-zinc-500 hover:text-zinc-300 border border-zinc-700/50 px-2 py-1 rounded transition-colors"
                     >
                       Counters
                     </Link>
                     <button
                       onClick={() => toggle(hero.key)}
                       disabled={isPending}
-                      className={`text-[11px] px-3 py-1 rounded border transition-colors ${
+                      className={`text-xs px-3 py-1 rounded border transition-colors ${
                         voted
-                          ? "border-[#00ccff]/50 text-[#00ccff] bg-[#00ccff]/8"
+                          ? "border-[var(--ow-accent)]/50 text-[var(--ow-accent)] bg-[var(--ow-accent)]/8"
                           : "border-zinc-700/50 text-zinc-400 hover:border-zinc-500"
                       }`}
                     >
@@ -184,10 +184,10 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
       {/* Vote for a counter */}
       <section>
         <div className="mb-4 pb-2 border-b border-zinc-800 flex items-center justify-between">
-          <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+          <span className="text-xs tracking-normal text-zinc-500 font-medium">
             {t.vote_for}
           </span>
-          <span className="text-xs text-zinc-600">
+          <span className="text-xs text-zinc-500">
             {t.your_votes.replace("{n}", String(myVotes.length))}
           </span>
         </div>
@@ -203,10 +203,10 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
                 disabled={!canVote || isPending}
                 className={`flex items-center gap-2 p-2.5 rounded border text-left transition-colors ${
                   voted
-                    ? "border-[#00ccff]/45 bg-[#00ccff]/5 text-white"
+                    ? "border-[var(--ow-accent)]/45 bg-[var(--ow-accent)]/5 text-white"
                     : canVote
-                    ? "border-zinc-800 bg-[#141418] text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
-                    : "border-zinc-800/30 bg-[#10101a] text-zinc-600 opacity-50 cursor-not-allowed"
+                    ? "border-zinc-800 bg-[var(--ow-surface)] text-zinc-400 hover:border-zinc-600 hover:text-zinc-200"
+                    : "border-zinc-800/30 bg-[var(--ow-surface)] text-zinc-500 opacity-50 cursor-not-allowed"
                 }`}
               >
                 <Image
@@ -219,12 +219,12 @@ export default function CounterList({ heroKey, heroes, initialVotes, t, lang }: 
                 />
                 <span
                   className="text-xs font-medium truncate"
-                  style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                  style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {getHeroDisplayName(hero.key)}
                 </span>
                 {voted && (
-                  <span className="ml-auto text-[#00ccff] shrink-0 text-xs">✓</span>
+                  <span className="ml-auto text-[var(--ow-accent)] shrink-0 text-xs">✓</span>
                 )}
               </button>
             );

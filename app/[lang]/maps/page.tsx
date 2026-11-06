@@ -47,46 +47,46 @@ export default async function MapsPage({ params }: Props) {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0c0c10] text-white">
+    <div className="min-h-screen bg-[var(--ow-bg)] text-white">
       <main className="max-w-5xl mx-auto px-6 pt-24 pb-16">
-        <div className="mb-8 animate-fade-up">
+        <div className="mb-8">
           <p className="ow-section-title mb-1">{t.title}</p>
           <p className="text-zinc-500 text-sm">{t.subtitle}</p>
         </div>
 
         {/* Game mode guide — original editorial content */}
-        <div className="mb-10 animate-fade-up" style={{ animationDelay: "40ms" }}>
-          <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-4">
+        <div className="mb-10">
+          <p className="text-xs tracking-normal text-[var(--ow-text-3)] mb-4">
             {isJa ? "ゲームモード解説" : "Game Mode Guide"}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {modeDescriptions.map(({ mode, icon, desc }) => (
               <div key={mode} className="ow-card p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <span style={{ color: "#f4a029", fontSize: "0.75rem" }}>{icon}</span>
-                  <span className="text-white text-sm font-bold" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.06em" }}>{mode}</span>
+                  <span style={{ color: "var(--ow-accent)", fontSize: "0.75rem" }}>{icon}</span>
+                  <span className="text-white text-sm font-bold" style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.06em" }}>{mode}</span>
                 </div>
-                <p className="text-[#9090b0] text-xs leading-relaxed">{desc}</p>
+                <p className="text-[var(--ow-text-2)] text-xs leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="animate-fade-up" style={{ animationDelay: "80ms" }}>
+        <div className="">
           <MapsGrid maps={maps} dict={dict} lang={lang} />
         </div>
 
         {/* Map strategy note — original content */}
-        <div className="mt-12 ow-card p-5 animate-fade-up" style={{ animationDelay: "120ms" }}>
-          <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-3">
+        <div className="mt-12 ow-card p-5">
+          <p className="text-xs tracking-normal text-[var(--ow-text-3)] mb-3">
             {isJa ? "マップ攻略のポイント" : "Map Strategy Fundamentals"}
           </p>
-          <p className="text-[#9090b0] text-sm leading-relaxed mb-3">
+          <p className="text-[var(--ow-text-2)] text-sm leading-relaxed mb-3">
             {isJa
               ? "各マップにはそれぞれ独自の構造と戦略的なポイントがあります。高台を制する、フランクルートを把握する、チョークポイントを活用するといった基本戦略は、どのマップでも有効です。"
               : "Every map in Overwatch 2 has unique geometry that rewards specific hero compositions and positioning strategies. High ground control, flank route awareness, and choke point management are universal fundamentals that apply regardless of game mode."}
           </p>
-          <p className="text-[#9090b0] text-sm leading-relaxed">
+          <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
             {isJa
               ? "マップを熟知すると、高台・隠れ場所・フランクルートを把握できます。各マップの詳細ページでは、ゲームモードや地域情報を確認できます。"
               : "Learning each map's layout reveals power positions, health pack locations, and flanking paths that can decide the outcome of a fight. Click any map below to explore its game mode, region, and related hero matchups."}

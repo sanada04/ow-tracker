@@ -30,7 +30,7 @@ export default function HeaderSearch({
     return (
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 h-10 px-3 border border-zinc-700/60 bg-[#141418] hover:border-[#f4a029]/60 transition-colors text-zinc-400 hover:text-[#f4a029] shrink-0 rounded"
+        className="flex items-center gap-2 h-10 px-3 border border-zinc-700/60 bg-[var(--ow-surface)] hover:border-[var(--ow-accent)]/60 transition-colors text-zinc-400 hover:text-[var(--ow-accent)] shrink-0 rounded"
         aria-label="Search"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -38,12 +38,12 @@ export default function HeaderSearch({
           <path d="m21 21-4.35-4.35" />
         </svg>
         <span
-          className="text-xs uppercase tracking-widest hidden sm:inline"
-          style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+          className="text-xs tracking-normal hidden sm:inline"
+          style={{ fontFamily: "var(--font-heading)" }}
         >
           {dict?.search.button ?? "検索"}
         </span>
-        <kbd className="hidden md:inline-flex items-center px-1.5 py-0.5 text-[10px] border border-zinc-700 text-zinc-600 bg-zinc-900 leading-none rounded-sm">
+        <kbd className="hidden md:inline-flex items-center px-1.5 py-0.5 text-xs border border-zinc-700 text-zinc-500 bg-zinc-900 leading-none rounded-sm">
           /
         </kbd>
       </button>
@@ -65,7 +65,7 @@ export default function HeaderSearch({
       </div>
       <button
         onClick={() => setOpen(false)}
-        className="shrink-0 h-10 w-10 flex items-center justify-center border border-zinc-700/60 bg-[#141418] text-zinc-500 hover:text-white hover:border-zinc-600 transition-colors rounded"
+        className="shrink-0 h-10 w-10 flex items-center justify-center border border-zinc-700/60 bg-[var(--ow-surface)] text-zinc-500 hover:text-white hover:border-zinc-600 transition-colors rounded"
         aria-label="Close search"
       >
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">

@@ -12,7 +12,7 @@ import type { Dictionary } from "@/lib/i18n";
 const STORAGE_KEY = "ow_tier_votes";
 
 const TIER_STYLE: Record<Tier, { bg: string; border: string; label: string; text: string }> = {
-  S: { bg: "rgba(244,160,41,0.12)", border: "#f4a029", label: "#f4a029", text: "#fff" },
+  S: { bg: "rgba(244,160,41,0.12)", border: "var(--ow-accent)", label: "var(--ow-accent)", text: "#fff" },
   A: { bg: "rgba(132,204,22,0.10)",  border: "#84cc16", label: "#a3e635", text: "#fff" },
   B: { bg: "rgba(59,130,246,0.10)",  border: "#3b82f6", label: "#60a5fa", text: "#fff" },
   C: { bg: "rgba(113,113,122,0.10)", border: "#52525b", label: "#a1a1aa", text: "#d4d4d8" },
@@ -94,14 +94,14 @@ function HeroCard({
         </div>
         {/* Name */}
         <span
-          className="text-[9px] uppercase tracking-wide text-center leading-tight w-full truncate"
+          className="text-[9px] tracking-wide text-center leading-tight w-full truncate"
           style={{ color: winning ? TIER_STYLE[winning].label : "#71717a" }}
         >
           {hero.name}
         </span>
         {/* Vote count */}
         {total > 0 && (
-          <span className="text-[9px] text-zinc-600">{total}</span>
+          <span className="text-[9px] text-zinc-500">{total}</span>
         )}
         {/* Vote bar */}
         <VoteBar votes={votes} myTier={myTier} />
@@ -109,7 +109,7 @@ function HeroCard({
 
       {/* Tier picker popover */}
       {open && (
-        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 flex gap-1 p-1.5 rounded border border-zinc-700/60 bg-[#0a0a18] shadow-xl">
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-20 flex gap-1 p-1.5 rounded border border-zinc-700/60 bg-[var(--ow-bg)] shadow-xl">
           {TIERS.map((t) => (
             <button
               key={t}
@@ -133,7 +133,7 @@ function HeroCard({
           <Link
             href={`/${lang}/heroes/${hero.key}`}
             onClick={(e) => e.stopPropagation()}
-            className="w-8 h-8 text-[10px] flex items-center justify-center rounded text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="w-8 h-8 text-xs flex items-center justify-center rounded text-zinc-500 hover:text-zinc-300 transition-colors"
             style={{ background: "rgba(255,255,255,0.04)" }}
             title={hero.name}
           >
@@ -178,7 +178,7 @@ function TierRow({
       <div
         className="flex items-center justify-center shrink-0 w-10 sm:w-14 rounded-l font-bold text-xl sm:text-2xl select-none"
         style={{
-          fontFamily: '"Rajdhani", system-ui, sans-serif',
+          fontFamily: "var(--font-heading)",
           color: style.label,
           borderRight: `1px solid ${style.border}`,
           background: isUnranked ? "transparent" : `${style.border}18`,
@@ -299,9 +299,9 @@ export default function TierList({
               key={r}
               type="button"
               onClick={() => setRoleFilter(r)}
-              className="px-3 py-1 text-[11px] uppercase tracking-widest rounded transition-colors"
+              className="px-3 py-1 text-xs tracking-normal rounded transition-colors"
               style={{
-                background: roleFilter === r ? "#f4a029" : "rgba(255,255,255,0.05)",
+                background: roleFilter === r ? "var(--ow-accent)" : "rgba(255,255,255,0.05)",
                 color: roleFilter === r ? "#000" : "#71717a",
               }}
             >
@@ -310,7 +310,7 @@ export default function TierList({
           ))}
         </div>
         {/* Vote count */}
-        <p className="text-[11px] text-zinc-600">
+        <p className="text-xs text-zinc-500">
           {isJa ? `累計 ${totalVoters.toLocaleString()} 票` : `${totalVoters.toLocaleString()} total votes`}
         </p>
       </div>
@@ -342,7 +342,7 @@ export default function TierList({
       )}
 
       {/* Legend */}
-      <p className="mt-6 text-[11px] text-zinc-700 text-center">
+      <p className="mt-6 text-xs text-zinc-500 text-center">
         {isJa
           ? "ヒーローをタップ → S/A/B/C/D を選択して投票。同じ選択で投票を取り消せます。"
           : "Tap a hero → select S/A/B/C/D to vote. Tap the same tier again to remove your vote."}

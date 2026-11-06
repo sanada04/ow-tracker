@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: isEn ? "Compare Players — OW Tracker" : "プレイヤー比較 — OW Tracker",
     description: isEn
-      ? "Compare two Overwatch 2 players side by side: rank, win rate, KDA, play time, and hero pool."
-      : "2人のOverwatch 2プレイヤーを比較。ランク・勝率・KDA・プレイ時間・使用ヒーローを並べて確認できます。",
+      ? "Compare two Overwatch players side by side: rank, win rate, KDA, play time, and hero pool."
+      : "2人のOverwatchプレイヤーを比較。ランク・勝率・KDA・プレイ時間・使用ヒーローを並べて確認できます。",
     alternates: {
       canonical: `https://owtracker.org/${lang}/compare`,
       languages: {

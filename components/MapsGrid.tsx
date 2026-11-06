@@ -41,7 +41,7 @@ export default function MapsGrid({
           placeholder={t.search_placeholder}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full sm:w-64 px-4 py-2 bg-zinc-900 border border-zinc-700/40 rounded text-white text-sm placeholder:text-zinc-600 focus:outline-none focus:border-[#f4a029]/50"
+          className="w-full sm:w-64 px-4 py-2 bg-zinc-900 border border-zinc-700/40 rounded text-white text-sm placeholder:text-zinc-500 focus:outline-none focus:border-[var(--ow-accent)]/50"
         />
       </div>
 
@@ -50,9 +50,9 @@ export default function MapsGrid({
         <button
           type="button"
           onClick={() => setFilter("all")}
-          className="px-3 py-1 text-[11px] uppercase tracking-widest rounded transition-colors"
+          className="px-3 py-1 text-xs tracking-normal rounded transition-colors"
           style={{
-            background: filter === "all" ? "#f4a029" : "rgba(255,255,255,0.05)",
+            background: filter === "all" ? "var(--ow-accent)" : "rgba(255,255,255,0.05)",
             color: filter === "all" ? "#000" : "#71717a",
           }}
         >
@@ -63,9 +63,9 @@ export default function MapsGrid({
             key={mode}
             type="button"
             onClick={() => setFilter(mode)}
-            className="px-3 py-1 text-[11px] uppercase tracking-widest rounded transition-colors"
+            className="px-3 py-1 text-xs tracking-normal rounded transition-colors"
             style={{
-              background: filter === mode ? "#f4a029" : "rgba(255,255,255,0.05)",
+              background: filter === mode ? "var(--ow-accent)" : "rgba(255,255,255,0.05)",
               color: filter === mode ? "#000" : "#71717a",
             }}
           >
@@ -76,14 +76,14 @@ export default function MapsGrid({
 
       {/* Grid */}
       {filtered.length === 0 ? (
-        <p className="text-zinc-600 text-sm">No maps found.</p>
+        <p className="text-zinc-500 text-sm">No maps found.</p>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {filtered.map((map) => (
             <Link
               key={map.key}
               href={`/${lang}/maps/${map.key}`}
-              className="group relative block rounded overflow-hidden border border-zinc-800/40 hover:border-[#f4a029]/40 transition-all"
+              className="group relative block rounded overflow-hidden border border-zinc-800/40 hover:border-[var(--ow-accent)]/40 transition-all"
             >
               <div className="relative aspect-video bg-zinc-900">
                 <Image
@@ -99,7 +99,7 @@ export default function MapsGrid({
                 <p
                   className="text-white text-xs font-semibold leading-tight truncate"
                   style={{
-                    fontFamily: '"Rajdhani", system-ui, sans-serif',
+                    fontFamily: "var(--font-heading)",
                     letterSpacing: "0.05em",
                   }}
                 >
@@ -109,7 +109,7 @@ export default function MapsGrid({
                   {map.gamemodes.slice(0, 2).map((mode) => (
                     <span
                       key={mode}
-                      className="text-[9px] uppercase tracking-wider text-[#f4a029]/70"
+                      className="text-[9px] tracking-normal text-[var(--ow-accent)]/70"
                     >
                       {getModeName(mode, t.gamemodes)}
                     </span>
@@ -121,7 +121,7 @@ export default function MapsGrid({
         </div>
       )}
 
-      <p className="mt-6 text-[11px] text-zinc-700 text-right">
+      <p className="mt-6 text-xs text-zinc-500 text-right">
         {filtered.length} / {maps.length} maps
       </p>
     </div>

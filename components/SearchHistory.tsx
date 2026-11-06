@@ -39,7 +39,7 @@ function PlayerRow({
   compareHint: string;
 }) {
   return (
-    <div className="flex items-center gap-3 px-3 py-2.5 hover:bg-[#1a1a2a] transition-colors group">
+    <div className="flex items-center gap-3 px-3 py-2.5 hover:bg-[var(--ow-surface-2)] transition-colors group">
       <Link href={`/${lang}/players/${encodeURIComponent(playerId)}`} className="flex items-center gap-3 flex-1 min-w-0">
         {avatar ? (
           <Image src={avatar} alt={username} width={28} height={28}
@@ -50,19 +50,19 @@ function PlayerRow({
           </div>
         )}
         <span className="text-white text-sm font-semibold truncate"
-          style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+          style={{ fontFamily: "var(--font-heading)" }}>
           {username}
         </span>
       </Link>
       <Link
         href={`/${lang}/compare?a=${encodeURIComponent(playerId)}`}
-        className="text-[10px] uppercase tracking-wider text-zinc-600 hover:text-[#f4a029] transition-colors shrink-0 opacity-0 group-hover:opacity-100"
+        className="text-xs tracking-normal text-zinc-500 hover:text-[var(--ow-accent)] transition-colors shrink-0 opacity-0 group-hover:opacity-100"
       >
         {compareHint}
       </Link>
       <button
         onClick={onRemove}
-        className="text-zinc-700 hover:text-zinc-400 shrink-0 opacity-0 group-hover:opacity-100 transition-all text-lg leading-none"
+        className="text-zinc-500 hover:text-zinc-400 shrink-0 opacity-0 group-hover:opacity-100 transition-all text-lg leading-none"
         aria-label="Remove"
       >
         ×
@@ -83,25 +83,27 @@ export default function SearchHistory({
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setHistory(getSearchHistory());
-    setFavorites(getFavorites());
-    setMounted(true);
+    Promise.resolve().then(() => {
+      setHistory(getSearchHistory());
+      setFavorites(getFavorites());
+      setMounted(true);
+    });
   }, []);
 
   if (!mounted || (history.length === 0 && favorites.length === 0)) return null;
 
   return (
-    <div className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 animate-fade-up" style={{ animationDelay: "160ms" }}>
+    <div className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
       {/* Recent Searches */}
       {history.length > 0 && (
         <div className="ow-card overflow-hidden">
           <div className="flex items-center justify-between px-3 pt-3 pb-2 border-b border-zinc-800/60">
-            <span className="text-[10px] uppercase tracking-widest text-[#f4a029]/70">
+            <span className="text-xs tracking-normal text-[var(--ow-accent)]/70">
               {labels.recent_title}
             </span>
             <button
               onClick={() => { clearSearchHistory(); setHistory([]); }}
-              className="text-[10px] text-zinc-600 hover:text-zinc-400 uppercase tracking-wider transition-colors"
+              className="text-xs text-zinc-500 hover:text-zinc-400 tracking-normal transition-colors"
             >
               {labels.clear_history}
             </button>
@@ -129,7 +131,7 @@ export default function SearchHistory({
       {favorites.length > 0 && (
         <div className="ow-card overflow-hidden">
           <div className="flex items-center justify-between px-3 pt-3 pb-2 border-b border-zinc-800/60">
-            <span className="text-[10px] uppercase tracking-widest text-[#f4a029]/70">
+            <span className="text-xs tracking-normal text-[var(--ow-accent)]/70">
               {labels.favorites_title}
             </span>
           </div>

@@ -234,13 +234,13 @@ export default async function PrivacyPage({
       <div className="mb-10">
         <Link
           href={`/${lang}`}
-          className="text-[11px] uppercase tracking-widest text-zinc-500 hover:text-[#00ccff] transition-colors"
+          className="text-xs tracking-normal text-zinc-500 hover:text-[var(--ow-accent)] transition-colors"
         >
           ← {isJa ? "ホームへ戻る" : "Back to Home"}
         </Link>
         <h1
           className="mt-4 text-3xl font-bold text-white"
-          style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}
+          style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.05em" }}
         >
           {dict.privacy.nav}
         </h1>
@@ -254,7 +254,7 @@ export default async function PrivacyPage({
           font-family: "Rajdhani", system-ui, sans-serif;
           font-size: 1.25rem;
           font-weight: 700;
-          color: #f4a029;
+          color: var(--ow-accent);
           letter-spacing: 0.05em;
           margin-bottom: 0.75rem;
           padding-bottom: 0.4rem;
@@ -263,7 +263,7 @@ export default async function PrivacyPage({
         .prose-content h3 {
           font-size: 1rem;
           font-weight: 600;
-          color: #e8e8f0;
+          color: var(--ow-text);
           margin: 1.25rem 0 0.5rem;
         }
         .prose-content p {
@@ -288,16 +288,16 @@ export default async function PrivacyPage({
           position: relative;
         }
         .prose-content li::before {
-          content: "▸";
+          content: "・";
           position: absolute;
           left: 0;
-          color: #f4a029;
+          color: var(--ow-accent);
           font-size: 0.75rem;
           top: 0.15em;
         }
-        .prose-content strong { color: #e8e8f0; font-weight: 600; }
-        .prose-content a { color: #f4a029; text-decoration: underline; text-underline-offset: 3px; }
-        .prose-content a:hover { color: #ffbe55; }
+        .prose-content strong { color: var(--ow-text); font-weight: 600; }
+        .prose-content a { color: var(--ow-accent); text-decoration: underline; text-underline-offset: 3px; }
+        .prose-content a:hover { color: var(--ow-accent-strong); }
       `}</style>
     </main>
   );

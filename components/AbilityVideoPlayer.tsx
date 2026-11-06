@@ -52,7 +52,7 @@ export default function AbilityVideoPlayer({
           <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
             <button
               onClick={handlePlay}
-              className="w-12 h-12 rounded-full bg-[#f4a029]/90 hover:bg-[#f4a029] flex items-center justify-center transition-colors shadow-lg"
+              className="w-12 h-12 rounded-full bg-[var(--ow-accent)]/90 hover:bg-[var(--ow-accent)] flex items-center justify-center transition-colors shadow-lg"
               aria-label={`Play ${name} video`}
             >
               <svg className="w-5 h-5 text-black ml-0.5" fill="currentColor" viewBox="0 0 24 24">

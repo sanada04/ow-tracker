@@ -47,7 +47,7 @@ export default function AbilityShowcase({ abilities }: { abilities: HeroAbility[
               <source src={current.video.link.mp4} type="video/mp4" />
             </video>
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-[#06060e]">
+            <div className="w-full h-full flex items-center justify-center bg-[var(--ow-bg)]">
               <Image src={current.icon} alt={current.name} width={80} height={80} unoptimized className="opacity-20" />
             </div>
           )}
@@ -66,17 +66,16 @@ export default function AbilityShowcase({ abilities }: { abilities: HeroAbility[
           style={{ opacity: fading ? 0 : 1 }}
         >
           {/* Ability index */}
-          <p className="text-[10px] uppercase tracking-[0.3em] text-[#f4a029]/60 mb-1 font-medium">
+          <p className="text-xs tracking-normal text-[var(--ow-accent)]/60 mb-1 font-medium">
             {String(selected + 1).padStart(2, "0")} / {String(abilities.length).padStart(2, "0")}
           </p>
           {/* Ability name */}
           <h3
             className="text-white font-bold leading-none mb-2"
             style={{
-              fontFamily: '"Rajdhani", system-ui, sans-serif',
+              fontFamily: "var(--font-heading)",
               fontSize: "clamp(1.6rem, 4vw, 2.4rem)",
               letterSpacing: "0.05em",
-              textShadow: "0 2px 20px rgba(0,0,0,0.8)",
             }}
           >
             {current.name}
@@ -84,7 +83,7 @@ export default function AbilityShowcase({ abilities }: { abilities: HeroAbility[
           {/* Description */}
           <p
             className="text-zinc-300 text-sm leading-relaxed max-w-2xl"
-            style={{ textShadow: "0 1px 8px rgba(0,0,0,0.9)" }}
+            style={{ }}
           >
             {current.description}
           </p>
@@ -111,7 +110,7 @@ export default function AbilityShowcase({ abilities }: { abilities: HeroAbility[
                     ? "rgba(244,160,41,0.12)"
                     : "rgba(13,13,26,0.9)",
                   boxShadow: active
-                    ? "0 0 0 1.5px #f4a029"
+                    ? "0 0 0 1.5px var(--ow-accent)"
                     : "0 0 0 1px rgba(255,255,255,0.07)",
                 }}
               >
@@ -128,15 +127,15 @@ export default function AbilityShowcase({ abilities }: { abilities: HeroAbility[
               {/* Active underline dot */}
               <span
                 className="block w-1 h-1 rounded-full transition-all duration-200"
-                style={{ background: active ? "#f4a029" : "transparent", boxShadow: active ? "0 0 6px #f4a029" : "none" }}
+                style={{ background: active ? "var(--ow-accent)" : "transparent", boxShadow: active ? "0 0 6px var(--ow-accent)" : "none" }}
               />
 
               {/* Name label */}
               <span
-                className="text-[9px] uppercase tracking-wider text-center max-w-[64px] line-clamp-2 leading-tight transition-colors duration-200"
+                className="text-[9px] tracking-normal text-center max-w-[64px] line-clamp-2 leading-tight transition-colors duration-200"
                 style={{
-                  fontFamily: '"Rajdhani", system-ui, sans-serif',
-                  color: active ? "#f4a029" : "rgba(161,161,170,0.6)",
+                  fontFamily: "var(--font-heading)",
+                  color: active ? "var(--ow-accent)" : "rgba(161,161,170,0.6)",
                 }}
               >
                 {ability.name}

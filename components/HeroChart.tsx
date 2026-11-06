@@ -37,7 +37,7 @@ function Bar({
   const pct = max > 0 ? Math.round((value / max) * 100) : 0;
   return (
     <div className="flex items-center gap-2 w-full">
-      <span className="text-[10px] text-zinc-500 w-16 shrink-0 text-right">{label}</span>
+      <span className="text-xs text-zinc-500 w-16 shrink-0 text-right">{label}</span>
       <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
         <div
           className={`h-full rounded-full winrate-bar ${color}`}
@@ -47,7 +47,7 @@ function Bar({
           } as React.CSSProperties}
         />
       </div>
-      <span className="text-[10px] text-zinc-400 w-12 shrink-0 tabular-nums">{label === "%" ? `${value.toFixed(1)}%` : value}</span>
+      <span className="text-xs text-zinc-400 w-12 shrink-0 tabular-nums">{label === "%" ? `${value.toFixed(1)}%` : value}</span>
     </div>
   );
 }
@@ -55,10 +55,10 @@ function Bar({
 function HeroCard({ row, maxWinrate, maxKda, delay, labels }: { row: HeroRow; maxWinrate: number; maxKda: number; delay: number; labels: Labels }) {
   const [imgError, setImgError] = useState(false);
   const portrait = imgError ? null : HERO_PORTRAITS[row.key];
-  const winrateColor = row.stats.winrate >= 60 ? "bg-green-500" : row.stats.winrate >= 50 ? "bg-[#f4a029]" : "bg-red-500";
+  const winrateColor = row.stats.winrate >= 60 ? "bg-green-500" : row.stats.winrate >= 50 ? "bg-[var(--ow-accent)]" : "bg-red-500";
 
   return (
-    <div className="ow-card-sm p-3 flex flex-col gap-2 animate-fade-up" style={{ animationDelay: `${delay}ms` }}>
+    <div className="ow-card-sm p-3 flex flex-col gap-2" style={{ animationDelay: `${delay}ms` }}>
       <div className="flex items-center gap-2.5">
         {portrait ? (
           <Image src={portrait} alt={row.key} width={36} height={36}
@@ -71,15 +71,15 @@ function HeroCard({ row, maxWinrate, maxKda, delay, labels }: { row: HeroRow; ma
         )}
         <div className="min-w-0">
           <p className="text-white text-sm font-semibold truncate"
-            style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+            style={{ fontFamily: "var(--font-heading)" }}>
             {getHeroDisplayName(row.key)}
           </p>
-          <p className="text-zinc-500 text-[10px]">{formatTimePlayed(row.stats.time_played)} · {row.stats.games_played}G</p>
+          <p className="text-zinc-500 text-xs">{formatTimePlayed(row.stats.time_played)} · {row.stats.games_played}G</p>
         </div>
       </div>
       <div className="space-y-1.5">
         <div className="flex items-center gap-2 w-full">
-          <span className="text-[10px] text-zinc-500 w-16 shrink-0 text-right">{labels.winrate}</span>
+          <span className="text-xs text-zinc-500 w-16 shrink-0 text-right">{labels.winrate}</span>
           <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full winrate-bar ${winrateColor}`}
@@ -89,10 +89,10 @@ function HeroCard({ row, maxWinrate, maxKda, delay, labels }: { row: HeroRow; ma
               } as React.CSSProperties}
             />
           </div>
-          <span className="text-[10px] text-zinc-400 w-12 shrink-0 tabular-nums">{row.stats.winrate.toFixed(1)}%</span>
+          <span className="text-xs text-zinc-400 w-12 shrink-0 tabular-nums">{row.stats.winrate.toFixed(1)}%</span>
         </div>
         <div className="flex items-center gap-2 w-full">
-          <span className="text-[10px] text-zinc-500 w-16 shrink-0 text-right">KDA</span>
+          <span className="text-xs text-zinc-500 w-16 shrink-0 text-right">KDA</span>
           <div className="flex-1 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
             <div
               className="h-full rounded-full winrate-bar bg-blue-400"
@@ -102,7 +102,7 @@ function HeroCard({ row, maxWinrate, maxKda, delay, labels }: { row: HeroRow; ma
               } as React.CSSProperties}
             />
           </div>
-          <span className="text-[10px] text-zinc-400 w-12 shrink-0 tabular-nums">{row.stats.kda.toFixed(2)}</span>
+          <span className="text-xs text-zinc-400 w-12 shrink-0 tabular-nums">{row.stats.kda.toFixed(2)}</span>
         </div>
       </div>
     </div>
@@ -136,9 +136,9 @@ export default function HeroChart({
           <button
             key={m}
             onClick={() => setMode(m)}
-            className={`px-3 py-1 text-[11px] uppercase tracking-widest font-medium transition-colors border rounded ${
+            className={`px-3 py-1 text-xs tracking-normal font-medium transition-colors border rounded ${
               mode === m
-                ? "border-[#f4a029]/60 text-[#f4a029] bg-[#f4a029]/10"
+                ? "border-[var(--ow-accent)]/60 text-[var(--ow-accent)] bg-[var(--ow-accent)]/10"
                 : "border-zinc-700/40 text-zinc-500 hover:text-zinc-300"
             }`}
           >

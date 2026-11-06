@@ -42,3 +42,5 @@ next-env.d.ts
 
 # prefetched OverFast data
 /.build-data/
+# generated stats
+/public/data/

@@ -46,7 +46,7 @@ export default function SearchView({ lang, dict }: { lang: string; dict: Diction
   });
 
   return (
-    <div className="min-h-screen bg-[#0c0c10] text-white">
+    <div className="min-h-screen bg-[var(--ow-bg)] text-white">
       <main className="max-w-3xl mx-auto px-6 py-12">
         {/* Search bar */}
         <div className="mb-10">
@@ -66,7 +66,7 @@ export default function SearchView({ lang, dict }: { lang: string; dict: Diction
           <div className="mb-6">
             <h1
               className="text-2xl font-bold text-white"
-              style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}
+              style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.05em" }}
             >
               {t.title.replace("{query}", raw)}
             </h1>
@@ -91,7 +91,7 @@ export default function SearchView({ lang, dict }: { lang: string; dict: Diction
               <li key={result.player_id}>
                 <Link
                   href={`/${lang}/players/${encodeURIComponent(result.player_id.replace(/%7C/gi, "|"))}`}
-                  className="flex items-center gap-4 px-5 py-4 bg-[#141418] border border-zinc-800/60 hover:border-[#00ccff]/35 hover:bg-[#18181f] transition-colors animate-fade-up rounded"
+                  className="flex items-center gap-4 px-5 py-4 bg-[var(--ow-surface)] border border-zinc-800/60 hover:border-[var(--ow-accent)]/35 hover:bg-[var(--ow-surface-2)] transition-colors rounded"
                   style={{ animationDelay: `${i * 40}ms` }}
                 >
                   {result.avatar ? (
@@ -112,22 +112,22 @@ export default function SearchView({ lang, dict }: { lang: string; dict: Diction
                   <div className="min-w-0 flex-1">
                     <p
                       className="text-white font-bold text-base truncate"
-                      style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.03em" }}
+                      style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.03em" }}
                     >
                       {result.name}
                     </p>
                     {result.title && (
-                      <p className="text-[11px] text-[#00ccff]/55 truncate">{result.title}</p>
+                      <p className="text-xs text-[var(--ow-accent)]/55 truncate">{result.title}</p>
                     )}
                   </div>
 
                   {!result.is_public && (
-                    <span className="text-[10px] uppercase tracking-wider text-zinc-600 shrink-0 border border-zinc-700/40 px-2 py-0.5">
+                    <span className="text-xs tracking-normal text-zinc-500 shrink-0 border border-zinc-700/40 px-2 py-0.5">
                       {t.private}
                     </span>
                   )}
 
-                  <span className="text-zinc-600 text-sm shrink-0">›</span>
+                  <span className="text-zinc-500 text-sm shrink-0">›</span>
                 </Link>
               </li>
             ))}

@@ -20,7 +20,7 @@ interface LoadResult {
 }
 
 const TIER_COLORS: Record<string, string> = {
-  S: "#f4a029",
+  S: "var(--ow-accent)",
   A: "#84cc16",
   B: "#3b82f6",
   C: "#71717a",
@@ -44,11 +44,11 @@ function StatRow({
   const bWins = numA !== null && numB !== null && numB > numA;
   return (
     <div className={`grid grid-cols-3 items-center py-3 border-b border-zinc-800/50 last:border-0 ${highlight ? "bg-zinc-800/10" : ""}`}>
-      <span className={`text-sm text-right pr-4 tabular-nums ${aWins ? "text-[#00ccff] font-semibold" : "text-zinc-300"}`}>
+      <span className={`text-sm text-right pr-4 tabular-nums ${aWins ? "text-[var(--ow-accent)] font-semibold" : "text-zinc-300"}`}>
         {valA ?? "—"}
       </span>
-      <span className="text-xs text-center text-zinc-500 uppercase tracking-wider">{label}</span>
-      <span className={`text-sm text-left pl-4 tabular-nums ${bWins ? "text-[#00ccff] font-semibold" : "text-zinc-300"}`}>
+      <span className="text-xs text-center text-zinc-500 tracking-normal">{label}</span>
+      <span className={`text-sm text-left pl-4 tabular-nums ${bWins ? "text-[var(--ow-accent)] font-semibold" : "text-zinc-300"}`}>
         {valB ?? "—"}
       </span>
     </div>
@@ -102,7 +102,7 @@ export default function HeroVsView({
   const otherHeroes = heroes.filter((h) => h.key !== heroId && h.key !== vsId).slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-[#0c0c10] text-white">
+    <div className="min-h-screen bg-[var(--ow-bg)] text-white">
       <main className="max-w-4xl mx-auto px-6 py-12">
         {/* Back */}
         <Link
@@ -122,13 +122,13 @@ export default function HeroVsView({
               )}
               <Link
                 href={`/${lang}/heroes/${heroId}`}
-                className="text-xl font-bold text-white hover:text-[#00ccff] transition-colors text-center"
-                style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                className="text-xl font-bold text-white hover:text-[var(--ow-accent)] transition-colors text-center"
+                style={{ fontFamily: "var(--font-heading)" }}
               >
                 {nameA}
               </Link>
               {heroA && (
-                <span className="text-xs text-zinc-500 uppercase tracking-wider border border-zinc-700/50 px-2 py-0.5 rounded">
+                <span className="text-xs text-zinc-500 tracking-normal border border-zinc-700/50 px-2 py-0.5 rounded">
                   {dict.player.roles[heroA.role as "tank" | "damage" | "support"] ?? heroA.role}
                 </span>
               )}
@@ -137,8 +137,8 @@ export default function HeroVsView({
             {/* VS */}
             <div className="text-center">
               <span
-                className="text-3xl font-black text-zinc-600"
-                style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                className="text-3xl font-black text-zinc-500"
+                style={{ fontFamily: "var(--font-heading)" }}
               >
                 VS
               </span>
@@ -151,13 +151,13 @@ export default function HeroVsView({
               )}
               <Link
                 href={`/${lang}/heroes/${vsId}`}
-                className="text-xl font-bold text-white hover:text-[#00ccff] transition-colors text-center"
-                style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                className="text-xl font-bold text-white hover:text-[var(--ow-accent)] transition-colors text-center"
+                style={{ fontFamily: "var(--font-heading)" }}
               >
                 {nameB}
               </Link>
               {heroB && (
-                <span className="text-xs text-zinc-500 uppercase tracking-wider border border-zinc-700/50 px-2 py-0.5 rounded">
+                <span className="text-xs text-zinc-500 tracking-normal border border-zinc-700/50 px-2 py-0.5 rounded">
                   {dict.player.roles[heroB.role as "tank" | "damage" | "support"] ?? heroB.role}
                 </span>
               )}
@@ -170,14 +170,14 @@ export default function HeroVsView({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             {heroA?.description && (
               <div className="ow-card p-4">
-                <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-2">{nameA}</p>
-                <p className="text-[#9090b0] text-sm leading-relaxed">{heroA.description}</p>
+                <p className="text-xs tracking-normal text-[var(--ow-text-3)] mb-2">{nameA}</p>
+                <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">{heroA.description}</p>
               </div>
             )}
             {heroB?.description && (
               <div className="ow-card p-4">
-                <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-2">{nameB}</p>
-                <p className="text-[#9090b0] text-sm leading-relaxed">{heroB.description}</p>
+                <p className="text-xs tracking-normal text-[var(--ow-text-3)] mb-2">{nameB}</p>
+                <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">{heroB.description}</p>
               </div>
             )}
           </div>
@@ -186,16 +186,16 @@ export default function HeroVsView({
         {/* Stats comparison */}
         <section className="mb-8">
           <div className="mb-4 pb-2 border-b border-zinc-800">
-            <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+            <span className="text-xs tracking-normal text-zinc-500 font-medium">
               {t.stats_compare}
             </span>
           </div>
           <div className="ow-card">
             {/* Column headers */}
             <div className="grid grid-cols-3 items-center pb-2 border-b border-zinc-800 mb-1 px-4 pt-4">
-              <span className="text-xs text-zinc-600 text-right pr-4">{nameA}</span>
-              <span className="text-xs text-zinc-600 text-center">Stat</span>
-              <span className="text-xs text-zinc-600 text-left pl-4">{nameB}</span>
+              <span className="text-xs text-zinc-500 text-right pr-4">{nameA}</span>
+              <span className="text-xs text-zinc-500 text-center">Stat</span>
+              <span className="text-xs text-zinc-500 text-left pl-4">{nameB}</span>
             </div>
             <div className="px-4 pb-2">
               <StatRow
@@ -242,7 +242,7 @@ export default function HeroVsView({
         {(tierA || tierB) && (
           <section className="mb-8">
             <div className="mb-4 pb-2 border-b border-zinc-800">
-              <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+              <span className="text-xs tracking-normal text-zinc-500 font-medium">
                 {t.community_tier}
               </span>
             </div>
@@ -257,16 +257,16 @@ export default function HeroVsView({
                     <span
                       className="text-4xl font-black"
                       style={{
-                        fontFamily: '"Rajdhani", system-ui, sans-serif',
+                        fontFamily: "var(--font-heading)",
                         color: TIER_COLORS[tier] ?? "#fff",
                       }}
                     >
                       {tier}
                     </span>
                   ) : (
-                    <span className="text-zinc-600 text-sm">{t.no_tier}</span>
+                    <span className="text-zinc-500 text-sm">{t.no_tier}</span>
                   )}
-                  <p className="text-xs text-zinc-600 mt-1">{t.community_tier}</p>
+                  <p className="text-xs text-zinc-500 mt-1">{t.community_tier}</p>
                 </div>
               ))}
             </div>
@@ -276,14 +276,14 @@ export default function HeroVsView({
         {/* Counter links */}
         <section className="mb-8">
           <div className="mb-4 pb-2 border-b border-zinc-800">
-            <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+            <span className="text-xs tracking-normal text-zinc-500 font-medium">
               {t.counters}
             </span>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <Link
               href={`/${lang}/counters/${heroId}`}
-              className="ow-card p-4 flex items-center gap-3 hover:border-[#00ccff]/35 transition-colors"
+              className="ow-card p-4 flex items-center gap-3 hover:border-[var(--ow-accent)]/35 transition-colors"
             >
               {portraitA && (
                 <Image src={portraitA} alt={nameA} width={36} height={36} className="rounded shrink-0" unoptimized />
@@ -291,11 +291,11 @@ export default function HeroVsView({
               <span className="text-sm text-zinc-300">
                 {t.counter_a.replace("{a}", nameA)}
               </span>
-              <span className="ml-auto text-zinc-600">›</span>
+              <span className="ml-auto text-zinc-500">›</span>
             </Link>
             <Link
               href={`/${lang}/counters/${vsId}`}
-              className="ow-card p-4 flex items-center gap-3 hover:border-[#00ccff]/35 transition-colors"
+              className="ow-card p-4 flex items-center gap-3 hover:border-[var(--ow-accent)]/35 transition-colors"
             >
               {portraitB && (
                 <Image src={portraitB} alt={nameB} width={36} height={36} className="rounded shrink-0" unoptimized />
@@ -303,7 +303,7 @@ export default function HeroVsView({
               <span className="text-sm text-zinc-300">
                 {t.counter_b.replace("{b}", nameB)}
               </span>
-              <span className="ml-auto text-zinc-600">›</span>
+              <span className="ml-auto text-zinc-500">›</span>
             </Link>
           </div>
         </section>
@@ -311,7 +311,7 @@ export default function HeroVsView({
         {/* More matchups */}
         <section>
           <div className="mb-4 pb-2 border-b border-zinc-800">
-            <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+            <span className="text-xs tracking-normal text-zinc-500 font-medium">
               {t.more_matchups}
             </span>
           </div>

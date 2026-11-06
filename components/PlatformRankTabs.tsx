@@ -39,9 +39,9 @@ export default function PlatformRankTabs({
           <button
             key={t}
             onClick={() => setTab(t)}
-            className={`px-3 py-1 text-[11px] uppercase tracking-widest font-medium transition-colors border rounded ${
+            className={`px-3 py-1 text-xs tracking-normal font-medium transition-colors border rounded ${
               tab === t
-                ? "border-[#f4a029]/60 text-[#f4a029] bg-[#f4a029]/10"
+                ? "border-[var(--ow-accent)]/60 text-[var(--ow-accent)] bg-[var(--ow-accent)]/10"
                 : "border-zinc-700/40 text-zinc-500 hover:text-zinc-300"
             }`}
           >

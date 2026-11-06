@@ -25,14 +25,8 @@ export default function SiteHeader({
       <div className="ow-header-inner">
         {/* Logo */}
         <Link href={`/${lang}`} className="ow-logo">
-          <div className="ow-logo-mark">OW</div>
-          <div className="ow-logo-words">
-            <span className="ow-logo-name">TRACKER</span>
-            <span className="ow-logo-tag">OVERWATCH 2 DATA</span>
-          </div>
+          <span>OW</span> Tracker
         </Link>
-
-        <div className="ow-header-rule" />
 
         {/* Nav */}
         <nav className="ow-header-nav">

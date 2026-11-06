@@ -38,12 +38,12 @@ export default async function CountersIndexPage({ params }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-[#0c0c10] text-white">
+    <div className="min-h-screen bg-[var(--ow-bg)] text-white">
       <main className="max-w-5xl mx-auto px-6 py-12">
         <div className="mb-10">
           <h1
             className="text-3xl font-bold text-white mb-2"
-            style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.05em" }}
           >
             {t.index_title}
           </h1>
@@ -53,7 +53,7 @@ export default async function CountersIndexPage({ params }: Props) {
         {(["tank", "damage", "support"] as const).map((role) => (
           <section key={role} className="mb-10">
             <div className="mb-4 pb-2 border-b border-zinc-800">
-              <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+              <span className="text-xs tracking-normal text-zinc-500 font-medium">
                 {roleLabels[role]}
               </span>
             </div>
@@ -62,7 +62,7 @@ export default async function CountersIndexPage({ params }: Props) {
                 <Link
                   key={hero.key}
                   href={`/${lang}/counters/${hero.key}`}
-                  className="ow-card p-3 flex flex-col items-center gap-2 text-center hover:border-[#00ccff]/35 transition-colors"
+                  className="ow-card p-3 flex flex-col items-center gap-2 text-center hover:border-[var(--ow-accent)]/35 transition-colors"
                 >
                   <Image
                     src={HERO_PORTRAITS[hero.key] ?? hero.portrait}
@@ -74,11 +74,11 @@ export default async function CountersIndexPage({ params }: Props) {
                   />
                   <span
                     className="text-xs font-semibold text-zinc-300"
-                    style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                    style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {getHeroDisplayName(hero.key)}
                   </span>
-                  <span className="text-[10px] text-[#f4a029]/70 uppercase tracking-wider">
+                  <span className="text-xs text-[var(--ow-accent)]/70 tracking-normal">
                     {t.see_counters}
                   </span>
                 </Link>

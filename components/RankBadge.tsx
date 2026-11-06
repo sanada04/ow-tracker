@@ -27,11 +27,11 @@ function RoleRankItem({ role, rank, roleLabels }: { role: string; rank: RoleRank
         <Image src={rank.rank_icon} alt={div} width={32} height={32} unoptimized className="shrink-0" />
       )}
       <div className="flex flex-col leading-tight">
-        <span className="text-[10px] uppercase tracking-wider text-zinc-500">
+        <span className="text-xs tracking-normal text-zinc-500">
           {roleLabels[role] ?? role}
         </span>
         <span className={`font-bold text-sm ${colors.text} ${colors.glow}`}
-          style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+          style={{ fontFamily: "var(--font-heading)" }}
         >
           {label} {rank.tier}
         </span>
@@ -61,7 +61,7 @@ export default function RankBadge({
 
   return (
     <div className="flex flex-col gap-1.5">
-      <span className="text-[10px] uppercase tracking-widest text-zinc-500">
+      <span className="text-xs tracking-normal text-zinc-500">
         {platform} — Season {ranks.season}
       </span>
       <div className="flex flex-wrap gap-2">

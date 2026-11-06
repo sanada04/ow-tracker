@@ -1,35 +1,52 @@
 @import "tailwindcss";
 
-/* ── OW Design Tokens ─────────────────────────────────────────────────── */
+/* ── Design tokens ────────────────────────────────────────────────────── */
+:root {
+  --ow-bg: #101113;
+  --ow-surface: #17181b;
+  --ow-surface-2: #1f2125;
+  --ow-line: #2a2c31;
+  --ow-text: #ececee;
+  --ow-text-2: #b4b6bd;
+  --ow-text-3: #8b8e96;
+  --ow-accent: #f4a029;
+  --ow-accent-strong: #ffb84d;
+  --ow-tank: #6ea8e0;
+  --ow-damage: #ec7b7b;
+  --ow-support: #63c98a;
+  --font-heading: var(--font-barlow), "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+  --font-body: var(--font-plex), "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
+}
+
 @theme {
-  --color-ow-orange:       #f4a029;
-  --color-ow-orange-light: #ffbe55;
-  --color-ow-blue:         #00ccff;
-  --color-ow-blue-dim:     rgba(0, 204, 255, 0.12);
-  --color-ow-bg:           #0c0c10;
-  --color-ow-card:         #141418;
-  --color-ow-surface:      #1c1c24;
-  --font-heading:          var(--font-rajdhani), system-ui, sans-serif;
+  --color-ow-orange: #f4a029;
+  --color-ow-orange-light: #ffb84d;
+  --color-ow-bg: #101113;
+  --color-ow-card: #17181b;
+  --color-ow-surface: #1f2125;
 }
 
 /* ── Base ─────────────────────────────────────────────────────────────── */
-:root { --font-geist: system-ui, sans-serif; }
-
 body {
-  font-family: var(--font-geist);
-  background-color: #0c0c10;
-  color: #f0f0ff;
+  font-family: var(--font-body);
+  background-color: var(--ow-bg);
+  color: var(--ow-text);
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-/* ── Animations ───────────────────────────────────────────────────────── */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  line-height: 1.15;
 }
 
-@keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+:focus-visible {
+  outline: 2px solid var(--ow-accent);
+  outline-offset: 2px;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
 }
 
 @keyframes bar-fill {
@@ -47,314 +64,150 @@ body {
   to   { background-position:  200% center; }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-6px); }
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
-
-.animate-fade-up { animation: fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.animate-fade-in { animation: fade-in 0.25s ease both; }
-.animate-pulse   { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-
-/* Stagger delays */
-.stagger-1  { animation-delay: 0.05s; }
-.stagger-2  { animation-delay: 0.10s; }
-.stagger-3  { animation-delay: 0.15s; }
-.stagger-4  { animation-delay: 0.20s; }
-.stagger-5  { animation-delay: 0.25s; }
-.stagger-6  { animation-delay: 0.30s; }
-.stagger-7  { animation-delay: 0.35s; }
-.stagger-8  { animation-delay: 0.40s; }
-.stagger-9  { animation-delay: 0.45s; }
-.stagger-10 { animation-delay: 0.50s; }
 
 /* ── Cards ───────────────────────────────────────────────────────────── */
-.ow-card {
-  background: #141418;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  transition: background 0.2s ease, border-color 0.2s ease,
-              box-shadow 0.2s ease, transform 0.2s ease;
+.ow-card, .ow-card-sm, .ow-card-featured, .ow-hero-card {
+  background: var(--ow-surface);
+  border: 1px solid var(--ow-line);
+  border-radius: 4px;
+  transition: border-color 0.15s ease;
 }
-.ow-card:hover {
-  background: #1c1c24;
-  border-color: rgba(0, 204, 255, 0.4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
-  transform: translateY(-2px);
-}
-
-/* Small card — no lift */
-.ow-card-sm {
-  background: #141418;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-.ow-card-sm:hover {
-  background: #1c1c24;
-  border-color: rgba(0, 204, 255, 0.3);
-}
-
-/* Hero card — portrait-forward, lifts with glow */
 .ow-hero-card {
-  background: #101014;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
   overflow: hidden;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
   position: relative;
 }
-.ow-hero-card:hover {
-  border-color: rgba(0, 204, 255, 0.5);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(0, 204, 255, 0.12);
-  transform: translateY(-4px);
-}
-
-/* Accent top-border card — featured/highlighted */
 .ow-card-featured {
-  background: #141418;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 2px solid #f4a029;
-  border-radius: 3px;
-  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  border-top: 2px solid var(--ow-accent);
 }
-.ow-card-featured:hover {
-  background: #1c1c24;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-  transform: translateY(-2px);
+a.ow-card:hover, a.ow-card-sm:hover, .ow-hero-card:hover {
+  border-color: var(--ow-text-3);
 }
 
-/* ── Section Title ───────────────────────────────────────────────────── */
+/* ── Text ────────────────────────────────────────────────────────────── */
 .ow-section-title {
-  font-family: "Rajdhani", system-ui, sans-serif;
+  font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.4rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #ffffff;
+  font-size: 1.35rem;
+  color: var(--ow-text);
 }
 
-/* Mono label — data panel labels */
-.ow-mono-label {
-  font-family: ui-monospace, 'Cascadia Code', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: #505070;
-}
-
-/* Data value — large mono number */
-.ow-data-value {
-  font-family: ui-monospace, 'Cascadia Code', monospace;
-  font-weight: 700;
-  font-size: 2.5rem;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: rgba(255, 255, 255, 0.14);
-}
-
-/* Inline label (small section divider) */
-.ow-label {
-  font-family: "Rajdhani", system-ui, sans-serif;
-  font-size: 0.7rem;
+.ow-mono-label, .ow-label {
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #5a5a7a;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.ow-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.07);
+  color: var(--ow-text-3);
 }
 
-/* ── Accent divider ──────────────────────────────────────────────────── */
-.ow-divider {
-  height: 1px;
-  background: linear-gradient(to right, rgba(0, 204, 255, 0.5), rgba(0, 204, 255, 0.1), transparent);
-  border: none;
-}
-
-/* ── Orange CTA button ───────────────────────────────────────────────── */
-.ow-btn {
-  font-family: "Rajdhani", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: #f4a029;
-  color: #0c0c10;
-  border: none;
-  border-radius: 2px;
-  padding: 0.6rem 1.4rem;
-  cursor: pointer;
-  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.ow-btn:hover {
-  background: #ffbe55;
-  box-shadow: 0 0 20px rgba(244, 160, 41, 0.3);
-  transform: translateY(-1px);
-}
-.ow-btn:active { transform: translateY(0); }
-
-/* Ghost variant — blue */
-.ow-btn-ghost {
-  font-family: "Rajdhani", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: transparent;
-  color: #00ccff;
-  border: 1px solid rgba(0, 204, 255, 0.45);
-  border-radius: 2px;
-  padding: 0.55rem 1.4rem;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.ow-btn-ghost:hover {
-  background: rgba(0, 204, 255, 0.08);
-  border-color: #00ccff;
-  color: #66ddff;
-}
-
-/* ── Stat Value ──────────────────────────────────────────────────────── */
-.ow-stat-value {
-  font-family: "Rajdhani", system-ui, sans-serif;
+.ow-data-value, .ow-stat-value {
+  font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1.8rem;
   line-height: 1;
-  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
 }
 
-/* ── Legacy nav link ─────────────────────────────────────────────────── */
-.ow-nav-link {
-  position: relative;
+.ow-divider {
+  height: 1px;
+  background: var(--ow-line);
+  border: none;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+.ow-btn, .ow-btn-ghost {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 4px;
+  padding: 0.55rem 1.2rem;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
-  padding: 0.375rem 0.75rem;
-  font-size: 0.7rem;
+  gap: 0.4rem;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.ow-btn {
+  background: var(--ow-accent);
+  color: #17120a;
+  border: none;
+}
+.ow-btn:hover { background: var(--ow-accent-strong); }
+.ow-btn-ghost {
+  background: transparent;
+  color: var(--ow-text);
+  border: 1px solid var(--ow-line);
+}
+.ow-btn-ghost:hover { border-color: var(--ow-text-3); }
+
+/* ── Data tables ─────────────────────────────────────────────────────── */
+.ow-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.ow-table th {
+  text-align: right;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #707098;
-  transition: color 0.15s ease;
-  font-family: "Rajdhani", system-ui, sans-serif;
+  color: var(--ow-text-3);
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--ow-line);
+  white-space: nowrap;
 }
-.ow-nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0.75rem;
-  right: 0.75rem;
-  height: 1.5px;
-  background: #00ccff;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 1px;
+.ow-table td {
+  text-align: right;
+  padding: 0.45rem 0.75rem;
+  border-bottom: 1px solid var(--ow-line);
 }
-.ow-nav-link:hover { color: #00ccff; }
-.ow-nav-link:hover::after { transform: scaleX(1); }
+.ow-table th:first-child, .ow-table td:first-child {
+  text-align: left;
+  padding-left: 0;
+}
+.ow-table tr:last-child td { border-bottom: none; }
 
-/* ── Background textures ─────────────────────────────────────────────── */
-.ow-bg-dots {
-  background-image: radial-gradient(rgba(0, 204, 255, 0.05) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-.ow-noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  background-size: 256px 256px;
-}
-
-/* ── Homepage sidebar nav ────────────────────────────────────────────── */
-.sidebar-nav-item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-.sidebar-nav-link {
-  color: #686890;
-  transition: color 0.15s ease;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.625rem 0.5rem;
-  text-decoration: none;
-}
-.sidebar-nav-link:hover {
-  color: #f0f0ff;
-}
-.sidebar-nav-arrow {
-  color: #363650;
-  transition: color 0.15s ease;
-}
-.sidebar-nav-link:hover .sidebar-nav-arrow {
-  color: #00ccff;
-}
-
-.tier-list-link {
-  color: #48486a;
-  transition: color 0.15s ease;
-  text-decoration: none;
-}
-.tier-list-link:hover {
-  color: #00ccff;
-}
-
-.mobile-nav-link {
-  background: #0c0c10;
-  color: #606088;
-  transition: color 0.15s ease;
-  text-decoration: none;
-}
-.mobile-nav-link:hover {
-  color: #f0f0ff;
+/* ── Form controls ───────────────────────────────────────────────────── */
+.ow-select {
+  background: var(--ow-surface);
+  color: var(--ow-text);
+  border: 1px solid var(--ow-line);
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
 }
 
 /* ── Winrate bar ─────────────────────────────────────────────────────── */
 .winrate-bar {
-  animation: bar-fill 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
-  animation-delay: 0.2s;
+  animation: bar-fill 0.4s ease both;
 }
 
-/* ── Shimmer for loading ─────────────────────────────────────────────── */
 .ow-shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
   background-size: 200% auto;
   animation: shimmer 1.8s linear infinite;
 }
 
-/* ── Site Header ─────────────────────────────────────────────────────── */
+/* ── Site header ─────────────────────────────────────────────────────── */
 .ow-header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 30;
-  background: rgba(12, 12, 16, 0.97);
-  backdrop-filter: blur(20px) saturate(1.4);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--ow-bg);
+  border-bottom: 1px solid var(--ow-line);
 }
 
 .ow-header-inner {
   max-width: 80rem;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
   height: 50px;
   display: flex;
   align-items: center;
@@ -362,87 +215,33 @@ body {
 }
 
 .ow-logo {
-  display: flex;
-  align-items: center;
-  gap: 9px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.2rem;
   text-decoration: none;
   flex-shrink: 0;
-  transition: opacity 0.15s ease;
+  color: var(--ow-text);
 }
-.ow-logo:hover { opacity: 0.8; }
+.ow-logo span { color: var(--ow-accent); }
 
-.ow-logo-mark {
-  width: 30px;
-  height: 30px;
-  border: 1.5px solid rgba(244, 160, 41, 0.7);
-  background: rgba(244, 160, 41, 0.06);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-family: "Rajdhani", system-ui, sans-serif;
-  font-weight: 900;
-  font-size: 0.85rem;
-  color: #f4a029;
-  letter-spacing: 0.03em;
-}
-
-.ow-logo-words {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-  gap: 3px;
-}
-
-.ow-logo-name {
-  font-family: "Rajdhani", system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: 0.22em;
-  color: #d8d8f0;
-}
-
-.ow-logo-tag {
-  font-family: ui-monospace, 'Cascadia Code', monospace;
-  font-size: 0.44rem;
-  letter-spacing: 0.15em;
-  color: #38385a;
-}
-
-.ow-header-rule {
-  width: 1px;
-  height: 18px;
-  background: rgba(255, 255, 255, 0.1);
-  flex-shrink: 0;
-}
-
-.ow-header-nav {
-  display: none;
-}
+.ow-header-nav { display: none; }
 
 @media (min-width: 1024px) {
   .ow-header-nav {
     display: flex;
     align-items: center;
     gap: 2px;
+    margin-left: 0.75rem;
   }
 }
 
-/* Nav link — monospace, readable by default, electric blue on hover */
 .ow-hdr-link {
-  padding: 0.35rem 0.65rem;
-  font-family: ui-monospace, 'Cascadia Code', monospace;
-  font-size: 0.68rem;
-  letter-spacing: 0.07em;
-  text-transform: lowercase;
-  color: #686888;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.9rem;
+  color: var(--ow-text-2);
   text-decoration: none;
-  transition: color 0.14s ease, background 0.14s ease;
   white-space: nowrap;
-  border-radius: 2px;
+  border-radius: 4px;
+  transition: color 0.15s ease;
 }
-
-.ow-hdr-link:hover {
-  color: #00ccff;
-  background: rgba(0, 204, 255, 0.06);
-}
+.ow-hdr-link:hover { color: var(--ow-text); }

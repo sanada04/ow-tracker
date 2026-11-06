@@ -68,7 +68,7 @@ export default async function CounterPage({ params }: Props) {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#0c0c10] text-white">
+    <div className="min-h-screen bg-[var(--ow-bg)] text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }} />
       <main className="max-w-5xl mx-auto px-6 py-12">
         {/* Back */}
@@ -94,7 +94,7 @@ export default async function CounterPage({ params }: Props) {
           <div>
             <h1
               className="text-3xl font-bold text-white"
-              style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}
+              style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.05em" }}
             >
               {t.page_title.replace("{hero}", displayName)}
             </h1>
@@ -102,7 +102,7 @@ export default async function CounterPage({ params }: Props) {
               {t.page_subtitle.replace("{hero}", displayName)}
             </p>
             {roleLabel && (
-              <span className="inline-block mt-2 text-[11px] uppercase tracking-widest text-zinc-400 border border-zinc-700/50 px-2 py-0.5 rounded">
+              <span className="inline-block mt-2 text-xs tracking-normal text-zinc-400 border border-zinc-700/50 px-2 py-0.5 rounded">
                 {roleLabel}
               </span>
             )}
@@ -112,10 +112,10 @@ export default async function CounterPage({ params }: Props) {
         {/* Hero description — adds content for SEO/AdSense */}
         {heroDetail?.description && (
           <div className="mb-8 ow-card p-5">
-            <p className="text-[11px] uppercase tracking-widest text-[#505070] mb-3">
+            <p className="text-xs tracking-normal text-[var(--ow-text-3)] mb-3">
               {lang === "ja" ? "ヒーロー紹介" : "About this Hero"}
             </p>
-            <p className="text-[#9090b0] text-sm leading-relaxed">{heroDetail.description}</p>
+            <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">{heroDetail.description}</p>
           </div>
         )}
 
@@ -134,7 +134,7 @@ export default async function CounterPage({ params }: Props) {
             {/* HP stats */}
             <div>
               <div className="mb-4 pb-2 border-b border-zinc-800">
-                <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+                <span className="text-xs tracking-normal text-zinc-500 font-medium">
                   {t.hero_info}
                 </span>
               </div>
@@ -142,29 +142,29 @@ export default async function CounterPage({ params }: Props) {
                 {heroDetail.hitpoints && (
                   <>
                     <div className="ow-card p-4 text-center">
-                      <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
+                      <p className="text-xs text-zinc-500 tracking-normal mb-1">
                         {dict.hero_detail.hp_total}
                       </p>
-                      <p className="text-2xl font-bold text-white" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                      <p className="text-2xl font-bold text-white" style={{ fontFamily: "var(--font-heading)" }}>
                         {heroDetail.hitpoints.total}
                       </p>
                     </div>
                     {heroDetail.hitpoints.armor > 0 && (
                       <div className="ow-card p-4 text-center">
-                        <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
+                        <p className="text-xs text-zinc-500 tracking-normal mb-1">
                           {dict.hero_detail.hp_armor}
                         </p>
-                        <p className="text-2xl font-bold text-[#f4a029]" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                        <p className="text-2xl font-bold text-[var(--ow-accent)]" style={{ fontFamily: "var(--font-heading)" }}>
                           {heroDetail.hitpoints.armor}
                         </p>
                       </div>
                     )}
                     {heroDetail.hitpoints.shields > 0 && (
                       <div className="ow-card p-4 text-center">
-                        <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
+                        <p className="text-xs text-zinc-500 tracking-normal mb-1">
                           {dict.hero_detail.hp_shields}
                         </p>
-                        <p className="text-2xl font-bold text-blue-400" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                        <p className="text-2xl font-bold text-blue-400" style={{ fontFamily: "var(--font-heading)" }}>
                           {heroDetail.hitpoints.shields}
                         </p>
                       </div>
@@ -172,10 +172,10 @@ export default async function CounterPage({ params }: Props) {
                   </>
                 )}
                 <div className="ow-card p-4 text-center">
-                  <p className="text-xs text-zinc-500 uppercase tracking-wider mb-1">
+                  <p className="text-xs text-zinc-500 tracking-normal mb-1">
                     {dict.hero_detail.abilities_label}
                   </p>
-                  <p className="text-2xl font-bold text-white" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                  <p className="text-2xl font-bold text-white" style={{ fontFamily: "var(--font-heading)" }}>
                     {heroDetail.abilities.length}
                   </p>
                 </div>
@@ -186,7 +186,7 @@ export default async function CounterPage({ params }: Props) {
             {heroDetail.abilities.length > 0 && (
               <div>
                 <div className="mb-4 pb-2 border-b border-zinc-800">
-                  <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+                  <span className="text-xs tracking-normal text-zinc-500 font-medium">
                     {lang === "ja" ? `${displayName} のアビリティ` : `${displayName} Abilities`}
                   </span>
                 </div>
@@ -200,15 +200,15 @@ export default async function CounterPage({ params }: Props) {
                         </div>
                       )}
                       <div className="min-w-0">
-                        <p className="text-white text-sm font-semibold mb-1" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+                        <p className="text-white text-sm font-semibold mb-1" style={{ fontFamily: "var(--font-heading)" }}>
                           {ability.name}
                         </p>
-                        <p className="text-[#9090b0] text-xs leading-relaxed">{ability.description}</p>
+                        <p className="text-[var(--ow-text-2)] text-xs leading-relaxed">{ability.description}</p>
                       </div>
                     </div>
                   ))}
                 </div>
-                <p className="text-xs text-[#505070] mt-3">
+                <p className="text-xs text-[var(--ow-text-3)] mt-3">
                   {lang === "ja"
                     ? `${displayName} のアビリティを理解することが、効果的なカウンターピックの第一歩です。`
                     : `Understanding ${displayName}'s abilities is the first step to picking an effective counter.`}
@@ -221,7 +221,7 @@ export default async function CounterPage({ params }: Props) {
         {/* Related links */}
         <section className="mt-10">
           <div className="mb-4 pb-2 border-b border-zinc-800">
-            <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+            <span className="text-xs tracking-normal text-zinc-500 font-medium">
               {t.related_heroes}
             </span>
           </div>

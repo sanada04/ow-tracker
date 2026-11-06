@@ -73,18 +73,18 @@ export default function HeroRoster({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={labels.search_placeholder}
-          className="flex-1 h-10 px-4 bg-[#141418] border border-white/[0.08] text-white placeholder-zinc-600 focus:outline-none focus:border-[#f4a029]/50 transition-colors text-sm rounded"
-          style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.03em" }}
+          className="flex-1 h-10 px-4 bg-[var(--ow-surface)] border border-white/[0.08] text-white placeholder-zinc-600 focus:outline-none focus:border-[var(--ow-accent)]/50 transition-colors text-sm rounded"
+          style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.03em" }}
         />
         <div className="flex gap-1">
           {tabs.map((t) => (
             <button
               key={t.value}
               onClick={() => setRole(t.value)}
-              className="relative px-4 py-2 text-[11px] uppercase tracking-widest font-bold transition-all duration-200 rounded"
+              className="relative px-4 py-2 text-xs tracking-normal font-bold transition-all duration-200 rounded"
               style={{
-                fontFamily: '"Rajdhani", system-ui, sans-serif',
-                color: role === t.value ? "#f4a029" : "#52525b",
+                fontFamily: "var(--font-heading)",
+                color: role === t.value ? "var(--ow-accent)" : "#52525b",
                 background: role === t.value ? "rgba(244,160,41,0.08)" : "transparent",
                 border: `1px solid ${role === t.value ? "rgba(244,160,41,0.4)" : "rgba(255,255,255,0.07)"}`,
               }}
@@ -105,7 +105,7 @@ export default function HeroRoster({
             <Link
               key={hero.key}
               href={`/${lang}/heroes/${hero.key}`}
-              className="ow-hero-card group animate-fade-up"
+              className="ow-hero-card group"
               style={{ animationDelay: `${Math.min(i * 25, 500)}ms` }}
             >
               {/* Role color bar at top */}
@@ -125,7 +125,7 @@ export default function HeroRoster({
                 ) : (
                   <div
                     className="w-full h-full flex items-center justify-center text-4xl font-black text-zinc-800"
-                    style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                    style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {hero.name[0]}
                   </div>
@@ -135,7 +135,7 @@ export default function HeroRoster({
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
-                    background: "linear-gradient(to bottom, transparent 40%, rgba(8,8,16,0.95) 100%)",
+                    background: "linear-gradient(to bottom, transparent 40%, rgba(16,17,19,0.95) 100%)",
                   }}
                 />
 
@@ -144,16 +144,15 @@ export default function HeroRoster({
                   <p
                     className="text-white font-bold leading-tight truncate"
                     style={{
-                      fontFamily: '"Rajdhani", system-ui, sans-serif',
+                      fontFamily: "var(--font-heading)",
                       fontSize: "0.95rem",
                       letterSpacing: "0.06em",
-                      textShadow: "0 1px 6px rgba(0,0,0,0.8)",
                     }}
                   >
                     {hero.name}
                   </p>
                   <p
-                    className="text-[10px] uppercase tracking-widest font-semibold mt-0.5"
+                    className="text-xs tracking-normal font-semibold mt-0.5"
                     style={{ color: accent.color }}
                   >
                     {hero.role}

@@ -1,45 +1,46 @@
 import type { MetadataRoute } from "next";
-import { getHeroes } from "@/lib/api";
+import { getHeroes, getMaps } from "@/lib/api";
 
 const BASE = "https://owtracker.org";
 
 export const dynamic = "force-static";
 
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const heroes = await getHeroes("en");
+const LANGS = ["ja", "en", "ko"];
 
-  const staticUrls: MetadataRoute.Sitemap = [
-    { url: `${BASE}/ja`,                             priority: 1.0, changeFrequency: "daily" },
-    { url: `${BASE}/en`,                             priority: 1.0, changeFrequency: "daily" },
-    { url: `${BASE}/ja/heroes`,                      priority: 0.9, changeFrequency: "weekly" },
-    { url: `${BASE}/en/heroes`,                      priority: 0.9, changeFrequency: "weekly" },
-    { url: `${BASE}/ja/tier-list`,                   priority: 0.9, changeFrequency: "daily" },
-    { url: `${BASE}/en/tier-list`,                   priority: 0.9, changeFrequency: "daily" },
-    { url: `${BASE}/ja/meta`,                        priority: 0.9, changeFrequency: "daily" },
-    { url: `${BASE}/en/meta`,                        priority: 0.9, changeFrequency: "daily" },
-    { url: `${BASE}/ja/counters`,                    priority: 0.8, changeFrequency: "weekly" },
-    { url: `${BASE}/en/counters`,                    priority: 0.8, changeFrequency: "weekly" },
-    { url: `${BASE}/ja/maps`,                        priority: 0.8, changeFrequency: "weekly" },
-    { url: `${BASE}/en/maps`,                        priority: 0.8, changeFrequency: "weekly" },
-    { url: `${BASE}/ja/stats/rank-distribution`,     priority: 0.8, changeFrequency: "weekly" },
-    { url: `${BASE}/en/stats/rank-distribution`,     priority: 0.8, changeFrequency: "weekly" },
-    { url: `${BASE}/ja/compare`,                     priority: 0.7, changeFrequency: "monthly" },
-    { url: `${BASE}/en/compare`,                     priority: 0.7, changeFrequency: "monthly" },
-    { url: `${BASE}/ja/about`,                       priority: 0.5, changeFrequency: "monthly" },
-    { url: `${BASE}/en/about`,                       priority: 0.5, changeFrequency: "monthly" },
-    { url: `${BASE}/ja/privacy`,                     priority: 0.3, changeFrequency: "monthly" },
-    { url: `${BASE}/en/privacy`,                     priority: 0.3, changeFrequency: "monthly" },
-    { url: `${BASE}/ja/contact`,                     priority: 0.3, changeFrequency: "monthly" },
-    { url: `${BASE}/en/contact`,                     priority: 0.3, changeFrequency: "monthly" },
+type Frequency = MetadataRoute.Sitemap[number]["changeFrequency"];
+
+const STATIC_PAGES: [string, number, Frequency][] = [
+  ["", 1.0, "daily"],
+  ["/tier-list", 0.9, "daily"],
+  ["/meta", 0.9, "daily"],
+  ["/heroes", 0.9, "weekly"],
+  ["/maps", 0.8, "weekly"],
+  ["/counters", 0.8, "weekly"],
+  ["/stats/rank-distribution", 0.8, "weekly"],
+  ["/compare", 0.7, "monthly"],
+  ["/about", 0.5, "monthly"],
+  ["/privacy", 0.3, "monthly"],
+  ["/contact", 0.3, "monthly"],
+];
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [heroes, maps] = await Promise.all([getHeroes("en"), getMaps("en")]);
+
+  const paths: [string, number, Frequency][] = [
+    ...STATIC_PAGES,
+    ...heroes.flatMap((hero): [string, number, Frequency][] => [
+      [`/heroes/${hero.key}`, 0.8, "daily"],
+      [`/counters/${hero.key}`, 0.7, "weekly"],
+    ]),
+    ...maps.map((map): [string, number, Frequency] => [`/maps/${map.key}`, 0.7, "daily"]),
   ];
 
-  const heroUrls: MetadataRoute.Sitemap = heroes.flatMap((h) => [
-    { url: `${BASE}/ja/heroes/${h.key}`,   priority: 0.8, changeFrequency: "weekly" as const },
-    { url: `${BASE}/en/heroes/${h.key}`,   priority: 0.8, changeFrequency: "weekly" as const },
-    { url: `${BASE}/ja/counters/${h.key}`, priority: 0.7, changeFrequency: "weekly" as const },
-    { url: `${BASE}/en/counters/${h.key}`, priority: 0.7, changeFrequency: "weekly" as const },
-  ]);
-
-  return [...staticUrls, ...heroUrls];
+  return LANGS.flatMap((lang) =>
+    paths.map(([path, priority, changeFrequency]) => ({
+      url: `${BASE}/${lang}${path}`,
+      priority,
+      changeFrequency,
+    }))
+  );
 }

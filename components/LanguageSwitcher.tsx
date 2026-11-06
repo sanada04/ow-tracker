@@ -17,8 +17,8 @@ export default function LanguageSwitcher({ lang }: { lang: Locale }) {
           <Link
             key={l}
             href={otherPath}
-            className="text-[11px] font-bold uppercase tracking-widest px-2 py-1 border border-zinc-700/60 text-zinc-400 hover:border-[#f4a029]/50 hover:text-[#f4a029] transition-colors rounded"
-            style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+            className="text-xs font-bold tracking-normal px-2 py-1 border border-zinc-700/60 text-zinc-400 hover:border-[var(--ow-accent)]/50 hover:text-[var(--ow-accent)] transition-colors rounded"
+            style={{ fontFamily: "var(--font-heading)" }}
           >
             {l.toUpperCase()}
           </Link>

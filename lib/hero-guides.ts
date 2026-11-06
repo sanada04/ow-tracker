@@ -896,7 +896,7 @@ const GUIDES_EN: Record<RoleKey, RoleGuide> = {
   },
   support: {
     overview:
-      "Support heroes are the lifeline of any team composition. While healing is their primary function, modern Overwatch 2 supports are far more than passive healers — many have significant damage potential, strong movement abilities, and fight-altering ultimates. The skill of a great support player lies in constantly prioritizing: who needs healing most right now, when to apply offensive pressure, and when to reposition for survival.",
+      "Support heroes are the lifeline of any team composition. While healing is their primary function, modern Overwatch supports are far more than passive healers — many have significant damage potential, strong movement abilities, and fight-altering ultimates. The skill of a great support player lies in constantly prioritizing: who needs healing most right now, when to apply offensive pressure, and when to reposition for survival.",
     positioning:
       "Supports thrive in the midrange between the frontline and the team's backline. Too far forward and flankers will pick you; too far back and your healing won't reach your tank. Always maintain line of sight to your highest-priority heal target, use cover to block flanking routes, and position near an escape path when aggressive enemies are nearby.",
     strengths: [

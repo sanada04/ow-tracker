@@ -52,15 +52,15 @@ export default function SearchBar({
 
   useEffect(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
-    setNoResults(false);
     const raw = value.trim();
     const q = raw.includes("#") ? raw.split("#")[0].trim() : raw;
-    if (q.length < 2) {
-      setSuggestions([]);
-      setOpen(false);
-      return;
-    }
     timerRef.current = setTimeout(async () => {
+      setNoResults(false);
+      if (q.length < 2) {
+        setSuggestions([]);
+        setOpen(false);
+        return;
+      }
       setLoading(true);
       try {
         const results = await searchPlayers(q);
@@ -114,7 +114,7 @@ export default function SearchBar({
             value={value}
             onChange={(e) => { setValue(e.target.value); setNoResults(false); }}
             onFocus={(e) => {
-              (e.target as HTMLInputElement).style.borderColor = "rgba(0,204,255,0.55)";
+              (e.target as HTMLInputElement).style.borderColor = "rgba(244,160,41,0.55)";
               if (suggestions.length > 0) setOpen(true);
             }}
             onBlur={(e) => {
@@ -126,18 +126,18 @@ export default function SearchBar({
             className="w-full px-5 text-white placeholder-zinc-600 focus:outline-none transition-colors text-sm"
             style={{
               height: compact ? "40px" : "52px",
-              background: "#101014",
+              background: "var(--ow-surface)",
               border: "1px solid rgba(255,255,255,0.12)",
               borderRight: "none",
               borderRadius: "2px 0 0 2px",
-              fontFamily: '"Rajdhani", system-ui, sans-serif',
+              fontFamily: "var(--font-heading)",
               letterSpacing: "0.03em",
               fontSize: "0.9rem",
             }}
           />
           {loading && (
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
-              <div className="w-4 h-4 border-2 border-[#00ccff] border-t-transparent rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-[var(--ow-accent)] border-t-transparent rounded-full animate-spin" />
             </div>
           )}
         </div>
@@ -147,15 +147,15 @@ export default function SearchBar({
           type="submit"
           disabled={!value.trim() || loading}
           suppressHydrationWarning
-          className="shrink-0 font-bold uppercase tracking-widest transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110"
+          className="shrink-0 font-bold tracking-normal transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110"
           style={{
             height: compact ? "40px" : "52px",
             padding: compact ? "0 1rem" : "0 1.5rem",
-            background: "#f4a029",
-            color: "#080810",
+            background: "var(--ow-accent)",
+            color: "var(--ow-bg)",
             border: "none",
             borderRadius: "0 2px 2px 0",
-            fontFamily: '"Rajdhani", system-ui, sans-serif',
+            fontFamily: "var(--font-heading)",
             fontSize: "0.85rem",
             letterSpacing: "0.12em",
           }}
@@ -169,12 +169,12 @@ export default function SearchBar({
         <div
           className="absolute mt-1 w-full z-50 px-4 py-3 text-sm text-zinc-400"
           style={{
-            background: "#141418",
+            background: "var(--ow-surface)",
             border: "1px solid rgba(255,255,255,0.1)",
             borderRadius: "2px",
           }}
         >
-          <span className="text-[#9090b0] text-sm">{noResultsText}</span>
+          <span className="text-[var(--ow-text-2)] text-sm">{noResultsText}</span>
         </div>
       )}
 
@@ -183,8 +183,8 @@ export default function SearchBar({
         <ul
           className="absolute z-50 mt-1 w-full shadow-2xl overflow-hidden"
           style={{
-            background: "#141418",
-            border: "1px solid rgba(0,204,255,0.25)",
+            background: "var(--ow-surface)",
+            border: "1px solid rgba(244,160,41,0.25)",
             borderRadius: "2px",
           }}
         >
@@ -195,7 +195,7 @@ export default function SearchBar({
                 tabIndex={0}
                 onClick={() => handleSelect(result)}
                 onKeyDown={(e) => e.key === "Enter" && handleSelect(result)}
-                className="flex items-center gap-3 px-4 py-3 transition-colors cursor-pointer animate-fade-up"
+                className="flex items-center gap-3 px-4 py-3 transition-colors cursor-pointer"
                 style={{
                   borderBottom: "1px solid rgba(255,255,255,0.04)",
                   animationDelay: `${i * 30}ms`,
@@ -221,18 +221,18 @@ export default function SearchBar({
                 <div className="min-w-0 flex-1">
                   <p
                     className="text-white text-sm font-semibold truncate"
-                    style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                    style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {result.name}
                   </p>
                   {result.title && (
-                    <p className="text-[11px] text-[#00ccff]/50 truncate">{result.title}</p>
+                    <p className="text-xs text-[var(--ow-accent)]/50 truncate">{result.title}</p>
                   )}
                 </div>
                 {!result.is_public && (
-                  <span className="text-[10px] uppercase tracking-wider text-zinc-600 shrink-0">{notPublicText}</span>
+                  <span className="text-xs tracking-normal text-zinc-500 shrink-0">{notPublicText}</span>
                 )}
-                <span className="text-zinc-700 text-sm shrink-0">›</span>
+                <span className="text-zinc-500 text-sm shrink-0">›</span>
               </div>
             </li>
           ))}

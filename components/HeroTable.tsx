@@ -8,9 +8,9 @@ import { useState } from "react";
 
 function WinrateBar({ value, delay = 0 }: { value: number; delay?: number }) {
   const color =
-    value >= 60 ? "bg-green-500" : value >= 50 ? "bg-[#f4a029]" : "bg-red-500";
+    value >= 60 ? "bg-green-500" : value >= 50 ? "bg-[var(--ow-accent)]" : "bg-red-500";
   const textColor =
-    value >= 60 ? "text-green-400" : value >= 50 ? "text-[#f4a029]" : "text-red-400";
+    value >= 60 ? "text-green-400" : value >= 50 ? "text-[var(--ow-accent)]" : "text-red-400";
 
   return (
     <div className="flex items-center gap-2 min-w-[90px]">
@@ -55,7 +55,7 @@ export default function HeroTable({
         <thead>
           <tr className="text-left border-b border-zinc-800/60">
             {headers.map((h) => (
-              <th key={h} className="pb-3 pr-4 last:pr-0 text-[10px] uppercase tracking-widest text-zinc-500 font-medium whitespace-nowrap">
+              <th key={h} className="pb-3 pr-4 last:pr-0 text-xs tracking-normal text-zinc-500 font-medium whitespace-nowrap">
                 {h}
               </th>
             ))}
@@ -67,7 +67,7 @@ export default function HeroTable({
             return (
               <tr
                 key={key}
-                className="border-b border-zinc-800/30 hover:bg-[#1a1a2a] transition-colors animate-fade-up"
+                className="border-b border-zinc-800/30 hover:bg-[var(--ow-surface-2)] transition-colors"
                 style={{ animationDelay: `${i * 40}ms` }}
               >
                 {/* Hero */}

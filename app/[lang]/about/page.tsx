@@ -24,29 +24,29 @@ function JaContent({ lang }: { lang: string }) {
     <article>
       <h1
         className="text-3xl font-bold text-white mb-2"
-        style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}
+        style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.05em" }}
       >
         OW Trackerについて
       </h1>
-      <p className="text-[#9090b0] text-sm mb-10">
+      <p className="text-[var(--ow-text-2)] text-sm mb-10">
         Overwatch 2 プレイヤーのための無料データサービス
       </p>
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           OW Trackerとは
         </h2>
-        <p className="text-[#9090b0] text-sm leading-relaxed mb-3">
+        <p className="text-[var(--ow-text-2)] text-sm leading-relaxed mb-3">
           OW Trackerは、Overwatch 2 のプレイヤーが自分や他のプレイヤーの戦績・ランク・ヒーロー統計を手軽に確認できる、無料のデータトラッキングサービスです。
           BattleTagを入力するだけで、コンペティティブランク・勝率・KDA・ヒーロー別スタッツを一覧で確認できます。
         </p>
-        <p className="text-[#9090b0] text-sm leading-relaxed">
+        <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
           また、ヒーローのカウンター情報・コミュニティTierList・ランク分布など、Overwatch 2 をより深く楽しむためのデータを提供しています。
         </p>
       </section>
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           提供機能
         </h2>
         <div className="space-y-4">
@@ -77,23 +77,23 @@ function JaContent({ lang }: { lang: string }) {
             },
           ].map((item) => (
             <div key={item.title} className="ow-card p-4">
-              <h3 className="text-white font-semibold text-sm mb-1.5" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+              <h3 className="text-white font-semibold text-sm mb-1.5" style={{ fontFamily: "var(--font-heading)" }}>
                 {item.title}
               </h3>
-              <p className="text-[#9090b0] text-sm leading-relaxed">{item.desc}</p>
+              <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           データソース
         </h2>
         <div className="ow-card p-5 space-y-3">
           <div>
             <p className="text-white text-sm font-medium mb-1">プレイヤー戦績・ヒーロー情報</p>
-            <p className="text-[#9090b0] text-sm leading-relaxed">
+            <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
               OverFast API（tekrop.fr が提供する非公式 Blizzard API ラッパー）から取得しています。
               プレイヤーデータはリクエスト時にリアルタイム取得し、短時間キャッシュしています。
               ヒーロー基本データは定期的に更新されます。
@@ -101,7 +101,7 @@ function JaContent({ lang }: { lang: string }) {
           </div>
           <div>
             <p className="text-white text-sm font-medium mb-1">コミュニティデータ（TierList・カウンター）</p>
-            <p className="text-[#9090b0] text-sm leading-relaxed">
+            <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
               ユーザーによる投票データを Upstash Redis で管理しています。
               投票は匿名で、1ユーザーがカウンターページで最大5票まで投票できます。
             </p>
@@ -110,14 +110,14 @@ function JaContent({ lang }: { lang: string }) {
       </section>
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           プライバシー
         </h2>
-        <p className="text-[#9090b0] text-sm leading-relaxed mb-3">
+        <p className="text-[var(--ow-text-2)] text-sm leading-relaxed mb-3">
           OW Trackerは現在、広告を表示していません。
           アクセス解析に Google Analytics を利用しており、Google が Cookie を使用することがあります。
           詳細は{" "}
-          <Link href={`/ja/privacy`} className="text-[#00ccff] hover:underline">
+          <Link href={`/ja/privacy`} className="text-[var(--ow-accent)] hover:underline">
             プライバシーポリシー
           </Link>
           をご確認ください。
@@ -125,10 +125,10 @@ function JaContent({ lang }: { lang: string }) {
       </section>
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           免責事項
         </h2>
-        <p className="text-[#9090b0] text-sm leading-relaxed">
+        <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
           OW Trackerは独立したファンサイトであり、Blizzard Entertainment とは一切関係ありません。
           Overwatch、Overwatch 2 は Blizzard Entertainment, Inc. の商標です。
           当サービスで提供するデータの正確性を保証するものではありません。
@@ -136,12 +136,12 @@ function JaContent({ lang }: { lang: string }) {
       </section>
 
       <section>
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           お問い合わせ
         </h2>
-        <p className="text-[#9090b0] text-sm leading-relaxed">
+        <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
           ご意見・ご要望・不具合報告は{" "}
-          <Link href={`/ja/contact`} className="text-[#00ccff] hover:underline">
+          <Link href={`/ja/contact`} className="text-[var(--ow-accent)] hover:underline">
             お問い合わせページ
           </Link>
           からお送りください。
@@ -156,30 +156,30 @@ function EnContent({ lang }: { lang: string }) {
     <article>
       <h1
         className="text-3xl font-bold text-white mb-2"
-        style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}
+        style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.05em" }}
       >
         About OW Tracker
       </h1>
-      <p className="text-[#9090b0] text-sm mb-10">
+      <p className="text-[var(--ow-text-2)] text-sm mb-10">
         Free stats and data service for Overwatch 2 players
       </p>
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           What is OW Tracker?
         </h2>
-        <p className="text-[#9090b0] text-sm leading-relaxed mb-3">
+        <p className="text-[var(--ow-text-2)] text-sm leading-relaxed mb-3">
           OW Tracker is a free Overwatch 2 stats tracking service. Search any player by BattleTag to instantly view
           their competitive rank across all roles, win rate, KDA, playtime, and hero-by-hero statistics — all in one place.
         </p>
-        <p className="text-[#9090b0] text-sm leading-relaxed">
+        <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
           Beyond player stats, OW Tracker provides hero counter data, community tier lists, rank distribution insights,
           and detailed hero databases to help you understand the game more deeply.
         </p>
       </section>
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           Features
         </h2>
         <div className="space-y-4">
@@ -210,30 +210,30 @@ function EnContent({ lang }: { lang: string }) {
             },
           ].map((item) => (
             <div key={item.title} className="ow-card p-4">
-              <h3 className="text-white font-semibold text-sm mb-1.5" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+              <h3 className="text-white font-semibold text-sm mb-1.5" style={{ fontFamily: "var(--font-heading)" }}>
                 {item.title}
               </h3>
-              <p className="text-[#9090b0] text-sm leading-relaxed">{item.desc}</p>
+              <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           Data Sources
         </h2>
         <div className="ow-card p-5 space-y-3">
           <div>
             <p className="text-white text-sm font-medium mb-1">Player stats &amp; hero data</p>
-            <p className="text-[#9090b0] text-sm leading-relaxed">
+            <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
               Fetched from OverFast API (tekrop.fr), an unofficial Blizzard API wrapper.
               Player data is retrieved in real time on request and cached briefly. Hero data is refreshed periodically.
             </p>
           </div>
           <div>
             <p className="text-white text-sm font-medium mb-1">Community data (Tier List &amp; Counters)</p>
-            <p className="text-[#9090b0] text-sm leading-relaxed">
+            <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
               User votes are stored in Upstash Redis. Voting is anonymous;
               each user may cast up to 5 counter votes per hero page.
             </p>
@@ -242,13 +242,13 @@ function EnContent({ lang }: { lang: string }) {
       </section>
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           Privacy
         </h2>
-        <p className="text-[#9090b0] text-sm leading-relaxed">
+        <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
           OW Tracker does not currently display ads. We use Google Analytics for site analytics, and Google may use
           cookies for this purpose. See our{" "}
-          <Link href={`/en/privacy`} className="text-[#00ccff] hover:underline">
+          <Link href={`/en/privacy`} className="text-[var(--ow-accent)] hover:underline">
             Privacy Policy
           </Link>{" "}
           for details.
@@ -256,10 +256,10 @@ function EnContent({ lang }: { lang: string }) {
       </section>
 
       <section className="mb-10">
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           Disclaimer
         </h2>
-        <p className="text-[#9090b0] text-sm leading-relaxed">
+        <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
           OW Tracker is an independent fan site and is not affiliated with Blizzard Entertainment.
           Overwatch and Overwatch 2 are trademarks of Blizzard Entertainment, Inc.
           Data accuracy is not guaranteed.
@@ -267,12 +267,12 @@ function EnContent({ lang }: { lang: string }) {
       </section>
 
       <section>
-        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}>
+        <h2 className="text-lg font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading)" }}>
           Contact
         </h2>
-        <p className="text-[#9090b0] text-sm leading-relaxed">
+        <p className="text-[var(--ow-text-2)] text-sm leading-relaxed">
           Feedback, bug reports, or feature requests —{" "}
-          <Link href={`/en/contact`} className="text-[#00ccff] hover:underline">
+          <Link href={`/en/contact`} className="text-[var(--ow-accent)] hover:underline">
             contact us here
           </Link>
           .
@@ -286,7 +286,7 @@ export default async function AboutPage({ params }: Props) {
   const { lang } = await params;
 
   return (
-    <div className="min-h-screen bg-[#0c0c10] text-white">
+    <div className="min-h-screen bg-[var(--ow-bg)] text-white">
       <main className="max-w-3xl mx-auto px-6 py-12">
         {lang === "ja" ? <JaContent lang={lang} /> : <EnContent lang={lang} />}
       </main>

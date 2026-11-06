@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 import { sendContact, type ContactState } from "@/lib/client-api";
 import type { Dictionary } from "@/lib/i18n";
 
@@ -17,25 +17,22 @@ export default function ContactForm({ t }: Props) {
     (_prev: ContactState, formData: FormData) => sendContact(formData),
     initialState
   );
-  const [sent, setSent] = useState(false);
+  const [dismissed, setDismissed] = useState<ContactState | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    if (state.status === "success") setSent(true);
-  }, [state.status]);
+  const sent = state.status === "success" && state !== dismissed;
 
   function handleSendAnother() {
-    setSent(false);
+    setDismissed(state);
     formRef.current?.reset();
   }
 
   if (sent) {
     return (
-      <div className="ow-card-sm p-8 text-center animate-fade-up">
-        <div className="text-[#f4a029] text-4xl mb-4">✓</div>
+      <div className="ow-card-sm p-8 text-center">
+        <div className="text-[var(--ow-accent)] text-4xl mb-4">✓</div>
         <p
           className="text-white text-lg font-semibold mb-2"
-          style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}
+          style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.05em" }}
         >
           {t.form.success_title}
         </p>
@@ -43,7 +40,7 @@ export default function ContactForm({ t }: Props) {
         <button
           type="button"
           onClick={handleSendAnother}
-          className="text-[11px] uppercase tracking-widest text-[#f4a029] hover:text-[#ffbe55] transition-colors"
+          className="text-xs tracking-normal text-[var(--ow-accent)] hover:text-[var(--ow-accent-strong)] transition-colors"
         >
           {t.form.send_another}
         </button>
@@ -52,7 +49,7 @@ export default function ContactForm({ t }: Props) {
   }
 
   return (
-    <form ref={formRef} action={action} noValidate className="space-y-6 animate-fade-up">
+    <form ref={formRef} action={action} noValidate className="space-y-6">
       {/* Honeypot — hidden from real users, bots fill it in */}
       <input
         type="text"
@@ -64,9 +61,9 @@ export default function ContactForm({ t }: Props) {
       />
       {/* Topic selector */}
       <fieldset>
-        <legend className="block text-[11px] uppercase tracking-widest text-zinc-500 mb-3">
+        <legend className="block text-xs tracking-normal text-zinc-500 mb-3">
           {t.form.topic_label}
-          <span className="ml-2 text-[#f4a029]/70">{t.form.required}</span>
+          <span className="ml-2 text-[var(--ow-accent)]/70">{t.form.required}</span>
         </legend>
         <div className="grid grid-cols-3 gap-2">
           {t.topics.map((tp: Topic, i: number) => (
@@ -78,13 +75,13 @@ export default function ContactForm({ t }: Props) {
                 defaultChecked={i === 0}
                 className="sr-only"
               />
-              <div className="ow-card-sm p-3 flex flex-col items-center gap-1.5 transition-colors group-has-[:checked]:border-[#f4a029]/60 group-has-[:checked]:bg-[#f4a029]/5 hover:border-zinc-600/60">
-                <span className="text-xl leading-none text-zinc-600 group-has-[:checked]:text-[#f4a029] transition-colors">
+              <div className="ow-card-sm p-3 flex flex-col items-center gap-1.5 transition-colors group-has-[:checked]:border-[var(--ow-accent)]/60 group-has-[:checked]:bg-[var(--ow-accent)]/5 hover:border-zinc-600/60">
+                <span className="text-xl leading-none text-zinc-500 group-has-[:checked]:text-[var(--ow-accent)] transition-colors">
                   {tp.icon}
                 </span>
                 <span
-                  className="text-[11px] font-semibold tracking-wide leading-tight text-center text-zinc-500 group-has-[:checked]:text-white transition-colors"
-                  style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                  className="text-xs font-semibold tracking-wide leading-tight text-center text-zinc-500 group-has-[:checked]:text-white transition-colors"
+                  style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {tp.label}
                 </span>
@@ -96,9 +93,9 @@ export default function ContactForm({ t }: Props) {
 
       {/* Name */}
       <div>
-        <label htmlFor="cf-name" className="block text-[11px] uppercase tracking-widest text-zinc-500 mb-2">
+        <label htmlFor="cf-name" className="block text-xs tracking-normal text-zinc-500 mb-2">
           {t.form.name_label}
-          <span className="ml-2 text-[#f4a029]/70">{t.form.required}</span>
+          <span className="ml-2 text-[var(--ow-accent)]/70">{t.form.required}</span>
         </label>
         <input
           id="cf-name"
@@ -106,13 +103,13 @@ export default function ContactForm({ t }: Props) {
           type="text"
           required
           placeholder={t.form.placeholder_name}
-          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[#f4a029]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors rounded"
+          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[var(--ow-accent)]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors rounded"
         />
       </div>
 
       {/* Sender email */}
       <div>
-        <label htmlFor="cf-email" className="block text-[11px] uppercase tracking-widest text-zinc-500 mb-2">
+        <label htmlFor="cf-email" className="block text-xs tracking-normal text-zinc-500 mb-2">
           {t.form.sender_email_label}
         </label>
         <input
@@ -120,15 +117,15 @@ export default function ContactForm({ t }: Props) {
           name="senderEmail"
           type="email"
           placeholder={t.form.placeholder_email}
-          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[#f4a029]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors rounded"
+          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[var(--ow-accent)]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors rounded"
         />
       </div>
 
       {/* Message */}
       <div>
-        <label htmlFor="cf-message" className="block text-[11px] uppercase tracking-widest text-zinc-500 mb-2">
+        <label htmlFor="cf-message" className="block text-xs tracking-normal text-zinc-500 mb-2">
           {t.form.message_label}
-          <span className="ml-2 text-[#f4a029]/70">{t.form.required}</span>
+          <span className="ml-2 text-[var(--ow-accent)]/70">{t.form.required}</span>
         </label>
         <textarea
           id="cf-message"
@@ -136,7 +133,7 @@ export default function ContactForm({ t }: Props) {
           required
           placeholder={t.form.placeholder_message}
           rows={5}
-          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[#f4a029]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors resize-y min-h-[120px] rounded"
+          className="w-full bg-zinc-900/60 border border-zinc-800 focus:border-[var(--ow-accent)]/60 px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors resize-y min-h-[120px] rounded"
         />
       </div>
 
@@ -151,7 +148,7 @@ export default function ContactForm({ t }: Props) {
       <button
         type="submit"
         disabled={pending}
-        className="w-full py-3 bg-[#f4a029]/10 border border-[#f4a029]/40 text-[#f4a029] text-[11px] uppercase tracking-widest font-semibold hover:bg-[#f4a029]/20 hover:border-[#f4a029]/70 disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded"
+        className="w-full py-3 bg-[var(--ow-accent)]/10 border border-[var(--ow-accent)]/40 text-[var(--ow-accent)] text-xs tracking-normal font-semibold hover:bg-[var(--ow-accent)]/20 hover:border-[var(--ow-accent)]/70 disabled:opacity-40 disabled:cursor-not-allowed transition-colors rounded"
       >
         {pending ? t.form.sending : `${t.form.submit} →`}
       </button>

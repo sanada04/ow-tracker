@@ -27,7 +27,6 @@ function Segments({ value, color, delay }: { value: number; color: string; delay
           className="h-full flex-1 min-w-0 rounded-[1px] opacity-0"
           style={{
             background: color,
-            boxShadow: `0 0 6px ${color}80`,
             animation: `hp-block-in 0.25s ease both`,
             animationDelay: `${delay + i * 18}ms`,
           }}
@@ -78,15 +77,15 @@ export default function HeroHpDisplay({ health, armor, shields, total, labels }:
           return (
             <div
               key={label}
-              className="flex-1 min-w-24 border border-zinc-800/60 bg-[#0a0a18] px-4 py-3 rounded"
+              className="flex-1 min-w-24 border border-zinc-800/60 bg-[var(--ow-bg)] px-4 py-3 rounded"
             >
               <div className="flex items-baseline justify-between mb-2">
-                <span className="text-[10px] uppercase tracking-widest text-zinc-500">{label}</span>
-                <span className="text-[10px] text-zinc-700">{pct}%</span>
+                <span className="text-xs tracking-normal text-zinc-500">{label}</span>
+                <span className="text-xs text-zinc-500">{pct}%</span>
               </div>
               <p
                 className="text-2xl font-bold leading-none mb-3"
-                style={{ color, fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                style={{ color, fontFamily: "var(--font-heading)" }}
               >
                 {val}
               </p>
@@ -103,12 +102,12 @@ export default function HeroHpDisplay({ health, armor, shields, total, labels }:
 
         {/* Total */}
         <div
-          className="shrink-0 border border-[#f4a029]/20 bg-[#f4a029]/5 px-5 py-3 flex flex-col justify-between rounded"
+          className="shrink-0 border border-[var(--ow-accent)]/20 bg-[var(--ow-accent)]/5 px-5 py-3 flex flex-col justify-between rounded"
         >
-          <span className="text-[10px] uppercase tracking-widest text-[#f4a029]/50">{labels.total}</span>
+          <span className="text-xs tracking-normal text-[var(--ow-accent)]/50">{labels.total}</span>
           <p
-            className="text-4xl font-bold leading-none text-[#f4a029] mt-2"
-            style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+            className="text-4xl font-bold leading-none text-[var(--ow-accent)] mt-2"
+            style={{ fontFamily: "var(--font-heading)" }}
           >
             {total}
           </p>

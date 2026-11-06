@@ -29,7 +29,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${t.title} — OW Tracker`,
     description: t.subtitle,
-    alternates: { canonical: `https://owtracker.org/${lang}/stats/rank-distribution` },
+    alternates: {
+      canonical: `https://owtracker.org/${lang}/stats/rank-distribution`,
+      languages: {
+        ja: "https://owtracker.org/ja/stats/rank-distribution",
+        en: "https://owtracker.org/en/stats/rank-distribution",
+        ko: "https://owtracker.org/ko/stats/rank-distribution",
+        "x-default": "https://owtracker.org/ja/stats/rank-distribution",
+      },
+    },
   };
 }
 
@@ -61,12 +69,12 @@ export default async function RankDistributionPage({ params }: Props) {
   const maxPct = Math.max(...RANK_DISTRIBUTION.map((r) => r.pct));
 
   return (
-    <div className="min-h-screen bg-[#0c0c10] text-white">
+    <div className="min-h-screen bg-[var(--ow-bg)] text-white">
       <main className="max-w-4xl mx-auto px-6 py-12">
         <div className="mb-10">
           <h1
             className="text-3xl font-bold text-white mb-2"
-            style={{ fontFamily: '"Rajdhani", system-ui, sans-serif', letterSpacing: "0.05em" }}
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.05em" }}
           >
             {t.title}
           </h1>
@@ -76,7 +84,7 @@ export default async function RankDistributionPage({ params }: Props) {
         {/* Rank system explanation */}
         <section className="mb-10">
           <div className="mb-4 pb-2 border-b border-zinc-800">
-            <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+            <span className="text-xs tracking-normal text-zinc-500 font-medium">
               {t.system_title}
             </span>
           </div>
@@ -94,7 +102,7 @@ export default async function RankDistributionPage({ params }: Props) {
                   <div>
                     <p
                       className="font-bold text-white text-sm"
-                      style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                      style={{ fontFamily: "var(--font-heading)" }}
                     >
                       {rankData.name}
                     </p>
@@ -109,7 +117,7 @@ export default async function RankDistributionPage({ params }: Props) {
         {/* Rank distribution chart */}
         <section className="mb-10">
           <div className="mb-4 pb-2 border-b border-zinc-800">
-            <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+            <span className="text-xs tracking-normal text-zinc-500 font-medium">
               {t.distribution_title}
             </span>
           </div>
@@ -127,7 +135,7 @@ export default async function RankDistributionPage({ params }: Props) {
                   <span
                     className="w-28 shrink-0 text-right text-sm font-semibold"
                     style={{
-                      fontFamily: '"Rajdhani", system-ui, sans-serif',
+                      fontFamily: "var(--font-heading)",
                       color: rankData.color,
                     }}
                   >
@@ -145,13 +153,13 @@ export default async function RankDistributionPage({ params }: Props) {
                   </div>
                   <div className="w-32 shrink-0 flex flex-col items-start">
                     <span className="text-white text-sm tabular-nums font-medium">{pct}%</span>
-                    <span className="text-zinc-600 text-[10px]">Top {(cumulativePct + pct).toFixed(1)}%</span>
+                    <span className="text-zinc-500 text-xs">Top {(cumulativePct + pct).toFixed(1)}%</span>
                   </div>
                 </div>
               );
             })}
           </div>
-          <p className="text-xs text-zinc-600 mt-3">{t.distribution_note}</p>
+          <p className="text-xs text-zinc-500 mt-3">{t.distribution_note}</p>
         </section>
 
         {/* Your rank CTA */}
@@ -160,7 +168,7 @@ export default async function RankDistributionPage({ params }: Props) {
             <div>
               <h2
                 className="text-lg font-bold text-white mb-1"
-                style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                style={{ fontFamily: "var(--font-heading)" }}
               >
                 {t.your_rank_title}
               </h2>
@@ -168,8 +176,8 @@ export default async function RankDistributionPage({ params }: Props) {
             </div>
             <Link
               href={`/${lang}`}
-              className="shrink-0 px-5 py-2.5 bg-[#f4a029] hover:bg-[#f4a029]/90 text-black font-bold text-sm rounded transition-colors"
-              style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+              className="shrink-0 px-5 py-2.5 bg-[var(--ow-accent)] hover:bg-[var(--ow-accent)]/90 text-black font-bold text-sm rounded transition-colors"
+              style={{ fontFamily: "var(--font-heading)" }}
             >
               {t.search_cta}
             </Link>
@@ -179,7 +187,7 @@ export default async function RankDistributionPage({ params }: Props) {
         {/* Top heroes by community tier */}
         <section>
           <div className="mb-4 pb-2 border-b border-zinc-800">
-            <span className="text-xs uppercase tracking-widest text-zinc-500 font-medium">
+            <span className="text-xs tracking-normal text-zinc-500 font-medium">
               {t.top_heroes_title}
             </span>
           </div>
@@ -189,13 +197,13 @@ export default async function RankDistributionPage({ params }: Props) {
             {topByRole.map(({ role, heroes: roleHeroes }) => (
               <div key={role} className="ow-card p-4">
                 <p
-                  className="text-xs uppercase tracking-wider text-zinc-500 mb-3 font-medium"
-                  style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                  className="text-xs tracking-normal text-zinc-500 mb-3 font-medium"
+                  style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {dict.player.roles[role]}
                 </p>
                 {roleHeroes.length === 0 ? (
-                  <p className="text-zinc-600 text-xs">{dict.meta_page.no_votes}</p>
+                  <p className="text-zinc-500 text-xs">{dict.meta_page.no_votes}</p>
                 ) : (
                   <div className="space-y-2">
                     {roleHeroes.map(({ hero, tier }) => (
@@ -214,13 +222,13 @@ export default async function RankDistributionPage({ params }: Props) {
                         />
                         <span
                           className="text-xs text-zinc-300 font-medium flex-1"
-                          style={{ fontFamily: '"Rajdhani", system-ui, sans-serif' }}
+                          style={{ fontFamily: "var(--font-heading)" }}
                         >
                           {getHeroDisplayName(hero.key)}
                         </span>
                         <span
                           className="text-xs font-bold shrink-0"
-                          style={{ color: tier === "S" ? "#f4a029" : "#84cc16" }}
+                          style={{ color: tier === "S" ? "var(--ow-accent)" : "#84cc16" }}
                         >
                           {tier}
                         </span>
