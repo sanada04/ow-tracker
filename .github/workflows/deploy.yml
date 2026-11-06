@@ -1,0 +1,54 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    # 04:00 JST. Refreshes hero, map, and stats pages.
+    - cron: "0 19 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Fetches data, builds, and verifies. Any failure stops the deploy,
+      # so the current site stays online.
+      - run: npm run build
+        env:
+          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
+          NEXT_PUBLIC_CONTACT_EMAIL: ${{ secrets.NEXT_PUBLIC_CONTACT_EMAIL }}
+
+      - name: Configure SSH
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+
+      - name: Upload
+        env:
+          TARGET: ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}
+        run: |
+          SSH="ssh -i $HOME/.ssh/deploy_key"
+          rsync -az -e "$SSH" --exclude config.example.php php/private/ "$TARGET:ow-php/"
+          rsync -az -e "$SSH" php/public/ "$TARGET:public_html/"
+          rsync -az --delay-updates --delete-after -e "$SSH" \
+            --exclude .well-known --exclude cgi-bin \
+            --exclude api --exclude lang-redirect.php --exclude player-page.php \
+            out/ "$TARGET:public_html/"

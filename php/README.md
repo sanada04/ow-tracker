@@ -15,10 +15,11 @@ and the daily stats snapshot.
 
 ## Daily snapshot
 
-Run once a day from cron:
+Run once a day from cron. Plain `php` on this server is 7.4, so use the 8.3
+binary:
 
 ```bash
-php ~/ow-php/cron/snapshot.php
+/opt/cpanel/ea-php83/root/usr/bin/php ~/ow-php/cron/snapshot.php
 ```
 
 It saves six competitive combinations (PC and console, three regions) to
