@@ -59,6 +59,12 @@ export default async function LangLayout({ children, params }: Props) {
           gtag('js', new Date());
           gtag('config', 'G-5DMLXX97W1');
         `}</Script>
+        {/* Loads after the page so its automatic ad placement cannot disturb hydration. */}
+        <Script
+          src="https://adm.shinobi.jp/st/auto.js"
+          data-admax-id="b34e91829e3c54611ca6df157f609a56"
+          strategy="lazyOnload"
+        />
         <SiteHeader dict={dict} lang={locale} />
         <div className="pt-[50px]">{children}</div>
         <footer className="border-t border-[var(--ow-line)] mt-16">
