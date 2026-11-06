@@ -354,7 +354,7 @@ export const ko: Dictionary = {
     "map_top_win": "이 맵의 승률 상위",
     "map_top_pick": "이 맵의 픽률 상위",
     "map_roles": "역할별",
-    "role_pick": "픽률 합계",
+    "role_pick": "최다 픽",
     "role_win": "평균 승률"
   },
 };

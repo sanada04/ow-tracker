@@ -352,7 +352,7 @@ export const en = {
     "map_top_win": "Highest win rate here",
     "map_top_pick": "Most picked here",
     "map_roles": "By role",
-    "role_pick": "Total pick rate",
+    "role_pick": "Most picked",
     "role_win": "Average win rate"
   },
 };

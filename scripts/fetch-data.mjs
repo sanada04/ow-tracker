@@ -10,7 +10,7 @@ const OUT_DIR = ".build-data";
 const STATS_DIR = join("public", "data", "stats");
 const REQUEST_GAP_MS = 250;
 const MAX_ATTEMPTS = 6;
-const LOCALES = ["", "?locale=ja-jp"];
+const LOCALES = ["", "?locale=ja-jp", "?locale=ko-kr"];
 const PLATFORMS = ["pc", "console"];
 const REGIONS = ["asia", "americas", "europe"];
 const DIVISIONS = ["all", "bronze", "silver", "gold", "platinum", "emerald", "diamond", "master", "grandmaster"];

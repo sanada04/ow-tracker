@@ -354,7 +354,7 @@ export const ja: Dictionary = {
     "map_top_win": "このマップで勝率が高い",
     "map_top_pick": "このマップでよく使われている",
     "map_roles": "ロール別",
-    "role_pick": "ピック率の合計",
+    "role_pick": "最多ピック",
     "role_win": "平均勝率"
   },
 };

@@ -4,7 +4,9 @@ import { dataFileName } from "@/lib/build-data-path.mjs";
 import type { HeroListItem, HeroDetail, MapSummary } from "@/types/overwatch";
 
 function localeParam(lang: string): string {
-  return lang === "ja" ? "?locale=ja-jp" : "";
+  if (lang === "ja") return "?locale=ja-jp";
+  if (lang === "ko") return "?locale=ko-kr";
+  return "";
 }
 
 /**

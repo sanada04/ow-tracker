@@ -31,7 +31,8 @@ export default function MapStatsPanel({
     const roleRows = rows.filter((row) => roles[row.hero] === role);
     const totalPick = roleRows.reduce((sum, row) => sum + row.pickrate, 0);
     const weightedWin = roleRows.reduce((sum, row) => sum + row.winrate * row.pickrate, 0);
-    return { role, totalPick, averageWin: totalPick > 0 ? weightedWin / totalPick : 0 };
+    const mostPicked = [...roleRows].sort((a, b) => b.pickrate - a.pickrate)[0];
+    return { role, mostPicked, averageWin: totalPick > 0 ? weightedWin / totalPick : 0 };
   });
 
   return (
@@ -61,11 +62,11 @@ export default function MapStatsPanel({
               </tr>
             </thead>
             <tbody>
-              {roleSummary.map(({ role, totalPick, averageWin }) => (
+              {roleSummary.map(({ role, mostPicked, averageWin }) => (
                 <tr key={role}>
                   <td style={{ color: `var(--ow-${role})` }}>{roleLabels[role]}</td>
                   <td>{averageWin.toFixed(1)}%</td>
-                  <td>{totalPick.toFixed(1)}%</td>
+                  <td>{mostPicked ? refs[mostPicked.hero]?.name ?? mostPicked.hero : "-"}</td>
                 </tr>
               ))}
             </tbody>

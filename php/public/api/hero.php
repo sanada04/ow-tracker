@@ -16,6 +16,7 @@ try {
     ow_json(['error' => 'Hero data is unavailable'], 503);
 }
 
-$locale = ($_GET['lang'] ?? '') === 'ja' ? '?locale=ja-jp' : '';
+$locales = ['ja' => '?locale=ja-jp', 'ko' => '?locale=ko-kr'];
+$locale = $locales[$_GET['lang'] ?? ''] ?? '';
 [$status, $body] = ow_overfast('/heroes/' . rawurlencode($key) . $locale, 86400);
 ow_raw_json($body !== '' ? $body : '{"error":"Upstream error"}', $status);
