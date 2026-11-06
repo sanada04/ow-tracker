@@ -9,6 +9,9 @@ const OW_OVERFAST_URL = 'https://overfast-api.tekrop.fr';
 define('OW_HOME', dirname(__DIR__));
 define('OW_CACHE_DIR', OW_HOME . '/ow-cache');
 
+ini_set('log_errors', '1');
+ini_set('error_log', OW_HOME . '/logs/php.error.log');
+
 function ow_config(): array
 {
     static $config = null;
