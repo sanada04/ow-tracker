@@ -23,6 +23,26 @@ interface LoadResult {
   data: PlayerData | null;
 }
 
+/**
+ * The shared shell's generic metadata replaces what player-page.php sent once
+ * the page hydrates, so restore the player's values for rendering crawlers.
+ */
+function applyPlayerMeta(lang: string, playerId: string, username: string) {
+  const tag = formatBattleTag(playerId);
+  const display = tag ? `${username} (${tag})` : username;
+  const title = `${display} — Overwatch Stats | OW Tracker`;
+  const description = lang === "en"
+    ? `View ${display}'s Overwatch stats: competitive rank, winrate, KDA, and hero statistics.`
+    : `${display} の Overwatch 戦績: コンペティティブランク・勝率・KDA・ヒーロー別スタッツを確認。`;
+
+  document.title = title;
+  const setContent = (selector: string, value: string) =>
+    document.querySelectorAll(selector).forEach((tagEl) => tagEl.setAttribute("content", value));
+  setContent('meta[name="description"]', description);
+  setContent('meta[property="og:title"]', title);
+  setContent('meta[property="og:description"]', description);
+}
+
 export default function PlayerView({ lang, dict }: { lang: string; dict: Dictionary }) {
   const t = dict.player;
   const playerId = usePathSegment(2);
@@ -45,6 +65,12 @@ export default function PlayerView({ lang, dict }: { lang: string; dict: Diction
       active = false;
     };
   }, [playerId, validGamemode, requestKey]);
+
+  const username = result?.key === requestKey ? result.data?.summary.username : undefined;
+
+  useEffect(() => {
+    if (username) applyPlayerMeta(lang, playerId, username);
+  }, [lang, playerId, username]);
 
   if (result?.key !== requestKey) return <PageLoader />;
 

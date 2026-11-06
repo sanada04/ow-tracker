@@ -40,9 +40,7 @@ function player_meta(string $lang, string $id, ?array $summary): string
         '<meta property="og:title" content="' . escape_attr($title) . '"/>',
         '<meta property="og:description" content="' . escape_attr($description) . '"/>',
     ];
-    if ($summary === null) {
-        $tags[] = '<meta name="robots" content="noindex"/>';
-    }
+    $tags[] = '<meta name="robots" content="' . ($summary === null ? 'noindex' : 'index, follow') . '"/>';
     if (is_string($summary['avatar'] ?? null)) {
         $tags[] = '<meta property="og:image" content="' . escape_attr($summary['avatar']) . '"/>';
     }
@@ -65,7 +63,7 @@ $summary = $status === 200 ? json_decode($body, true) : null;
 
 $html = (string) file_get_contents($shell);
 $html = (string) preg_replace('/<title>.*?<\/title>/s', '', $html, 1);
-$html = (string) preg_replace('/<meta name="description"[^>]*>/', '', $html, 1);
+$html = (string) preg_replace('/<meta name="(description|robots)"[^>]*>/', '', $html);
 $html = (string) preg_replace('/<meta property="og:(title|description|image)[^>]*>/', '', $html);
 
 header('Content-Type: text/html; charset=utf-8');

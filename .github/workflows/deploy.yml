@@ -49,6 +49,6 @@ jobs:
           rsync -az -e "$SSH" --exclude config.example.php php/private/ "$TARGET:ow-php/"
           rsync -az -e "$SSH" php/public/ "$TARGET:public_html/"
           rsync -az --delay-updates --delete-after -e "$SSH" \
-            --exclude .well-known --exclude cgi-bin \
+            --exclude .well-known --exclude cgi-bin --exclude .user.ini --exclude php.ini \
             --exclude api --exclude lang-redirect.php --exclude player-page.php \
             out/ "$TARGET:public_html/"
