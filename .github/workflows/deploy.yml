@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [main, feat/static-php-migration]
   schedule:
     # 04:00 JST. Refreshes hero, map, and stats pages.
     - cron: "0 19 * * *"
