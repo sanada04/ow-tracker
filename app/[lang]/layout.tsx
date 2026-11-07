@@ -1,5 +1,6 @@
 import { getDictionary, LOCALES } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
+import AdSlot from "@/components/AdSlot";
 import SiteHeader from "@/components/SiteHeader";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -61,6 +62,7 @@ export default async function LangLayout({ children, params }: Props) {
         `}</Script>
         <SiteHeader dict={dict} lang={locale} />
         <div className="pt-[50px]">{children}</div>
+        <AdSlot />
         <footer className="border-t border-[var(--ow-line)] mt-16">
           <div className="max-w-6xl mx-auto px-4 py-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-sm text-[var(--ow-text-3)]">
             <span>{dict.footer.credit}</span>

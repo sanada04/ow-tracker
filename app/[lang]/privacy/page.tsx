@@ -78,6 +78,18 @@ function JaContent() {
           BattleTag で検索を行った場合、その情報は OverFast API のサーバーに送信されます。
           OverFast API のプライバシーポリシーについては同サービスの規約をご確認ください。
         </p>
+
+        <h3>忍者AdMax</h3>
+        <p>
+          本サイトでは、忍者ツールズ株式会社が提供する広告配信サービス「忍者AdMax」を利用しています。
+          広告の配信にあたり、同サービスおよび提携する第三者が Cookie などを使用して、ブラウザ情報や閲覧履歴に関する情報を取得する場合があります。
+          詳しくは
+          {" "}
+          <a href="https://www.ninja.co.jp/privacy/" target="_blank" rel="noopener noreferrer">
+            忍者ツールズのプライバシーポリシー
+          </a>
+          {" "}をご覧ください。
+        </p>
       </section>
 
       <section>
@@ -177,6 +189,17 @@ function EnContent() {
           Player and hero data is retrieved via OverFast API, an unofficial third-party service. When you search for a
           player, the BattleTag is transmitted to OverFast API servers. Please refer to their terms for their data
           handling practices.
+        </p>
+
+        <h3>Ninja AdMax</h3>
+        <p>
+          This Site displays ads through Ninja AdMax, an advertising service provided by Ninja Tools Inc. To deliver ads,
+          the service and its third-party partners may use cookies and similar technologies to collect information about
+          your browser and browsing history. See the{" "}
+          <a href="https://www.ninja.co.jp/privacy/" target="_blank" rel="noopener noreferrer">
+            Ninja Tools privacy policy
+          </a>{" "}
+          (in Japanese) for details.
         </p>
       </section>
 
